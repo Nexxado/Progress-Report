@@ -1,0 +1,10 @@
+.unselectable {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.chrome-image-fix {
+    min-height: 0;
+}
