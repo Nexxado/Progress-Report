@@ -1,7 +1,9 @@
 angular.module('ProgressReport')
 
-.controller('TasksShowController', function ($scope, $routeParams) {
+.controller('TasksShowController', function ($scope, $routeParams, LocalStorageService) {
     
-    $scope.task = $routeParams.id;
+    var taskTitle = $routeParams.id;
+    $scope.task = LocalStorageService.getTask(taskTitle);
+    
     
 });

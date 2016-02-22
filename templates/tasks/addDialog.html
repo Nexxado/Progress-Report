@@ -1,0 +1,45 @@
+<md-dialog aria-label="Add Dialog" flex="50">
+    <form name="AddTaskForm" ng-submit="submit()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Add New Task</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon class="material-icons">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-input-container class="md-block">
+                    <label>Title</label>
+                    <input type="text" required name="title" ng-model="taskDetails.title">
+                    <div ng-messages="AddTaskForm.title.$error" ng-if="AddTaskForm.title.$dirty || AddTaskForm.title.$touched">
+                        <div ng-message="required">
+                            This is required
+                        </div>
+                    </div>
+                </md-input-container>
+                <md-input-container class="md-block">
+                    <label>Description</label>
+                    <input type="text" required name="description" ng-model="taskDetails.description" minlength="5" md-maxlength="150">
+                    <div ng-messages="AddTaskForm.description.$error" ng-if="AddTaskForm.description.$dirty || AddTaskForm.description.$touched">
+                        <div ng-message="required">
+                            This is required
+                        </div>
+                        <div ng-message="minlength">
+                            Description is too short
+                        </div>
+                        <div ng-message="md-maxlength">
+                            Description is too long
+                        </div>
+                    </div>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="cancel()" class="md-warn">Cancel</md-button>
+            <md-button type="submit" class="md-primary">Submit</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

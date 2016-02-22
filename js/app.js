@@ -1,7 +1,7 @@
-angular.module('ProgressReport', ['ngRoute', 'ngMaterial'])
+angular.module('ProgressReport', ['ngRoute', 'ngAria', 'ngMessages', 'ngMaterial'])
 
 .config(function ($mdThemingProvider) {
     $mdThemingProvider.theme('default')
         .primaryPalette('teal')
-        .accentPalette('light-green');
+        .accentPalette('green');
 });

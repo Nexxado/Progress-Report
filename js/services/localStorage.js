@@ -2,51 +2,60 @@ angular.module('ProgressReport')
 
 .service('LocalStorageService', function () {
 
-    //TODO implement array saving.
+    /*************************************/
+    /************* Setters ***************/
+    /*************************************/
+    var key = 'tasks';
 
-    this.createString = function (key, value) {
-
-        if (!key || !value) {
-            console.log('No key or value');
-            return;
-        }
-
-        localStorage.setItem(key, value);
-    };
-
-
-    this.createObject = function (key, object) {
-
-        if (!key || !object) {
-            console.log('No key or Object');
-            return;
-        }
-
-        localStorage.setItem(key, JSON.stringify(object));
-    };
-
-    this.getString = function (key) {
-
-        if (!key) {
-            console.log('No Key');
-            return;
-        }
-
-        return localStorage.getItem(key);
-    };
-
-    this.getObject = function (key) {
+    this.addTask = function (object) {
         
-        if (!key) {
-            console.log('No Key');
-            return;
+        if (!object) {
+            console.log('No Object');
+            return false;
         }
         
-        return JSON.parse(localStorage.getItem(key));
+        var array = JSON.parse(localStorage.getItem(key));
+        if(!array)
+            array = [];
+        
+        array.push(object);
+
+        localStorage.setItem(key, JSON.stringify(array));
+        return true;
     };
     
-    this.deleteAll = function() {
-        localStorage.clear();
+    
+    /*************************************/
+    /************* Getters ***************/
+    /*************************************/
+
+    this.getAllTasks = function() {
+        
+        var tasksString = localStorage.getItem(key);
+        
+        return tasksString ? JSON.parse(tasksString) : [];
+    };
+    
+    this.getTask = function(task_title) {
+        
+        var tasksString = localStorage.getItem(key);
+        if(!tasksString)
+            return null;
+        
+        var tasks = JSON.parse(tasksString);
+        
+        for(task of tasks) {
+            if(task.title === task_title)
+                return task;
+        }
+        
+        return null;
+    };
+
+    
+    this.clearTasks = function() {
+        var tasks = [];
+        localStorage.setItem(key, tasks);
     };
 
 });

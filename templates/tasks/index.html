@@ -1,4 +1,9 @@
-<h1>Tasks Index</h1>
+<h1>Tasks List</h1>
 <md-list>
-    <md-list-item ng-repeat="task in tasks" ng-click="navigateTo('/tasks/' + task)">{{task}}</md-list-item>
+    <md-list-item ng-repeat="task in tasks" ng-click="navigateTo('/tasks/' + task.title)">{{task.title}}</md-list-item>
 </md-list>
+
+
+<md-button ng-click="addDialog($event)" class="md-fab md-fab-bottom-right">
+    <md-icon ng-class="material-icons">add</md-icon>
+</md-button>
