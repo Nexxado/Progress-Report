@@ -2,6 +2,7 @@ angular.module('ProgressReport')
 
 .service('LocalStorageService', function () {
 
+    //TODO implement array saving.
 
     this.createString = function (key, value) {
 

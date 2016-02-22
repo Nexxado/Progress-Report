@@ -1,0 +1,4 @@
+<h1>Tasks Index</h1>
+<md-list>
+    <md-list-item ng-repeat="task in tasks" ng-click="navigateTo('/tasks/' + task)">{{task}}</md-list-item>
+</md-list>
