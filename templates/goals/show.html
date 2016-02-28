@@ -1,9 +1,9 @@
 <div layout-padding>
     <div layout="row" layout-align="left center">
-        <md-button href="/#/tasks" class="md-icon-button">
+        <md-button ng-href="{{backLink}}" class="md-icon-button">
             <md-icon class="material-icons"> arrow_back </md-icon>
         </md-button>
-        <h1>{{task.title}}</h1>
+        <h1>{{goal.title}}</h1>
     </div>
-    <p>{{task.description}}</p>
+    <p>{{goal.description}}</p>
 </div>

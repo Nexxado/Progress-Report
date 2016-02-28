@@ -1,8 +1,8 @@
 angular.module('ProgressReport')
 
-.controller('AddDialogController', function ($scope, $mdDialog, LocalStorageService) {
+.controller('AddDialogController', function ($scope, $mdDialog) {
     
-    $scope.taskDetails = {
+    $scope.goalDetails = {
         title: "",
         description: ""
     };
@@ -14,7 +14,13 @@ angular.module('ProgressReport')
     
     
     $scope.submit = function() {
-                
-        $mdDialog.hide($scope.taskDetails);
+        
+        var description = $("input[name='description']").val();
+        
+        if (description.length < 5 || description.length > 150) {
+            return;
+        }
+        
+        $mdDialog.hide($scope.goalDetails);
     };
 });

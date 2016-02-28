@@ -1,8 +1,8 @@
 <md-dialog aria-label="Add Dialog" flex="50">
-    <form name="AddTaskForm" ng-submit="submit()">
+    <form name="AddGoalForm" ng-submit="submit()" novalidate>
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <h2>Add New Task</h2>
+                <h2>Add New Goal</h2>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="cancel()">
                     <md-icon class="material-icons">close</md-icon>
@@ -13,8 +13,8 @@
             <div class="md-dialog-content">
                 <md-input-container class="md-block">
                     <label>Title</label>
-                    <input type="text" required name="title" ng-model="taskDetails.title">
-                    <div ng-messages="AddTaskForm.title.$error" ng-if="AddTaskForm.title.$dirty || AddTaskForm.title.$touched">
+                    <input type="text" name="title" ng-model="goalDetails.title" required>
+                    <div ng-messages="AddGoalForm.title.$error" ng-if="AddGoalForm.title.$dirty || AddGoalForm.title.$touched">
                         <div ng-message="required">
                             This is required
                         </div>
@@ -22,8 +22,8 @@
                 </md-input-container>
                 <md-input-container class="md-block">
                     <label>Description</label>
-                    <input type="text" required name="description" ng-model="taskDetails.description" minlength="5" md-maxlength="150">
-                    <div ng-messages="AddTaskForm.description.$error" ng-if="AddTaskForm.description.$dirty || AddTaskForm.description.$touched">
+                    <input type="text" name="description" ng-model="goalDetails.description" minlength="5" md-maxlength="150" required>
+                    <div ng-messages="AddGoalForm.description.$error" ng-if="AddGoalForm.description.$dirty || AddGoalForm.description.$touched">
                         <div ng-message="required">
                             This is required
                         </div>

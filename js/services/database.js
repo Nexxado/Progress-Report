@@ -1,13 +1,13 @@
 angular.module('ProgressReport')
 
-.service('LocalStorageService', function () {
+.service('DatabaseService', function () {
 
     /*************************************/
     /************* Setters ***************/
     /*************************************/
-    var key = 'tasks';
+    var key = 'goals';
 
-    this.addTask = function (object) {
+    this.addGoal = function (object) {
 
         if (!object) {
             console.log('No Object');
@@ -30,25 +30,25 @@ angular.module('ProgressReport')
     /************* Getters ***************/
     /*************************************/
 
-    this.getAllTasks = function () {
+    this.getAllGoals = function () {
 
-        var tasksString = localStorage.getItem(key);
+        var goalsString = localStorage.getItem(key);
 
-        return tasksString ? JSON.parse(tasksString) : [];
+        return goalsString ? JSON.parse(goalsString) : [];
     };
 
-    this.getTask = function (task_title) {
+    this.getGoal = function (goalTitle) {
 
-        var tasksString = localStorage.getItem(key);
-        if (!tasksString) {
+        var goalsString = localStorage.getItem(key);
+        if (!goalsString) {
             return null;
         }
 
-        var tasks = JSON.parse(tasksString);
+        var goals = JSON.parse(goalsString);
 
-        for (var i in tasks) {
-            if (tasks[i].title === task_title) {
-                return tasks[i];
+        for (var i in goals) {
+            if (goals[i].title === goalTitle) {
+                return goals[i];
             }
         }
 
@@ -56,9 +56,9 @@ angular.module('ProgressReport')
     };
 
 
-    this.clearTasks = function () {
-        var tasks = [];
-        localStorage.setItem(key, tasks);
+    this.clearGoals = function () {
+        var goals = [];
+        localStorage.setItem(key, goals);
     };
 
 });

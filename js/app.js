@@ -1,4 +1,4 @@
-angular.module('ProgressReport', ['ngRoute', 'ngAria', 'ngMessages', 'ngMaterial'])
+angular.module('ProgressReport', ['ngRoute', 'ngAria', 'ngMessages', 'ngAnimate', 'ngMaterial'])
 
 .config(function ($mdThemingProvider) {
     $mdThemingProvider.theme('default')

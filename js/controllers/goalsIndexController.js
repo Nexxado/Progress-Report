@@ -1,12 +1,12 @@
 angular.module('ProgressReport')
 
-.controller('TasksIndexController', function ($scope, $location, LocalStorageService, $mdDialog, $mdMedia) {
+.controller('GoalsIndexController', function ($scope, $location, DatabaseService, $mdDialog, $mdMedia) {
 
     $scope.navigateTo = function (path) {
         $location.path(path);
     };
 
-    $scope.tasks = LocalStorageService.getAllTasks();
+    $scope.goals = DatabaseService.getAllGoals();
 
 
     $scope.addDialog = function ($event) {
@@ -14,16 +14,16 @@ angular.module('ProgressReport')
 
         $mdDialog.show({
                 controller: 'AddDialogController',
-                templateUrl: 'templates/tasks/addDialog.html',
+                templateUrl: 'templates/goals/addDialog.html',
                 parent: angular.element(document.body),
                 targetEvent: $event,
                 clickOutsideToClose: true,
                 fullscreen: useFullScreen
             })
-            .then(function (newTask) {
+            .then(function (newGoal) {
 
-                $scope.tasks.push(newTask);
-                LocalStorageService.addTask(newTask);
+                $scope.goals.push(newGoal);
+                DatabaseService.addGoal(newGoal);
 
             }, function () {
                 console.log('Dialog Canceled.');

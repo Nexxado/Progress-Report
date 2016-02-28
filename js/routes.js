@@ -11,14 +11,14 @@ angular.module('ProgressReport')
         controller: 'HomePageController'
     })
     
-    .when('/tasks', {
-        templateUrl: 'templates/tasks/index.html',
-        controller: 'TasksIndexController'
+    .when('/goals', {
+        templateUrl: 'templates/goals/index.html',
+        controller: 'GoalsIndexController'
     })
     
-    .when('/tasks/:id', {
-        templateUrl: 'templates/tasks/show.html',
-        controller: 'TasksShowController'
+    .when('/goals/:id', {
+        templateUrl: 'templates/goals/show.html',
+        controller: 'GoalsShowController'
     })
     
     .otherwise('/');
