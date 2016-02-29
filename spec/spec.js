@@ -7,6 +7,9 @@ describe('Database Service', function () {
         title: 'testTitle',
         description: 'testDescription'
     };
+    
+    var arr = localStorage.getItem(testKey);
+    arr = arr ? JSON.parse(arr) : [];
 
     beforeEach(function () {
         module('ProgressReport');
@@ -14,16 +17,27 @@ describe('Database Service', function () {
             dbService = DatabaseService;
         });
         
-        localStorage.setItem(testKey, JSON.stringify([testObject]));
+        arr.push(testObject);
+        localStorage.setItem(testKey, JSON.stringify(arr));
     });
 
     afterEach(function () {
-        localStorage.removeItem(testKey);
+        
+        arr.pop();
+        localStorage.setItem(testKey, JSON.stringify(arr));
     });
+    
 
     it('Get Goal', function() {
         var goal = dbService.getGoal(testObject.title);
         expect(goal).toEqual(testObject);
     });
+    
+    it('Add Goal', function() {
+        dbService.addGoal(testObject);
+        var goal = dbService.getGoal(testObject.title);
+        expect(goal).toEqual(testObject);
+    });
+    
 
 });
