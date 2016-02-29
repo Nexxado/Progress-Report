@@ -1,6 +1,7 @@
 
 describe('Database Service', function () {
 
+    var dbService;
     var testKey = 'goals';
     var testObject = {
         title: 'testTitle',
@@ -9,6 +10,10 @@ describe('Database Service', function () {
 
     beforeEach(function () {
         module('ProgressReport');
+        inject(function(DatabaseService) {
+            dbService = DatabaseService;
+        });
+        
         localStorage.setItem(testKey, JSON.stringify([testObject]));
     });
 
@@ -16,9 +21,9 @@ describe('Database Service', function () {
         localStorage.removeItem(testKey);
     });
 
-    it('Get Goal', inject(function (DatabaseService) {
-        var goal = DatabaseService.getGoal(testObject.title);
+    it('Get Goal', function() {
+        var goal = dbService.getGoal(testObject.title);
         expect(goal).toEqual(testObject);
-    }));
+    });
 
 });
