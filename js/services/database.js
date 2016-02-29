@@ -2,16 +2,16 @@ angular.module('ProgressReport')
 
 .service('DatabaseService', function () {
 
+    var goalsKey = 'goals';
+
     /*************************************/
     /************* Setters ***************/
     /*************************************/
-    var goalsKey = 'goals';
-    var categoryKey = 'categories';
 
-    this.addGoal = function (object) {
+    this.addGoal = function (goal) {
 
-        if (!object) {
-            console.log('No Object');
+        if (!goal) {
+            console.log('No goal');
             return false;
         }
 
@@ -20,7 +20,7 @@ angular.module('ProgressReport')
             array = [];
         }
 
-        array.push(object);
+        array.push(goal);
 
         localStorage.setItem(goalsKey, JSON.stringify(array));
         return true;
@@ -34,9 +34,10 @@ angular.module('ProgressReport')
     this.getAllGoals = function () {
 
         var goalsString = localStorage.getItem(goalsKey);
-
         return goalsString ? JSON.parse(goalsString) : [];
     };
+
+    /*************************************/
 
     this.getGoal = function (goalTitle) {
 
@@ -49,6 +50,7 @@ angular.module('ProgressReport')
 
         for (var i in goals) {
             if (goals[i].title === goalTitle) {
+                goals[i].date = new Date(goals[i].date); //convert date back
                 return goals[i];
             }
         }
@@ -56,6 +58,31 @@ angular.module('ProgressReport')
         return null;
     };
 
+    /*************************************/
+    /************* Removal ***************/
+    /*************************************/
+
+    this.removeGoal = function (goalTitle) {
+
+        var goalsString = localStorage.getItem(goalsKey);
+        if (!goalsString) {
+            return 0;
+        }
+
+        var goals = JSON.parse(goalsString);
+        
+        for (var i in goals) {
+            if (goals[i].title === goalTitle) {
+                goals = goals.splice(i, 1);
+                localStorage.setItem(goalsKey, JSON.stringify(goals));
+                return 0;
+            }
+        }
+        console.log("removeGoal(): Didn't find goal");
+        return -1;
+    };
+
+    /*************************************/
 
     this.clearGoals = function () {
         localStorage.removeItem(goalsKey);

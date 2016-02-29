@@ -4,8 +4,17 @@ angular.module('ProgressReport')
     
     $scope.goalDetails = {
         title: "",
-        description: ""
+        description: "",
+        date: "",
+        icon: ""
     };
+    
+    $scope.minDate = new Date();
+    $scope.maxDate = new Date(
+        $scope.minDate.getFullYear() + 1,
+        $scope.minDate.getMonth() + 6,
+        $scope.minDate.getDate()
+    );
     
     
     $scope.cancel = function() {
@@ -15,12 +24,27 @@ angular.module('ProgressReport')
     
     $scope.submit = function() {
         
-        var description = $("input[name='description']").val();
-        
-        if (description.length < 5 || description.length > 150) {
+        console.log("date: " + $scope.goalDetails.date);
+        if(!$scope.validateDialog()) {
             return;
         }
         
         $mdDialog.hide($scope.goalDetails);
+    };
+    
+    /**********************************/
+    $scope.validateDialog = function() {
+        
+        var description = $("input[name='description']").val();
+        if (description.length < 5 || description.length > 150) {
+            return false;
+        }
+        
+        var date = $scope.goalDetails.date;
+        if(date === '') {
+            return false;
+        }
+        
+        return true;
     };
 });

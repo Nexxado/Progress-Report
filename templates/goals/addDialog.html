@@ -14,7 +14,7 @@
                 <md-input-container class="md-block">
                     <label>Title</label>
                     <input type="text" name="title" ng-model="goalDetails.title" required>
-                    <div ng-messages="AddGoalForm.title.$error" ng-if="AddGoalForm.title.$dirty || AddGoalForm.title.$touched">
+                    <div ng-messages="AddGoalForm.title.$error">
                         <div ng-message="required">
                             This is required
                         </div>
@@ -23,7 +23,7 @@
                 <md-input-container class="md-block">
                     <label>Description</label>
                     <input type="text" name="description" ng-model="goalDetails.description" minlength="5" md-maxlength="150" required>
-                    <div ng-messages="AddGoalForm.description.$error" ng-if="AddGoalForm.description.$dirty || AddGoalForm.description.$touched">
+                    <div ng-messages="AddGoalForm.description.$error">
                         <div ng-message="required">
                             This is required
                         </div>
@@ -35,6 +35,7 @@
                         </div>
                     </div>
                 </md-input-container>
+                <md-datepicker name="date" ng-model="goalDetails.date" md-placeholder="Pick Date" md-min-date="minDate" md-max-date="maxDate" required></md-datepicker>
             </div>
         </md-dialog-content>
         <md-dialog-actions>
