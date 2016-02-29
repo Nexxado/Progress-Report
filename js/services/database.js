@@ -5,7 +5,8 @@ angular.module('ProgressReport')
     /*************************************/
     /************* Setters ***************/
     /*************************************/
-    var key = 'goals';
+    var goalsKey = 'goals';
+    var categoryKey = 'categories';
 
     this.addGoal = function (object) {
 
@@ -14,14 +15,14 @@ angular.module('ProgressReport')
             return false;
         }
 
-        var array = JSON.parse(localStorage.getItem(key));
+        var array = JSON.parse(localStorage.getItem(goalsKey));
         if (!array) {
             array = [];
         }
 
         array.push(object);
 
-        localStorage.setItem(key, JSON.stringify(array));
+        localStorage.setItem(goalsKey, JSON.stringify(array));
         return true;
     };
 
@@ -32,14 +33,14 @@ angular.module('ProgressReport')
 
     this.getAllGoals = function () {
 
-        var goalsString = localStorage.getItem(key);
+        var goalsString = localStorage.getItem(goalsKey);
 
         return goalsString ? JSON.parse(goalsString) : [];
     };
 
     this.getGoal = function (goalTitle) {
 
-        var goalsString = localStorage.getItem(key);
+        var goalsString = localStorage.getItem(goalsKey);
         if (!goalsString) {
             return null;
         }
@@ -57,8 +58,7 @@ angular.module('ProgressReport')
 
 
     this.clearGoals = function () {
-        var goals = [];
-        localStorage.setItem(key, goals);
+        localStorage.removeItem(goalsKey);
     };
 
 });

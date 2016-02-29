@@ -1,6 +1,30 @@
 <h1>Goals List</h1>
+<div layout="row" flex class="unselectable">
+    <md-input-container md-no-float>
+        <input placeholder="Search" name="search" type="text" ng-model="search.input.title">
+    </md-input-container>
+    <!--  Mock Buttons  -->
+    <span flex></span>
+    <div layout="row" layout-align="start center">
+        <md-button ng-click="mockData()">
+            Mock Data
+        </md-button>
+        <md-button ng-click="mockDelete()">
+            Delete Data
+        </md-button>
+    </div>
+    <!--  Mock Buttons END -->
+</div>
 <md-list>
-    <md-list-item aria-label="goal list item" ng-repeat="goal in goals" ng-click="navigateTo('/goals/' + goal.title)">{{goal.title}}</md-list-item>
+    <md-list-item class="md-2-line goal" flex aria-label="goal list item" ng-repeat="goal in goals | filter: search.input" ng-click="navigateTo('/goals/' + goal.title)">
+        <md-icon class="material-icons">{{ goal.icon }}</md-icon>
+        <div class="md-list-item-text" layout="column">
+            <h3>{{ goal.title }}</h3>
+            <h4>{{ goal.description }}</h4>
+        </div>
+        <md-progress-linear flex="15" md-mode="determinate" ng-value="{{ goal.progress }}"></md-progress-linear>
+        <md-divider></md-divider>
+    </md-list-item>
 </md-list>
 
 
