@@ -18,7 +18,7 @@ module.exports = function(config) {
       'node_modules/angular/angular.js',
       'node_modules/angular-*/angular-*.js',
       'js/**/*.js',
-      'spec/spec.js'
+      'spec/*.spec.js'
     ],
       
       reporters: ['spec'],

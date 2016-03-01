@@ -4,4 +4,11 @@ angular.module('ProgressReport', ['ngRoute', 'ngAria', 'ngMessages', 'ngAnimate'
     $mdThemingProvider.theme('default')
         .primaryPalette('teal')
         .accentPalette('green');
+})
+
+.constant('constants', {
+    
+    goalsKey: 'goals',
+    categoryKey: 'categories'
+    
 });

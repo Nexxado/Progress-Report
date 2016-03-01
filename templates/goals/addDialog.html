@@ -11,18 +11,24 @@
         </md-toolbar>
         <md-dialog-content>
             <div class="md-dialog-content">
+                <!-- Input Title -->
                 <md-input-container class="md-block">
                     <label>Title</label>
+                    <md-icon class="material-icons">title</md-icon>
                     <input type="text" name="title" ng-model="goalDetails.title" required>
+                    <md-tooltip md-delay="1000">Sum up your goal in a word or two</md-tooltip>
                     <div ng-messages="AddGoalForm.title.$error">
                         <div ng-message="required">
                             This is required
                         </div>
                     </div>
                 </md-input-container>
+                <!-- Input Description -->
                 <md-input-container class="md-block">
                     <label>Description</label>
+                    <md-icon class="material-icons">description</md-icon>
                     <input type="text" name="description" ng-model="goalDetails.description" minlength="5" md-maxlength="150" required>
+                    <md-tooltip md-delay="1000">Describe your goal</md-tooltip>
                     <div ng-messages="AddGoalForm.description.$error">
                         <div ng-message="required">
                             This is required
@@ -35,7 +41,25 @@
                         </div>
                     </div>
                 </md-input-container>
-                <md-datepicker name="date" ng-model="goalDetails.date" md-placeholder="Pick Date" md-min-date="minDate" md-max-date="maxDate" required></md-datepicker>
+                <!-- Input Category -->
+                <md-autocomplete flex="90" flex-gt-sm="40"
+                                 md-items="category in query(categorySearch)" 
+                                 md-item-text="category.value"
+                                 md-search-text="categorySearch"
+                                 md-selected-item="selectedCategory"
+                                 md-min-length="0"
+                                 placeholder="Category (Optional)">
+                    <md-item-template>
+                      <span md-highlight-text="categorySearch" md-highlight-flags="^i">{{ category }}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        a new category will be created.
+                    </md-not-found>
+                </md-autocomplete>
+                <!-- Input Date -->
+                <div layout="row" layout-padding layout-align="start center">
+                    <md-datepicker name="date" ng-model="goalDetails.date" md-placeholder="Pick Date" md-min-date="minDate" md-max-date="maxDate" required></md-datepicker>
+                </div>
             </div>
         </md-dialog-content>
         <md-dialog-actions>

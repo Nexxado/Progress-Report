@@ -1,50 +1,81 @@
 angular.module('ProgressReport')
 
-.controller('AddDialogController', function ($scope, $mdDialog) {
-    
+.controller('AddDialogController', function ($scope, $mdDialog, DatabaseService) {
+
     $scope.goalDetails = {
         title: "",
         description: "",
         date: "",
-        icon: ""
+        category: $scope.selectedCategory,
+        progress: 0,
+        icon: "assignment"
     };
-    
+
+    $scope.categories = DatabaseService.getCategories();
+    console.log($scope.categories);
+    $scope.categorySearch = undefined;
+    $scope.selectedCategory = undefined;
+
     $scope.minDate = new Date();
     $scope.maxDate = new Date(
         $scope.minDate.getFullYear() + 1,
         $scope.minDate.getMonth() + 6,
         $scope.minDate.getDate()
     );
-    
-    
-    $scope.cancel = function() {
+
+
+    $scope.cancel = function () {
         $mdDialog.cancel();
     };
-    
-    
-    $scope.submit = function() {
-        
+
+
+    $scope.submit = function () {
+
         console.log("date: " + $scope.goalDetails.date);
-        if(!$scope.validateDialog()) {
+        console.log("category: " + $scope.categorySearch);
+        if (!$scope.validateDialog()) {
             return;
         }
         
+        if($scope.categories.indexOf($scope.categorySearch) === -1) {
+            DatabaseService.addCategory($scope.categorySearch);
+        }
+
         $mdDialog.hide($scope.goalDetails);
     };
-    
+
     /**********************************/
-    $scope.validateDialog = function() {
-        
+    /***** Category Autocomplete ******/
+    /**********************************/
+    $scope.query = function (queryText) {
+        if (!queryText) {
+            return $scope.categories;
+        }
+        return $scope.categories.filter($scope.queryFilter(queryText));
+    };
+
+    $scope.queryFilter = function (query) {
+        var lowerCaseQuery = query.toLowerCase();
+        return function filterFunc(category) {
+            return category.toLowerCase().indexOf(lowerCaseQuery) === 0;
+        };
+    };
+
+    /**********************************/
+    /******** Helper Methods **********/
+    /**********************************/
+    $scope.validateDialog = function () {
+
         var description = $("input[name='description']").val();
         if (description.length < 5 || description.length > 150) {
             return false;
         }
-        
+
         var date = $scope.goalDetails.date;
-        if(date === '') {
+        if (date === '') {
             return false;
         }
-        
+
         return true;
     };
 });

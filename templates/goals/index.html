@@ -1,8 +1,19 @@
 <h1>Goals List</h1>
-<div layout="row" flex class="unselectable">
+<div layout="row" flex class="unselectable" layout-padding>
+    <!--  Category Filter  -->
+    <md-input-container>
+        <label>Category</label>
+        <md-select name="categories" ng-model="search.category">
+            <md-option value="">All</md-option>
+            <md-option ng-repeat="category in categories" value="{{ category }}">{{ category }}</md-option>
+        </md-select>
+    </md-input-container>
+    <!--  Category Filter END -->
+    <!--  Search Box  -->
     <md-input-container md-no-float>
         <input placeholder="Search" name="search" type="text" ng-model="search.input.title">
     </md-input-container>
+    <!--  Search Box END -->
     <!--  Mock Buttons  -->
     <span flex></span>
     <div layout="row" layout-align="start center">
@@ -16,7 +27,7 @@
     <!--  Mock Buttons END -->
 </div>
 <md-list>
-    <md-list-item class="md-2-line goal" flex aria-label="goal list item" ng-repeat="goal in goals | filter: search.input" ng-click="navigateTo('/goals/' + goal.title)">
+    <md-list-item class="md-2-line goal" flex aria-label="goal list item" ng-repeat="goal in goals | categoryFilter:search.category | filter:search.input" ng-click="navigateTo('/goals/' + goal.title)">
         <md-icon class="material-icons">{{ goal.icon }}</md-icon>
         <div class="md-list-item-text" layout="column">
             <h3>{{ goal.title }}</h3>
@@ -27,7 +38,8 @@
     </md-list-item>
 </md-list>
 
-
+<!-- FAB -->
 <md-button ng-click="addDialog($event)" class="md-fab md-fab-bottom-right">
     <md-icon ng-class="material-icons">add</md-icon>
 </md-button>
+<!-- FAB END -->

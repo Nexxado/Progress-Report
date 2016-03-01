@@ -1,8 +1,7 @@
 angular.module('ProgressReport')
 
-.service('DatabaseService', function () {
+.service('DatabaseService', function (constants) {
 
-    var goalsKey = 'goals';
 
     /*************************************/
     /************* Setters ***************/
@@ -11,18 +10,15 @@ angular.module('ProgressReport')
     this.addGoal = function (goal) {
 
         if (!goal) {
-            console.log('No goal');
+            console.log('goal is undefined');
             return false;
         }
 
-        var array = JSON.parse(localStorage.getItem(goalsKey));
-        if (!array) {
-            array = [];
-        }
-
-        array.push(goal);
-
-        localStorage.setItem(goalsKey, JSON.stringify(array));
+        var goals = localStorage.getItem(constants.goalsKey);
+        goals = goals ? JSON.parse(goals) : [];
+        goals.push(goal);
+        localStorage.setItem(constants.goalsKey, JSON.stringify(goals));
+        
         return true;
     };
 
@@ -32,21 +28,15 @@ angular.module('ProgressReport')
     /*************************************/
 
     this.getAllGoals = function () {
-
-        var goalsString = localStorage.getItem(goalsKey);
+        var goalsString = localStorage.getItem(constants.goalsKey);
         return goalsString ? JSON.parse(goalsString) : [];
     };
 
     /*************************************/
 
     this.getGoal = function (goalTitle) {
-
-        var goalsString = localStorage.getItem(goalsKey);
-        if (!goalsString) {
-            return null;
-        }
-
-        var goals = JSON.parse(goalsString);
+        var goals = localStorage.getItem(constants.goalsKey);
+        goals = goals ? JSON.parse(goals) : [];
 
         for (var i in goals) {
             if (goals[i].title === goalTitle) {
@@ -54,7 +44,6 @@ angular.module('ProgressReport')
                 return goals[i];
             }
         }
-
         return null;
     };
 
@@ -64,28 +53,54 @@ angular.module('ProgressReport')
 
     this.removeGoal = function (goalTitle) {
 
-        var goalsString = localStorage.getItem(goalsKey);
-        if (!goalsString) {
-            return 0;
-        }
-
-        var goals = JSON.parse(goalsString);
+        var goals = localStorage.getItem(constants.goalsKey);
+        goals = goals ? JSON.parse(goals) : [];
         
         for (var i in goals) {
             if (goals[i].title === goalTitle) {
                 goals = goals.splice(i, 1);
-                localStorage.setItem(goalsKey, JSON.stringify(goals));
+                localStorage.setItem(constants.goalsKey, JSON.stringify(goals));
                 return 0;
             }
         }
-        console.log("removeGoal(): Didn't find goal");
+        console.log("removeGoal(): Couldn't find goal");
         return -1;
     };
 
     /*************************************/
 
     this.clearGoals = function () {
-        localStorage.removeItem(goalsKey);
+        localStorage.removeItem(constants.goalsKey);
+    };
+    
+    /*************************************/
+    /************ Categories *************/
+    /*************************************/
+    
+    this.getCategories = function () {
+        var categories = localStorage.getItem(constants.categoryKey);
+        return categories? JSON.parse(categories) : [];
+    };
+    
+    this.addCategory = function(newCategory) {
+        var categories = localStorage.getItem(constants.categoryKey);
+        categories = categories ? JSON.parse(categories) : [];
+        categories.push(newCategory);
+        localStorage.setItem(constants.categoryKey, JSON.stringify(categories));
+    };
+    
+    this.removeCategory = function(category) {
+        var categories = localStorage.getItem(constants.categoryKey);
+        categories = categories ? JSON.parse(categories) : [];
+        for(var i in categories) {
+            if(categories[i] === category) {
+                categories = categories.slice(i, 1);
+                localStorage.setItem(constants.categoryKey, JSON.stringify(categories));
+                return 0;
+            }
+        }
+        console.log("removeGoal(): Couldn't find category");
+        return -1;
     };
 
 });

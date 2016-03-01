@@ -1,6 +1,6 @@
 angular.module('ProgressReport')
 
-.controller('GoalsIndexController', function ($scope, $location, DatabaseService, $mdDialog, $mdMedia) {
+.controller('GoalsIndexController', function ($scope, $location, $mdDialog, $mdMedia, DatabaseService) {
 
     /**********************************/
     /********** MOCK METHODS **********/
@@ -17,13 +17,15 @@ angular.module('ProgressReport')
             var start = new Date(2016, 0, 3);
             var end = new Date(2017,5,31);
             var date = new Date(+start + Math.random() * (end - start)).toLocaleDateString();
+            var category = Math.random() < 0.5 ? 'cat1' : 'cat2';
             
             var mockObject = {
                 title: 'Title ' + r,
                 description: 'Description ' + i,
                 icon: 'assignment',
                 progress: (Math.random()*100).toFixed(0),
-                date: date
+                date: date,
+                category: category
             };
             DatabaseService.addGoal(mockObject);
         }
@@ -42,6 +44,8 @@ angular.module('ProgressReport')
     /**************************************/
     
     $scope.search = {};
+//    $scope.activeCategory = {};
+    $scope.categories = DatabaseService.getCategories();
 
     $scope.navigateTo = function (path) {
         $location.path(path);
