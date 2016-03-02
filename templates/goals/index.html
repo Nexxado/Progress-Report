@@ -37,6 +37,7 @@
     </div>
 
 </div>
+<!-- Goal List -->
 <md-list>
     <md-list-item class="md-2-line goal" flex aria-label="goal list item" ng-repeat="goal in goals | categoryFilter:search.category | filter:search.input" ng-click="goalClicked(goal)">
         <md-icon ng-show="!editMode" class="material-icons">{{ goal.icon }}</md-icon>
@@ -54,4 +55,3 @@
 <md-button ng-click="addDialog($event)" class="md-fab md-fab-bottom-right">
     <md-icon ng-class="material-icons">add</md-icon>
 </md-button>
-<!-- FAB END -->

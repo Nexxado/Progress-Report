@@ -37,11 +37,12 @@ angular.module('ProgressReport')
     this.getGoal = function (goalTitle) {
         var goals = localStorage.getItem(constants.goalsKey);
         goals = goals ? JSON.parse(goals) : [];
+        
         var title = goalTitle.toLowerCase();
 
         for (var i in goals) {
             if (goals[i].title.toLowerCase() === title) {
-                goals[i].date = new Date(goals[i].date); //convert date back
+                goals[i].date = new Date(goals[i].date); //convert to date object
                 return goals[i];
             }
         }

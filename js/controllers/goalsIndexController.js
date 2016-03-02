@@ -44,6 +44,7 @@ angular.module('ProgressReport')
     /********** MOCK METHODS END **********/
     /**************************************/
 
+    //Variables
     $scope.search = {};
     $scope.goals = DatabaseService.getAllGoals();
     $scope.categories = DatabaseService.getCategories();
@@ -65,10 +66,7 @@ angular.module('ProgressReport')
     $scope.navigateTo = function (path) {
         $location.path(path);
     };
-
-    /****************************/
-    /***** Edit Mode Methods ****/
-    /****************************/
+    
     $scope.checkGoal = function (goal) {
         var checked = $scope.checkedGoals.indexOf(goal);
 
@@ -78,6 +76,9 @@ angular.module('ProgressReport')
             $scope.checkedGoals.push(goal);
         }
     };
+    /****************************/
+    /***** Edit Mode Methods ****/
+    /****************************/
     $scope.toggleEditMode = function () {
         $scope.checkedGoals = [];
         $scope.editMode = !$scope.editMode;
@@ -105,7 +106,7 @@ angular.module('ProgressReport')
 
 
     /****************************/
-    /******* Dialog Method ******/
+    /****** Dialog Methods ******/
     /****************************/
     $scope.addDialog = function ($event) {
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
