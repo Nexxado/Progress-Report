@@ -6,7 +6,7 @@ angular.module('ProgressReport')
         title: "",
         description: "",
         date: "",
-        category: $scope.selectedCategory,
+        category: "",
         progress: 0,
         icon: "assignment"
     };
@@ -31,16 +31,15 @@ angular.module('ProgressReport')
 
     $scope.submit = function () {
 
-        console.log("date: " + $scope.goalDetails.date);
-        console.log("category: " + $scope.categorySearch);
         if (!$scope.validateDialog()) {
             return;
         }
-        
-        if($scope.categories.indexOf($scope.categorySearch) === -1) {
+
+        if ($scope.categories.indexOf($scope.categorySearch) === -1) {
             DatabaseService.addCategory($scope.categorySearch);
         }
 
+        $scope.goalDetails.category = $scope.categorySearch;
         $mdDialog.hide($scope.goalDetails);
     };
 
