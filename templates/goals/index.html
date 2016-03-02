@@ -1,4 +1,5 @@
 <h1>Goals List</h1>
+<!-- Mock Buttons -->
 <div layout="row" layout-align="start center">
     <md-button ng-click="mockData()">
         Mock Data
@@ -7,16 +8,7 @@
         Delete Data
     </md-button>
 </div>
-<div layout="row" flex class="unselectable" layout-padding>
-    <!--  Edit Mode Button  -->
-    <div layout="row" layout-align="none center">
-        <md-button ng-show="!editMode" ng-click="toggleEditMode()" class="md-primary md-icon-button fade">
-            <md-icon class="material-icons">mode_edit</md-icon>
-        </md-button>
-        <md-button ng-show="editMode" ng-click="toggleEditMode()" class="md-primary md-icon-button md-raised fade">
-            <md-icon class="material-icons">done</md-icon>
-        </md-button>
-    </div>
+<div layout="column" layout-gt-sm="row" flex class="unselectable" layout-padding>
     <!--  Category Filter  -->
     <md-input-container>
         <label>Category</label>
@@ -31,6 +23,18 @@
     </md-input-container>
     <!--  Mock Buttons  -->
     <span flex></span>
+    <!--  Edit Mode Button  -->
+    <div layout="row" layout-align="end center">
+        <md-button ng-show="!editMode" ng-click="toggleEditMode()" class="md-primary md-icon-button fade">
+            <md-icon class="material-icons">mode_edit</md-icon>
+        </md-button>
+        <md-button id="btnCompare" ng-show="editMode" ng-click="compareGoals($event)" class="md-primary md-raised fade">
+            Compare
+        </md-button>
+        <md-button ng-show="editMode" ng-click="toggleEditMode()" class="md-primary md-icon-button md-raised fade">
+            <md-icon class="material-icons">done</md-icon>
+        </md-button>
+    </div>
 
 </div>
 <md-list>

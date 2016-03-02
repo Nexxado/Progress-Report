@@ -71,8 +71,8 @@ angular.module('ProgressReport')
     /****************************/
     $scope.checkGoal = function (goal) {
         var checked = $scope.checkedGoals.indexOf(goal);
-        
-        if(checked > -1) {
+
+        if (checked > -1) {
             $scope.checkedGoals.splice(checked, 1);
         } else {
             $scope.checkedGoals.push(goal);
@@ -85,6 +85,24 @@ angular.module('ProgressReport')
     $scope.isChecked = function (goal) {
         return $scope.checkedGoals.indexOf(goal) > -1;
     };
+    $scope.compareGoals = function ($event) {
+        if ($scope.checkedGoals.length < 2) {
+            $mdDialog.show(
+                $mdDialog.alert()
+                .clickOutsideToClose(true)
+                .title('Error')
+                .textContent('Please select at least 2 goals to compare')
+                .ariaLabel('Alert Dialog')
+                .ok('Ok')
+                .targetEvent($event));
+            return;
+        }
+
+        //Implement Comparing goals
+        $scope.toggleEditMode();
+    };
+
+
 
     /****************************/
     /******* Dialog Method ******/
@@ -109,4 +127,13 @@ angular.module('ProgressReport')
                 console.log('Dialog Canceled.');
             });
     };
+
+    /* pressing Backspace closes currently open dialogs */
+    $scope.$on('$locationChangeStart', function(event) {
+        // Check if there is a dialog active
+        if (angular.element(document).find('md-dialog').length > 0) {
+            event.preventDefault(); // Prevent route from changing
+            $mdDialog.cancel(); // Cancel the active dialog
+        }
+    });
 });

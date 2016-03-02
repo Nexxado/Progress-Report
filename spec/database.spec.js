@@ -13,7 +13,7 @@ describe('Database Service', function () {
 
     var goalsArray = localStorage.getItem(goalsKey);
     goalsArray = goalsArray ? JSON.parse(goalsArray) : [];
-    
+
 
     beforeEach(function () {
         module('ProgressReport');
@@ -47,7 +47,7 @@ describe('Database Service', function () {
         var result = $dbService.removeGoal(testGoal.title);
         expect(result).toEqual(0);
     });
-    
+
     it('Add Category', function() {
         $dbService.addCategory(testCategory);
         var categories = localStorage.getItem(categoryKey);
@@ -56,7 +56,7 @@ describe('Database Service', function () {
         localStorage.setItem(categoryKey, JSON.stringify(categories));
         expect(category).toEqual(testCategory);
     });
-    
+
     it('Remove Category', function() {
         $dbService.addCategory(testCategory);
         var result = $dbService.removeCategory(testCategory);
