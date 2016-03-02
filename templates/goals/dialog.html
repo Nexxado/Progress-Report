@@ -1,8 +1,8 @@
-<md-dialog aria-label="Add Dialog" flex="50">
+<md-dialog aria-label="Goal Dialog" flex="50">
     <form name="AddGoalForm" ng-submit="submit()" novalidate>
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <h2>Add New Goal</h2>
+                <h2>{{ dialogTitle }}</h2>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="cancel()">
                     <md-icon class="material-icons">close</md-icon>
@@ -15,7 +15,7 @@
                 <md-input-container class="md-block">
                     <label>Title</label>
                     <md-icon class="material-icons">title</md-icon>
-                    <input type="text" name="title" ng-model="goalDetails.title" required>
+                    <input type="text" name="title" ng-model="goal.title" required>
                     <md-tooltip md-delay="1000">Sum up your goal in a word or two</md-tooltip>
                     <div ng-messages="AddGoalForm.title.$error">
                         <div ng-message="required">
@@ -27,7 +27,7 @@
                 <md-input-container class="md-block">
                     <label>Description</label>
                     <md-icon class="material-icons">description</md-icon>
-                    <input type="text" name="description" ng-model="goalDetails.description" minlength="5" md-maxlength="150" required>
+                    <input type="text" name="description" ng-model="goal.description" minlength="5" md-maxlength="150" required>
                     <md-tooltip md-delay="1000">Describe your goal</md-tooltip>
                     <div ng-messages="AddGoalForm.description.$error">
                         <div ng-message="required">
@@ -43,7 +43,7 @@
                 </md-input-container>
                 <!-- Input Category -->
                 <md-autocomplete flex="90" flex-gt-sm="40"
-                                 md-items="category in query(categorySearch)" 
+                                 md-items="category in query(categorySearch)"
                                  md-item-text="category.value"
                                  md-search-text="categorySearch"
                                  md-selected-item="selectedCategory"
@@ -58,7 +58,7 @@
                 </md-autocomplete>
                 <!-- Input Date -->
                 <div layout="row" layout-padding layout-align="start center">
-                    <md-datepicker name="date" ng-model="goalDetails.date" md-placeholder="Pick Date" md-min-date="minDate" md-max-date="maxDate" required></md-datepicker>
+                    <md-datepicker name="date" ng-model="goal.date" md-placeholder="Pick Date" md-min-date="minDate" md-max-date="maxDate" required></md-datepicker>
                 </div>
             </div>
         </md-dialog-content>

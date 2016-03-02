@@ -15,9 +15,9 @@ angular.module('ProgressReport')
 
         for (var i = 0; i < numOfMocks; i++) {
             var r = Math.pow(Math.random() * numOfMocks, 2).toFixed(0);
-            var start = new Date(2016, 0, 3);
-            var end = new Date(2017, 5, 31);
-            var date = new Date(+start + Math.random() * (end - start)).toLocaleDateString();
+            var startDate = new Date(2016, 0, 3);
+            var endDate = new Date(2017, 5, 31);
+            var date = new Date(+startDate + Math.random() * (endDate - startDate));
             var category = Math.random() < 0.5 ? 'cat1' : 'cat2';
 
             var mockObject = {
@@ -111,12 +111,13 @@ angular.module('ProgressReport')
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
 
         $mdDialog.show({
-                controller: 'AddDialogController',
-                templateUrl: 'templates/goals/addDialog.html',
+                controller: 'DialogController',
+                templateUrl: 'templates/goals/dialog.html',
                 parent: angular.element(document.body),
                 targetEvent: $event,
                 clickOutsideToClose: true,
-                fullscreen: useFullScreen
+                fullscreen: useFullScreen,
+                locals: {goal: undefined}
             })
             .then(function (newGoal) {
 

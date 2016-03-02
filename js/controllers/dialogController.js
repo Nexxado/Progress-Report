@@ -1,20 +1,34 @@
 angular.module('ProgressReport')
 
-.controller('AddDialogController', function ($scope, $mdDialog, DatabaseService) {
+.controller('DialogController', function ($scope, $mdToast, $mdDialog, DatabaseService, goal) {
 
-    $scope.goalDetails = {
-        title: "",
-        description: "",
-        date: "",
-        category: "",
-        progress: 0,
-        icon: "assignment"
-    };
+    if (!goal) {
+
+        $scope.dialogTitle = 'Add New Goal';
+        $scope.goal = {
+            title: "",
+            description: "",
+            date: "",
+            category: "",
+            progress: 0,
+            icon: "assignment"
+        };
+        $scope.categorySearch = undefined;
+        $scope.selectedCategory = undefined;
+
+    } else {
+
+        $scope.dialogTitle = 'Edit Goal';
+        $scope.goal = goal;
+        $scope.categorySearch = goal.category;
+        $scope.selectedCategory = goal.category;
+        console.log(goal);
+    }
+
+
+
 
     $scope.categories = DatabaseService.getCategories();
-    console.log($scope.categories);
-    $scope.categorySearch = undefined;
-    $scope.selectedCategory = undefined;
 
     $scope.minDate = new Date();
     $scope.maxDate = new Date(
@@ -35,12 +49,14 @@ angular.module('ProgressReport')
             return;
         }
 
-        if ($scope.categories.indexOf($scope.categorySearch) === -1) {
-            DatabaseService.addCategory($scope.categorySearch);
-        }
+        if ($scope.categorySearch && $scope.categorySearch !== '') {
+            $scope.goal.category = $scope.categorySearch;
 
-        $scope.goalDetails.category = $scope.categorySearch;
-        $mdDialog.hide($scope.goalDetails);
+            if ($scope.categories.indexOf($scope.categorySearch) === -1) {
+                DatabaseService.addCategory($scope.categorySearch);
+            }
+        }
+        $mdDialog.hide($scope.goal);
     };
 
     /**********************************/
@@ -70,11 +86,24 @@ angular.module('ProgressReport')
             return false;
         }
 
-        var date = $scope.goalDetails.date;
+        var date = $scope.goal.date;
         if (date === '') {
             return false;
         }
 
+        //if adding new Goal, check for existing one.
+        if (!goal) {
+            if (DatabaseService.getGoal($scope.goal.title)) {
+                $mdToast.show($mdToast.simple()
+                    .textContent('Goal already exists')
+                    .action('Ok')
+                    .highlightAction(true)
+                    .position('bottom right'));
+                return false;
+            }
+        }
+
         return true;
     };
+
 });
