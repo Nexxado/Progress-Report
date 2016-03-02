@@ -1,5 +1,22 @@
 <h1>Goals List</h1>
+<div layout="row" layout-align="start center">
+    <md-button ng-click="mockData()">
+        Mock Data
+    </md-button>
+    <md-button ng-click="mockDelete()">
+        Delete Data
+    </md-button>
+</div>
 <div layout="row" flex class="unselectable" layout-padding>
+    <!--  Edit Mode Button  -->
+    <div layout="row" layout-align="none center">
+        <md-button ng-show="!editMode" ng-click="toggleEditMode()" class="md-primary md-icon-button fade">
+            <md-icon class="material-icons">mode_edit</md-icon>
+        </md-button>
+        <md-button ng-show="editMode" ng-click="toggleEditMode()" class="md-primary md-icon-button md-raised fade">
+            <md-icon class="material-icons">done</md-icon>
+        </md-button>
+    </div>
     <!--  Category Filter  -->
     <md-input-container>
         <label>Category</label>
@@ -8,27 +25,18 @@
             <md-option ng-repeat="category in categories" value="{{ category }}">{{ category }}</md-option>
         </md-select>
     </md-input-container>
-    <!--  Category Filter END -->
     <!--  Search Box  -->
-    <md-input-container md-no-float>
+    <md-input-container>
         <input placeholder="Search" name="search" type="text" ng-model="search.input.title">
     </md-input-container>
-    <!--  Search Box END -->
     <!--  Mock Buttons  -->
     <span flex></span>
-    <div layout="row" layout-align="start center">
-        <md-button ng-click="mockData()">
-            Mock Data
-        </md-button>
-        <md-button ng-click="mockDelete()">
-            Delete Data
-        </md-button>
-    </div>
-    <!--  Mock Buttons END -->
+
 </div>
 <md-list>
-    <md-list-item class="md-2-line goal" flex aria-label="goal list item" ng-repeat="goal in goals | categoryFilter:search.category | filter:search.input" ng-click="navigateTo('/goals/' + goal.title)">
-        <md-icon class="material-icons">{{ goal.icon }}</md-icon>
+    <md-list-item class="md-2-line goal" flex aria-label="goal list item" ng-repeat="goal in goals | categoryFilter:search.category | filter:search.input" ng-click="goalClicked(goal)">
+        <md-icon ng-show="!editMode" class="material-icons">{{ goal.icon }}</md-icon>
+        <md-checkbox class="md-primary" aria-label="goal checkbox" ng-checked="isChecked(goal)" ng-show="editMode"></md-checkbox>
         <div class="md-list-item-text" layout="column">
             <h3>{{ goal.title }}</h3>
             <h4>{{ goal.description }}</h4>

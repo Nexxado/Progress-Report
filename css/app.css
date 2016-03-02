@@ -18,3 +18,12 @@
     left: auto;
     position: fixed;
 }
+
+/* Animation: Fade*/
+.fade {
+    transition: all ease 250ms;
+}
+
+.fade.ng-hide {
+    opacity: 0;
+}
