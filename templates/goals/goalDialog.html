@@ -1,5 +1,5 @@
 <md-dialog aria-label="Goal Dialog" flex="50">
-    <form name="AddGoalForm" ng-submit="submit()" novalidate>
+    <form name="AddGoalForm" ng-submit="submit()">
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <h2>{{ dialogTitle }}</h2>
@@ -42,15 +42,9 @@
                     </div>
                 </md-input-container>
                 <!-- Input Category (Autocomplete) -->
-                <md-autocomplete flex="90" flex-gt-sm="40"
-                                 md-items="category in query(categorySearch)"
-                                 md-item-text="category.value"
-                                 md-search-text="categorySearch"
-                                 md-selected-item="selectedCategory"
-                                 md-min-length="0"
-                                 placeholder="Category (Optional)">
+                <md-autocomplete flex="90" flex-gt-sm="40" md-items="category in query(categorySearch)" md-item-text="category.value" md-search-text="categorySearch" md-selected-item="selectedCategory" md-min-length="0" placeholder="Category (Optional)">
                     <md-item-template>
-                      <span md-highlight-text="categorySearch" md-highlight-flags="^i">{{ category }}</span>
+                        <span md-highlight-text="categorySearch" md-highlight-flags="^i">{{ category }}</span>
                     </md-item-template>
                     <md-not-found>
                         a new category will be created.
@@ -58,7 +52,26 @@
                 </md-autocomplete>
                 <!-- Input Date -->
                 <div layout="row" layout-padding layout-align="start center">
-                    <md-datepicker name="date" ng-model="goal.date" md-placeholder="Pick Date" md-min-date="minDate" md-max-date="maxDate" required></md-datepicker>
+                    <!-- Specific Date -->
+                    <md-datepicker ng-show="specificDate" name="date" ng-model="goal.date" md-placeholder="Pick Date" md-min-date="minDate" md-max-date="maxDate" required></md-datepicker>
+                    <!-- Non-Specific Date -->
+                    <div layout="row" layout-padding ng-show="!specificDate">
+                        <md-input-container>
+                            <label>Amount</label>
+                            <input class="noArrows" type="number" name="timeAmount" ng-model="timeAmount" min="1" step="1" required>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>Range</label>
+                            <md-select ng-model="timeRange">
+                                <md-option value="{{ range }}" ng-repeat="range in timeRangeLabels">{{ range }}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                    <span flex></span>
+                    <!-- Switch -->
+                    <md-switch class="md-primary" ng-model="specificDate" ng-change="resetDate()">
+                        Choose Specific Date
+                    </md-switch>
                 </div>
             </div>
         </md-dialog-content>

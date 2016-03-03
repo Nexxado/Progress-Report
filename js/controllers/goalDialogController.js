@@ -6,6 +6,7 @@ angular.module('ProgressReport')
     //switches between an Add Dialog and Edit Dialog.
     if (!goal) {
 
+        $scope.editing = false;
         $scope.dialogTitle = 'Add New Goal';
         $scope.goal = {
             title: "",
@@ -22,6 +23,7 @@ angular.module('ProgressReport')
 
     } else {
 
+        $scope.editing = true;
         $scope.dialogTitle = 'Edit Goal';
         $scope.goal = goal;
 
@@ -31,9 +33,10 @@ angular.module('ProgressReport')
     }
 
 
-
     //Get categories for AutoComplete field
     $scope.categories = DatabaseService.getCategories();
+    $scope.goal.date = new Date();
+
 
     //Setup min\max dates for datepicker
     $scope.minDate = new Date();
@@ -42,6 +45,13 @@ angular.module('ProgressReport')
         $scope.minDate.getMonth() + 6,
         $scope.minDate.getDate()
     );
+
+
+    //Setup non-speicifc Date picker
+    $scope.specificDate = false;
+    $scope.timeRangeLabels = ['Days', 'Months', 'Years'];
+    $scope.timeRange = 'Days';
+    $scope.timeAmount = '';
 
 
     $scope.cancel = function () {
@@ -55,10 +65,14 @@ angular.module('ProgressReport')
             return;
         }
 
+        if (!$scope.specificDate) {
+            $scope.goal.date = $scope.getDate();
+        }
+
         if ($scope.categorySearch && $scope.categorySearch !== '') {
             $scope.goal.category = $scope.categorySearch;
 
-            //if new category, add it.
+            //if new category, add it to categories list.
             if ($scope.categories.indexOf($scope.categorySearch) === -1) {
                 DatabaseService.addCategory($scope.categorySearch);
             }
@@ -94,7 +108,7 @@ angular.module('ProgressReport')
         }
 
         var date = $scope.goal.date;
-        if (date === '') {
+        if ($scope.specificDate && date === '') {
             return false;
         }
 
@@ -111,6 +125,50 @@ angular.module('ProgressReport')
         }
 
         return true;
+    };
+
+    //Convert specific Date to date object
+    $scope.getDate = function () {
+        var rangeIndex = $scope.timeRangeLabels.indexOf($scope.timeRange);
+        var temp = new Date();
+        var date;
+
+        switch (rangeIndex) {
+            case 0:
+                date = new Date(
+                    temp.getFullYear(),
+                    temp.getMonth(),
+                    temp.getDate() + $scope.timeAmount
+                );
+                break;
+            case 1:
+                date = new Date(
+                    temp.getFullYear(),
+                    temp.getMonth() + $scope.timeAmount,
+                    temp.getDate()
+                );
+                break;
+            case 2:
+                date = new Date(
+                    temp.getFullYear() + $scope.timeAmount,
+                    temp.getMonth(),
+                    temp.getDate()
+                );
+                break;
+        }
+
+        return date;
+    };
+
+    //Reset date on clicking Switch
+    $scope.resetDate = function () {
+        if ($scope.specificDate) {
+            $scope.goal.date = '';
+            $scope.timeAmount = 1;
+        } else {
+            $scope.goal.date = new Date();
+            $scope.timeAmount = '';
+        }
     };
 
 });

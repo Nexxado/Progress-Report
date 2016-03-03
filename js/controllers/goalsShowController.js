@@ -6,4 +6,6 @@ angular.module('ProgressReport')
     
     $scope.goal = DatabaseService.getGoal($routeParams.id);
     
+    $scope.date = $scope.goal.date.toUTCString();
+
 });
