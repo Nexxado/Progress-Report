@@ -66,7 +66,7 @@ angular.module('ProgressReport')
     $scope.navigateTo = function (path) {
         $location.path(path);
     };
-    
+
     $scope.checkGoal = function (goal) {
         var checked = $scope.checkedGoals.indexOf(goal);
 
@@ -112,13 +112,15 @@ angular.module('ProgressReport')
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
 
         $mdDialog.show({
-                controller: 'DialogController',
-                templateUrl: 'templates/goals/dialog.html',
+                controller: 'GoalDialogController',
+                templateUrl: 'templates/goals/goalDialog.html',
                 parent: angular.element(document.body),
                 targetEvent: $event,
                 clickOutsideToClose: true,
                 fullscreen: useFullScreen,
-                locals: {goal: undefined}
+                locals: {
+                    goal: undefined
+                }
             })
             .then(function (newGoal) {
 
@@ -131,7 +133,7 @@ angular.module('ProgressReport')
     };
 
     /* pressing Backspace closes currently open dialogs */
-    $scope.$on('$locationChangeStart', function(event) {
+    $scope.$on('$locationChangeStart', function (event) {
         // Check if there is a dialog active
         if (angular.element(document).find('md-dialog').length > 0) {
             event.preventDefault(); // Prevent route from changing

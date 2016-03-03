@@ -1,6 +1,6 @@
 angular.module('ProgressReport')
 
-.controller('DialogController', function ($scope, $mdToast, $mdDialog, DatabaseService, goal) {
+.controller('GoalDialogController', function ($scope, $mdToast, $mdDialog, DatabaseService, goal) {
 
     //Decide dialog behavior according to goal variable
     //switches between an Add Dialog and Edit Dialog.
@@ -15,7 +15,7 @@ angular.module('ProgressReport')
             progress: 0,
             icon: "assignment"
         };
-        
+
         //Autocomplete variables
         $scope.categorySearch = undefined;
         $scope.selectedCategory = undefined;
@@ -24,7 +24,7 @@ angular.module('ProgressReport')
 
         $scope.dialogTitle = 'Edit Goal';
         $scope.goal = goal;
-        
+
         //Autocomplete variables
         $scope.categorySearch = goal.category;
         $scope.selectedCategory = goal.category;
@@ -34,7 +34,7 @@ angular.module('ProgressReport')
 
     //Get categories for AutoComplete field
     $scope.categories = DatabaseService.getCategories();
-    
+
     //Setup min\max dates for datepicker
     $scope.minDate = new Date();
     $scope.maxDate = new Date(
@@ -57,7 +57,7 @@ angular.module('ProgressReport')
 
         if ($scope.categorySearch && $scope.categorySearch !== '') {
             $scope.goal.category = $scope.categorySearch;
-            
+
             //if new category, add it.
             if ($scope.categories.indexOf($scope.categorySearch) === -1) {
                 DatabaseService.addCategory($scope.categorySearch);
