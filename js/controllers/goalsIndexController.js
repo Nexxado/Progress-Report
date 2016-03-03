@@ -20,7 +20,19 @@ angular.module('ProgressReport')
             var date = new Date(+startDate + Math.random() * (endDate - startDate));
             var category = Math.random() < 0.5 ? 'cat1' : 'cat2';
 
+
+            var type = 'no type';
+            var temp = Math.random() * 3;
+            if (temp < 1) {
+                type = 'achievement';
+            } else if (temp < 2) {
+                type = 'numerical';
+            } else if (temp < 3) {
+                type = 'custom';
+            }
+
             var mockObject = {
+                type: type,
                 title: 'Title ' + r,
                 description: 'Description ' + i,
                 icon: 'assignment',
@@ -120,7 +132,7 @@ angular.module('ProgressReport')
                 fullscreen: useFullScreen,
                 locals: {
                     goal: undefined
-//                    goal: DatabaseService.getGoal({title: 'test'})
+                        //                    goal: DatabaseService.getGoal({title: 'test'})
                 }
             })
             .then(function (newGoal) {

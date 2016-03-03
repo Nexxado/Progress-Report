@@ -4,7 +4,7 @@ angular.module('ProgressReport')
     
     $scope.backLink = '/#/goals';
     
-    $scope.goal = DatabaseService.getGoal($routeParams.id);
+    $scope.goal = DatabaseService.getGoal({ title: $routeParams.id});
     
     $scope.date = $scope.goal.date.toUTCString();
 

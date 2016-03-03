@@ -9,6 +9,11 @@ angular.module('ProgressReport', ['ngRoute', 'ngAria', 'ngMessages', 'ngAnimate'
 .constant('constants', {
     
     goalsKey: 'goals',
-    categoryKey: 'categories'
+    categoryKey: 'categories',
+    goalType: {
+        achievement: 'achievement',
+        numerical: 'numerical',
+        custom: 'custom'
+    }
     
 });
