@@ -1,14 +1,13 @@
-describe('Database Service', function () {
+describe('Database - Goals', function () {
 
     var $dbService;
     var goalsKey = 'goals';
-    var categoryKey = 'categories';
-    var testCategory = 'testCategory';
+
     var testGoal = {
         title: 'testTitle',
         description: 'testDescription',
         date: new Date(2016, 08, 08),
-        category: testCategory
+        category: 'testCategory'
     };
 
     var goalsArray = localStorage.getItem(goalsKey);
@@ -32,23 +31,51 @@ describe('Database Service', function () {
 
 
     it('Get Goal', function () {
-        var goal = $dbService.getGoal(testGoal.title);
+        var goal = $dbService.getGoal(testGoal);
         expect(goal).toEqual(testGoal);
     });
 
     it('Add Goal', function () {
-        $dbService.addGoal(testGoal);
-        var goal = $dbService.getGoal(testGoal.title);
+        var goal = $dbService.getGoal(testGoal);
         expect(goal).toEqual(testGoal);
     });
 
+    it('Update Goal', function () {
+        var updatedGoal = {
+            title: 'testTitle',
+            description: 'updatedDescription',
+            date: new Date(2019, 08, 08),
+            category: 'updatedCategory'
+        };
+        $dbService.updateGoal(testGoal, updatedGoal);
+        var goal = $dbService.getGoal(testGoal);
+        expect(goal).toEqual(updatedGoal);
+
+    });
+
     it('Remove Goal', function () {
-        $dbService.addGoal(testGoal);
-        var result = $dbService.removeGoal(testGoal.title);
+        var result = $dbService.removeGoal(testGoal);
         expect(result).not.toEqual(-1);
     });
 
-    it('Add Category', function() {
+
+});
+
+describe('Database - Categories', function () {
+
+    var $dbService;
+    var categoryKey = 'categories';
+    var testCategory = 'testCategory';
+
+    beforeEach(function () {
+        module('ProgressReport');
+        inject(function (DatabaseService) {
+            $dbService = DatabaseService;
+        });
+
+    });
+
+    it('Add Category', function () {
         $dbService.addCategory(testCategory);
         var categories = localStorage.getItem(categoryKey);
         categories = categories ? JSON.parse(categories) : [];
@@ -57,7 +84,7 @@ describe('Database Service', function () {
         expect(category).toEqual(testCategory);
     });
 
-    it('Remove Category', function() {
+    it('Remove Category', function () {
         $dbService.addCategory(testCategory);
         var result = $dbService.removeCategory(testCategory);
         expect(result).toEqual(0);

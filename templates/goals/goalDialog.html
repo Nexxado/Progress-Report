@@ -58,20 +58,24 @@
                     <div layout="row" layout-padding ng-show="!specificDate">
                         <md-input-container>
                             <label>Amount</label>
-                            <input class="noArrows" type="number" name="timeAmount" ng-model="timeAmount" min="1" step="1" required>
+                            <input ng-disabled="lockDate" class="noArrows" type="number" name="timeAmount" ng-model="timeAmount" min="1" step="1" required>
                         </md-input-container>
                         <md-input-container>
                             <label>Range</label>
-                            <md-select ng-model="timeRange">
+                            <md-select ng-model="timeRange" ng-disabled="lockDate">
                                 <md-option value="{{ range }}" ng-repeat="range in timeRangeLabels">{{ range }}</md-option>
                             </md-select>
                         </md-input-container>
                     </div>
                     <span flex></span>
                     <!-- Switch -->
-                    <md-switch class="md-primary" ng-model="specificDate" ng-change="resetDate()">
-                        Choose Specific Date
-                    </md-switch>
+                    <span ng-show="!lockDate">
+                        <md-switch ng-disabled="lockDate" class="md-primary" ng-model="specificDate" ng-change="resetDate()" aria-label="specific date switch"></md-switch>
+                        <md-tooltip md-direction="left">Choose Specific Date</md-tooltip>
+                    </span>
+                    <md-button ng-show="lockDate" ng-click="unlockDate()" class="md-primary md-raised">
+                        Reschedule
+                    </md-button>
                 </div>
             </div>
         </md-dialog-content>

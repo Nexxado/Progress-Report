@@ -120,6 +120,7 @@ angular.module('ProgressReport')
                 fullscreen: useFullScreen,
                 locals: {
                     goal: undefined
+//                    goal: DatabaseService.getGoal({title: 'test'})
                 }
             })
             .then(function (newGoal) {

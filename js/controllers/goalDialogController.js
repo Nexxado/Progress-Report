@@ -6,7 +6,8 @@ angular.module('ProgressReport')
     //switches between an Add Dialog and Edit Dialog.
     if (!goal) {
 
-        $scope.editing = false;
+        $scope.isEditing = false;
+        $scope.lockDate = false;
         $scope.dialogTitle = 'Add New Goal';
         $scope.goal = {
             title: "",
@@ -16,6 +17,7 @@ angular.module('ProgressReport')
             progress: 0,
             icon: "assignment"
         };
+        $scope.timeAmount = '';
 
         //Autocomplete variables
         $scope.categorySearch = undefined;
@@ -23,9 +25,11 @@ angular.module('ProgressReport')
 
     } else {
 
-        $scope.editing = true;
+        $scope.isEditing = true;
+        $scope.lockDate = true;
         $scope.dialogTitle = 'Edit Goal';
         $scope.goal = goal;
+        $scope.timeAmount = Math.round((goal.date - (new Date())) / (1000 * 60 * 60 * 24));
 
         //Autocomplete variables
         $scope.categorySearch = goal.category;
@@ -51,7 +55,7 @@ angular.module('ProgressReport')
     $scope.specificDate = false;
     $scope.timeRangeLabels = ['Days', 'Months', 'Years'];
     $scope.timeRange = 'Days';
-    $scope.timeAmount = '';
+
 
 
     $scope.cancel = function () {
@@ -114,7 +118,7 @@ angular.module('ProgressReport')
 
         //if adding new Goal, check for existing one.
         if (!goal) {
-            if (DatabaseService.getGoal($scope.goal.title)) {
+            if (DatabaseService.getGoal($scope.goal)) {
                 $mdToast.show($mdToast.simple()
                     .textContent('Goal already exists')
                     .action('Ok')
@@ -171,4 +175,8 @@ angular.module('ProgressReport')
         }
     };
 
+    //Unlock date when editing
+    $scope.unlockDate = function () {
+        $scope.lockDate = false;
+    };
 });
