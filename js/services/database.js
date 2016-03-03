@@ -62,7 +62,7 @@ angular.module('ProgressReport')
             if (goals[i].title === goalTitle) {
                 goals = goals.splice(i, 1);
                 localStorage.setItem(constants.goalsKey, JSON.stringify(goals));
-                return 0;
+                return i;
             }
         }
         console.log("removeGoal(): Couldn't find goal");

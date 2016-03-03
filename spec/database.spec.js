@@ -45,7 +45,7 @@ describe('Database Service', function () {
     it('Remove Goal', function () {
         $dbService.addGoal(testGoal);
         var result = $dbService.removeGoal(testGoal.title);
-        expect(result).toEqual(0);
+        expect(result).not.toEqual(-1);
     });
 
     it('Add Category', function() {
