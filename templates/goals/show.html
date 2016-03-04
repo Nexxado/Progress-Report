@@ -9,50 +9,52 @@
 
     <!--Goal Card-->
     <md-card>
-        <!--Header-->
         <md-card-header>
             <md-card-avatar>
                 <md-icon class="material-icons">{{goal.icon}}</md-icon>
             </md-card-avatar>
             <md-card-header-text layout="row">
-                    <div layout="col">
-                        <div class="md-title">Category:</div>
-                        <div class="md-subhead">{{goal.category}}</div>
-                    </div>
+                <div class="md-title">Category:
+                    <p>{{goal.category}}</p>
+                </div>
                 <span flex></span>
-                <md-button class="md-icon-button md-primary" ng-click="editGoal()">
+                <md-button class="md-icon-button md-primary" ng-click="editDialog($event)">
                     <md-icon class="material-icons">mode_edit</md-icon>
                 </md-button>
             </md-card-header-text>
         </md-card-header>
-        <!--Card Title (including goal attributes)-->
         <md-card-title>
             <md-card-title-text>
                 <span class="md-headline">{{goal.title}}</span>
-                <span class="md-subhead">Goal Date: {{goal.date | date: 'fullDate'}}</span>
-                <span class="md-subhead">Progress: {{goal.progress}}%</span>
                 <span class="md-subhead">Grade: GRADE_HERE</span>
-                <span class="md-subhead">Current Routine: ROUTINE_HERE</span>
             </md-card-title-text>
         </md-card-title>
-        <!--Card Description-->
         <md-card-content>
-            <p>
-                Goal Description:
-            </p>
-            {{goal.description}}
+            <!-- need to find a way to make tab stretch to show all content-->
+            <md-tabs>
+                <md-tab label="Info">
+                    <p>
+                        <h4>Goal Date: {{goal.date | date: 'fullDate'}}</h4></p>
+                    <p>
+                        <h4>Progress: {{goal.progress}}%</h4></p>
+                    <p>
+                        <h4>Current Routine: ROUTINE_HERE</h4></p>
+                    <p>
+                        <h4>Current Routine: ROUTINE_HERE</h4></p>
+                    <p>
+                        <h4>Current Routine: ROUTINE_HERE</h4></p>
+                    <p>
+                        <h4>Current Routine: ROUTINE_HERE</h4></p>
+                    <p>
+                        <h4>Current Routine: ROUTINE_HERE</h4></p>
+                    <p>
+                        <h4>Current Routine: ROUTINE_HERE</h4></p>
+                    <p>
+                        <h4>Current Routine: ROUTINE_HERE</h4></p>
+                </md-tab>
+                <md-tab label="Graph"></md-tab>
+                <md-tab label="Routines"></md-tab>
+            </md-tabs>
         </md-card-content>
-        <!--Card Actions tabs-->
-        <md-card-actions layout="row" layout-align="start center">
-            <md-button>Goal Graph</md-button>
-            <md-button>Change Current Routine</md-button>
-            <md-button>Change Routine</md-button>
-            <md-button>Change Routine</md-button>
-            <md-card-icon-actions>
-                <md-button class="md-icon-button" aria-label="icon">
-                    <md-icon md-svg-icon="icon"></md-icon>
-                </md-button>
-            </md-card-icon-actions>
-        </md-card-actions>
     </md-card>
 </div>
