@@ -1,6 +1,6 @@
 angular.module('ProgressReport')
 
-.controller('GoalsIndexController', function ($scope, $location, $mdDialog, $mdMedia, DatabaseService) {
+.controller('GoalsIndexController', function ($scope, $location, $mdDialog, $mdMedia, DatabaseService, anchorSmoothScroll) {
 
     /**********************************/
     /********** MOCK METHODS **********/
@@ -87,6 +87,10 @@ angular.module('ProgressReport')
         } else {
             $scope.checkedGoals.push(goal);
         }
+    };
+    
+    $scope.scrollTo = function (eID) {
+        anchorSmoothScroll.scrollTo(eID);
     };
     /****************************/
     /***** Edit Mode Methods ****/

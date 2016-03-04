@@ -8,7 +8,7 @@
         Delete Data
     </md-button>
 </div>
-<div layout="column" layout-gt-sm="row" flex class="unselectable" layout-padding>
+<div layout="column" layout-gt-sm="row" flex class="unselectable" layout-padding id="searchAnchor">
     <!--  Category Filter  -->
     <md-input-container>
         <label>Category</label>
@@ -19,7 +19,7 @@
     </md-input-container>
     <!--  Search Box  -->
     <md-input-container>
-        <input placeholder="Search" name="search" type="text" ng-model="search.input.title">
+        <input ng-focus="scrollTo('searchAnchor')" placeholder="Search" name="search" type="text" ng-model="search.input.title">
     </md-input-container>
     <!--  Mock Buttons  -->
     <span flex></span>
