@@ -120,7 +120,29 @@ angular.module('ProgressReport')
     /****************************/
     /****** Dialog Methods ******/
     /****************************/
-    $scope.addDialog = function ($event) {
+    $scope.typeDialog = function ($event) {
+        var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
+
+        $mdDialog.show({
+                controller: 'TypeDialogController',
+                templateUrl: 'templates/goals/typeDialog.html',
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                clickOutsideToClose: true,
+                fullscreen: useFullScreen,
+            })
+            .then(function (type) {
+
+                $scope.addDialog($event, type);
+            
+            }, function () {
+                console.log('Dialog Canceled.');
+            });
+    };
+
+
+
+    $scope.addDialog = function ($event, type) {
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
 
         $mdDialog.show({
@@ -131,8 +153,9 @@ angular.module('ProgressReport')
                 clickOutsideToClose: true,
                 fullscreen: useFullScreen,
                 locals: {
-                    goal: undefined
-                        //                    goal: DatabaseService.getGoal({title: 'test'})
+                    //goal: DatabaseService.getGoal({title: 'test'}),
+                    goal: undefined,
+                    type: type
                 }
             })
             .then(function (newGoal) {

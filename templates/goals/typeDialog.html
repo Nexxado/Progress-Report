@@ -1,0 +1,30 @@
+<md-dialog aria-label="Goal Dialog" flex="50">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Select Goal Type</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon class="material-icons">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <div layout="column">
+                <md-button id="btnNumerical" ng-click="chooseNumerical()" class="md-primary md-raised">
+                    Numrical
+                </md-button>
+                <md-button id="btnAchievement" ng-click="chooseAchievement()" class="md-primary md-raised">
+                    Achievement
+                </md-button>
+                <md-button id="btnCustom" ng-click="chooseCustom()" class="md-primary md-raised">
+                    Custom
+                </md-button>
+            </div>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button ng-click="cancel()" class="md-warn">Cancel</md-button>
+        <md-button ng-click="submit()" class="md-primary">Ok</md-button>
+    </md-dialog-actions>
+</md-dialog>

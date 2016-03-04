@@ -1,6 +1,6 @@
 angular.module('ProgressReport')
 
-.controller('GoalDialogController', function ($scope, $mdToast, $mdDialog, DatabaseService, goal) {
+.controller('GoalDialogController', function ($scope, $mdToast, $mdDialog, DatabaseService, goal, type) {
 
     //Decide dialog behavior according to goal variable
     //switches between an Add Dialog and Edit Dialog.
@@ -10,6 +10,7 @@ angular.module('ProgressReport')
         $scope.lockDate = false;
         $scope.dialogTitle = 'Add New Goal';
         $scope.goal = {
+            type: type,
             title: "",
             description: "",
             date: "",
