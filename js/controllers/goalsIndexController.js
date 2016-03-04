@@ -34,11 +34,12 @@ angular.module('ProgressReport')
             var mockObject = {
                 type: type,
                 title: 'Title ' + r,
-                description: 'Description ' + i,
-                icon: 'assignment',
-                progress: (Math.random() * 100).toFixed(0),
+                description: 'Description ' + i,                
                 date: date,
-                category: category
+                category: category,
+                progress: (Math.random() * 100).toFixed(0),
+                icon: 'assignment',
+                done: Math.random() < 0.5
             };
             DatabaseService.addGoal(mockObject);
         }

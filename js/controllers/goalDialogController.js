@@ -16,7 +16,8 @@ angular.module('ProgressReport')
             date: "",
             category: "",
             progress: 0,
-            icon: "assignment"
+            icon: "assignment",
+            done: false
         };
         $scope.timeAmount = '';
 
