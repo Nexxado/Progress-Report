@@ -1,5 +1,5 @@
 <md-dialog aria-label="Sub-Goal Dialog" flex="50">
-    <form name="SubgoalForm" ng-submit="addSubgoal()">
+    <form name="SubgoalForm" ng-submit="addSubgoal()" novalidate>
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <h2>Define Sub Goals</h2>
@@ -16,7 +16,7 @@
                         <md-input-container flex>
                             <label>Describe a sub-goal</label>
                             <md-icon class="material-icons">label</md-icon>
-                            <input type="text" id="subgoal" name="subgoal" ng-model="subgoal" minlength="5" md-maxlength="50">
+                            <input type="text" id="subgoal" name="subgoal" ng-model="subgoal" minlength="5" md-maxlength="50" required>
                             <div ng-messages="SubgoalForm.subgoal.$error">
                                 <div ng-message="minlength">
                                     Description is too short
@@ -26,7 +26,6 @@
                                 </div>
                             </div>
                         </md-input-container>
-<!--                        <span flex></span>-->
                         <div layout="row" layout-align="end center">
                             <md-button type="submit" class="md-primary md-icon-button" layout-align="end center">
                                 <md-icon class="material-icons">add_box</md-icon>
@@ -34,7 +33,7 @@
                         </div>
                     </div>
                     <md-list>
-                        <md-list-item class="subgoal" ng-repeat="subgoal in subgoals" flex>
+                        <md-list-item class="subgoal clip-text" ng-repeat="subgoal in subgoals" layout-wrap>
                             <div class="md-list-item-text">
                                 <p>{{ subgoal }}</p>
                             </div>
@@ -50,7 +49,7 @@
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="cancel()" class="md-warn">Cancel</md-button>
-            <md-button ng-click="submit()" class="md-primary">Done</md-button>
+            <md-button ng-click="confirm()" class="md-primary">Done</md-button>
         </md-dialog-actions>
     </form>
 </md-dialog>

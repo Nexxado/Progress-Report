@@ -59,6 +59,14 @@
                         <md-input-container>
                             <label>Amount</label>
                             <input ng-disabled="lockDate" class="noArrows" type="number" name="timeAmount" ng-model="timeAmount" min="1" step="1" required>
+                            <div ng-messages="AddGoalForm.timeAmount.$error">
+                                <div ng-message="required">
+                                    This is required
+                                </div>
+                                <div ng-message="min">
+                                    Minimum value is 1
+                                </div>
+                            </div>
                         </md-input-container>
                         <md-input-container>
                             <label>Range</label>

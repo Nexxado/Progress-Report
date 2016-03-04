@@ -1,6 +1,6 @@
 angular.module('ProgressReport')
 
-.controller('GoalsIndexController', function ($scope, $location, $mdDialog, $mdMedia, DatabaseService, anchorSmoothScroll) {
+.controller('GoalsIndexController', function ($scope, $location, $mdDialog, $mdMedia, DatabaseService, anchorSmoothScroll, constants) {
 
     /**********************************/
     /********** MOCK METHODS **********/
@@ -165,8 +165,15 @@ angular.module('ProgressReport')
             })
             .then(function (newGoal) {
 
-                $scope.goals.push(newGoal);
-                DatabaseService.addGoal(newGoal);
+                if (type === constants.goalType.achievement) {
+                    $scope.subgoalDialog($event, newGoal);
+
+                } else {
+
+                    $scope.goals.push(newGoal);
+                    DatabaseService.addGoal(newGoal);
+                }
+
 
             }, function () {
                 console.log('Dialog Canceled.');
@@ -174,10 +181,8 @@ angular.module('ProgressReport')
     };
 
 
-    $scope.subgoalDialog = function ($event) { //FIXME: accept goal variable
-        
-        var goal = JSON.parse(localStorage.getItem('goals')).pop(); //FIXME: delete after Testing
-        
+    $scope.subgoalDialog = function ($event, goal) {
+
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
 
         $mdDialog.show({
@@ -191,9 +196,10 @@ angular.module('ProgressReport')
                     goal: goal
                 }
             })
-            .then(function (subgoals) {
+            .then(function (goal) {
 
-                console.log("subgoals: ", subgoals);
+                $scope.goals.push(goal);
+                DatabaseService.addGoal(goal);
 
             }, function () {
                 console.log('Dialog Canceled.');

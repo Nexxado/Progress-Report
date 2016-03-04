@@ -43,7 +43,6 @@ angular.module('ProgressReport')
     $scope.categories = DatabaseService.getCategories();
     $scope.goal.date = new Date();
 
-
     //Setup min\max dates for datepicker
     $scope.minDate = new Date();
     $scope.maxDate = new Date(
@@ -108,13 +107,7 @@ angular.module('ProgressReport')
     /**********************************/
     $scope.validateDialog = function () {
 
-        var description = $("input[name='description']").val();
-        if (description.length < 5 || description.length > 150) {
-            return false;
-        }
-
-        var date = $scope.goal.date;
-        if ($scope.specificDate && date === '') {
+        if($scope.AddGoalForm.$invalid) {
             return false;
         }
 
