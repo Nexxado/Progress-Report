@@ -1,13 +1,58 @@
 <div layout-padding>
-    <div layout="row" layout-align="left center">
+    <div layout="row" layout-align="start center">
+        <!--Back to menu button-->
         <md-button ng-href="{{backLink}}" class="md-icon-button">
             <md-icon class="material-icons"> arrow_back </md-icon>
         </md-button>
-        <h1>{{goal.title}}</h1>
+        <h3>Back to Goal List</h3>
     </div>
-    <p>Type: {{goal.type}}</p>
-    <p>Description: {{goal.description}}</p>
-    <p>Date: {{date}}</p>
-    <p>Category: {{goal.category}}</p>
-    <p>Progress: {{goal.progress}}</p>
+
+    <!--Goal Card-->
+    <md-card>
+        <!--Header-->
+        <md-card-header>
+            <md-card-avatar>
+                <md-icon class="material-icons">{{goal.icon}}</md-icon>
+            </md-card-avatar>
+            <md-card-header-text layout="row">
+                    <div layout="col">
+                        <div class="md-title">Category:</div>
+                        <div class="md-subhead">{{goal.category}}</div>
+                    </div>
+                <span flex></span>
+                <md-button class="md-icon-button md-primary" ng-click="editGoal()">
+                    <md-icon class="material-icons">mode_edit</md-icon>
+                </md-button>
+            </md-card-header-text>
+        </md-card-header>
+        <!--Card Title (including goal attributes)-->
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{goal.title}}</span>
+                <span class="md-subhead">Goal Date: {{goal.date | date: 'fullDate'}}</span>
+                <span class="md-subhead">Progress: {{goal.progress}}%</span>
+                <span class="md-subhead">Grade: GRADE_HERE</span>
+                <span class="md-subhead">Current Routine: ROUTINE_HERE</span>
+            </md-card-title-text>
+        </md-card-title>
+        <!--Card Description-->
+        <md-card-content>
+            <p>
+                Goal Description:
+            </p>
+            {{goal.description}}
+        </md-card-content>
+        <!--Card Actions tabs-->
+        <md-card-actions layout="row" layout-align="start center">
+            <md-button>Goal Graph</md-button>
+            <md-button>Change Current Routine</md-button>
+            <md-button>Change Routine</md-button>
+            <md-button>Change Routine</md-button>
+            <md-card-icon-actions>
+                <md-button class="md-icon-button" aria-label="icon">
+                    <md-icon md-svg-icon="icon"></md-icon>
+                </md-button>
+            </md-card-icon-actions>
+        </md-card-actions>
+    </md-card>
 </div>
