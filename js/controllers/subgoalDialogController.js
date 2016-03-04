@@ -43,7 +43,6 @@ angular.module('ProgressReport')
         $scope.subgoal = '';
         $scope.SubgoalForm.$setPristine();
         $scope.SubgoalForm.$setUntouched();
-        console.log("pristine? ", $scope.SubgoalForm.$pristine);
     };
 
     $scope.removeSubgoal = function (subgoal) {
