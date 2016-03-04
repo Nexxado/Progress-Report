@@ -15,7 +15,7 @@ angular.module('ProgressReport')
                 .position('bottom right'));
             return;
         }
-//        goal.subgoals = $scope.subgoals;
+        goal.subgoals = $scope.subgoals;
         $mdDialog.hide(goal);
     };
 
