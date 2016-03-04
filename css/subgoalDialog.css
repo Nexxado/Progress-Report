@@ -1,0 +1,23 @@
+md-list-item.subgoal.ng-enter {
+    opacity: 0;
+    padding-left: 50px;
+    transition: all ease 250ms;
+}
+
+md-list-item.subgoal.ng-enter-active {
+    opacity: 1.0;
+    padding-left: 0px;
+}
+
+md-list-item.subgoal.ng-leave {
+    opacity: 1.0;
+    padding-left: 0px;
+    transition: all ease 250ms;
+}
+
+md-list-item.subgoal.ng-leave-active {
+    opacity: 0;
+    padding-left: 50px;
+}
+
+

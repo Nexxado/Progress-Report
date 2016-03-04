@@ -34,7 +34,7 @@ angular.module('ProgressReport')
             var mockObject = {
                 type: type,
                 title: 'Title ' + r,
-                description: 'Description ' + i,                
+                description: 'Description ' + i,
                 date: date,
                 category: category,
                 progress: (Math.random() * 100).toFixed(0),
@@ -89,7 +89,7 @@ angular.module('ProgressReport')
             $scope.checkedGoals.push(goal);
         }
     };
-    
+
     $scope.scrollTo = function (eID) {
         anchorSmoothScroll.scrollTo(eID);
     };
@@ -139,7 +139,7 @@ angular.module('ProgressReport')
             .then(function (type) {
 
                 $scope.addDialog($event, type);
-            
+
             }, function () {
                 console.log('Dialog Canceled.');
             });
@@ -167,6 +167,33 @@ angular.module('ProgressReport')
 
                 $scope.goals.push(newGoal);
                 DatabaseService.addGoal(newGoal);
+
+            }, function () {
+                console.log('Dialog Canceled.');
+            });
+    };
+
+
+    $scope.subgoalDialog = function ($event) { //FIXME: accept goal variable
+        
+        var goal = JSON.parse(localStorage.getItem('goals')).pop(); //FIXME: delete after Testing
+        
+        var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
+
+        $mdDialog.show({
+                controller: 'SubgoalDialogController',
+                templateUrl: 'templates/goals/subgoalDialog.html',
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                clickOutsideToClose: false,
+                fullscreen: useFullScreen,
+                locals: {
+                    goal: goal
+                }
+            })
+            .then(function (subgoals) {
+
+                console.log("subgoals: ", subgoals);
 
             }, function () {
                 console.log('Dialog Canceled.');

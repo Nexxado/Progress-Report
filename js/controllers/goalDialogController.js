@@ -31,7 +31,7 @@ angular.module('ProgressReport')
         $scope.lockDate = true;
         $scope.dialogTitle = 'Edit Goal';
         $scope.goal = goal;
-        $scope.timeAmount = Math.round((goal.date - (new Date())) / (1000 * 60 * 60 * 24));
+        $scope.timeAmount = Math.round((goal.date - (new Date())) / (1000 * 60 * 60 * 24)); //show time amount in days
 
         //Autocomplete variables
         $scope.categorySearch = goal.category;

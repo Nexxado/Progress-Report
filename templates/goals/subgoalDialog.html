@@ -1,0 +1,56 @@
+<md-dialog aria-label="Sub-Goal Dialog" flex="50">
+    <form name="SubgoalForm" ng-submit="addSubgoal()">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Define Sub Goals</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon class="material-icons">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div layout="column">
+                    <div layout="row">
+                        <md-input-container flex>
+                            <label>Describe a sub-goal</label>
+                            <md-icon class="material-icons">label</md-icon>
+                            <input type="text" id="subgoal" name="subgoal" ng-model="subgoal" minlength="5" md-maxlength="50">
+                            <div ng-messages="SubgoalForm.subgoal.$error">
+                                <div ng-message="minlength">
+                                    Description is too short
+                                </div>
+                                <div ng-message="md-maxlength">
+                                    Description is too long
+                                </div>
+                            </div>
+                        </md-input-container>
+<!--                        <span flex></span>-->
+                        <div layout="row" layout-align="end center">
+                            <md-button type="submit" class="md-primary md-icon-button" layout-align="end center">
+                                <md-icon class="material-icons">add_box</md-icon>
+                            </md-button>
+                        </div>
+                    </div>
+                    <md-list>
+                        <md-list-item class="subgoal" ng-repeat="subgoal in subgoals" flex>
+                            <div class="md-list-item-text">
+                                <p>{{ subgoal }}</p>
+                            </div>
+                            <span flex></span>
+                            <md-button class="md-warn md-icon-button" ng-click="removeSubgoal(subgoal)">
+                                <md-icon class="material-icons">indeterminate_check_box</md-icon>
+                            </md-button>
+                            <md-divider></md-divider>
+                        </md-list-item>
+                    </md-list>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="cancel()" class="md-warn">Cancel</md-button>
+            <md-button ng-click="submit()" class="md-primary">Done</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
