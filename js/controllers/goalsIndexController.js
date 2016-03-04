@@ -132,7 +132,7 @@ angular.module('ProgressReport')
                 templateUrl: 'templates/goals/typeDialog.html',
                 parent: angular.element(document.body),
                 targetEvent: $event,
-                clickOutsideToClose: true,
+                clickOutsideToClose: false,
                 fullscreen: useFullScreen,
             })
             .then(function (type) {
@@ -154,7 +154,7 @@ angular.module('ProgressReport')
                 templateUrl: 'templates/goals/goalDialog.html',
                 parent: angular.element(document.body),
                 targetEvent: $event,
-                clickOutsideToClose: true,
+                clickOutsideToClose: false,
                 fullscreen: useFullScreen,
                 locals: {
                     //goal: DatabaseService.getGoal({title: 'test'}),
