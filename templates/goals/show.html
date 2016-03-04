@@ -1,4 +1,4 @@
-<div layout-padding>
+<div layout-padding flex>
     <div layout="row" layout-align="start center">
         <!--Back to menu button-->
         <md-button ng-href="{{backLink}}" class="md-icon-button">
@@ -30,9 +30,10 @@
             </md-card-title-text>
         </md-card-title>
         <md-card-content>
-            <!-- need to find a way to make tab stretch to show all content-->
-            <md-tabs>
-                <md-tab label="Info">
+
+            <md-tabs md-dynamic-height="true">
+                <md-tab label="Description">
+                    <!-- need to find a way to make tab stretch to show all content-->
                     <p>
                         <h4>Goal Date: {{goal.date | date: 'fullDate'}}</h4></p>
                     <p>
@@ -53,8 +54,27 @@
                         <h4>Current Routine: ROUTINE_HERE</h4></p>
                 </md-tab>
                 <md-tab label="Graph"></md-tab>
-                <md-tab label="Routines"></md-tab>
+                <md-tab label="Routines">
+                    <md-button class="md-icon-button md-primary" ng-click="editDialog($event)">
+                        <md-icon class="material-icons">add_circle</md-icon>
+                    </md-button>
+                    <md-button class="md-icon-button md-primary" ng-click="editDialog($event)">
+                        <md-icon class="material-icons">edit</md-icon>
+                    </md-button>
+
+                    <md-list>
+                        <md-list-item class="md-2-line" ng-repeat="routine in goal.routines">
+                            <md-checkbox ng-model="item.done"></md-checkbox>
+                            <div class="md-list-item-text">
+                                <h3>{{routine.title}}</h3>
+                                <p>{{routine.description}}</p>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+
+                </md-tab>
             </md-tabs>
         </md-card-content>
     </md-card>
+
 </div>

@@ -19,7 +19,8 @@ angular.module('ProgressReport')
         */
         title: "",
         description: "",
-        exercises: []
+        exercises: [],
+        active: false
     };
     
     $scope.exercise = {
