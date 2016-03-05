@@ -105,8 +105,8 @@ angular.module('ProgressReport')
     $scope.isChecked = function (goal) {
         return $scope.checkedGoals.indexOf(goal) > -1;
     };
-    
-    
+
+
     $scope.compareGoals = function ($event) {
         if ($scope.checkedGoals.length < 2) {
             $mdDialog.show(
@@ -171,13 +171,12 @@ angular.module('ProgressReport')
 
                 if (type === constants.goalType.achievement) {
                     $scope.subgoalDialog($event, newGoal);
-
+                } else if (type === constants.goalType.numerical) {
+                    $scope.numericGoalDialog($event, newGoal);
                 } else {
-
                     $scope.goals.push(newGoal);
                     DatabaseService.addGoal(newGoal);
                 }
-
 
             }, function () {
                 console.log('Dialog Canceled.');
@@ -210,6 +209,31 @@ angular.module('ProgressReport')
             });
     };
 
+    //Dialog to create a current metric and goal metric
+    $scope.numericGoalDialog = function ($event, goal) {
+
+        $mdDialog.show({
+                controller: 'NumericGoalDialogController',
+                templateUrl: 'templates/goals/numericGoalDialog.html',
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                clickOutsideToClose: false,
+                fullscreen: true,
+                locals: {
+                    goal: goal
+                }
+            })
+            .then(function (goal) {
+
+                $scope.goals.push(goal);
+                DatabaseService.addGoal(goal);
+
+            }, function () {
+                console.log('Dialog Canceled.');
+            });
+    };
+
+
     //Dialog with graph comparing several goals
     $scope.compareDialog = function ($event) {
 
@@ -231,6 +255,7 @@ angular.module('ProgressReport')
                 console.log('Dialog Canceled.');
             });
     };
+
 
     //pressing Backspace closes currently open dialogs
     $scope.$on('$locationChangeStart', function (event) {

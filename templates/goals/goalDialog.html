@@ -58,13 +58,16 @@
                     <div layout="row" layout-padding ng-show="!specificDate">
                         <md-input-container>
                             <label>Amount</label>
-                            <input ng-disabled="lockDate" class="noArrows" type="number" name="timeAmount" ng-model="timeAmount" min="1" step="1" required>
+                            <input ng-disabled="lockDate" class="noArrows" type="number" name="timeAmount" ng-model="timeAmount" min="1" max="1000" step="1" required>
                             <div ng-messages="AddGoalForm.timeAmount.$error">
                                 <div ng-message="required">
                                     This is required
                                 </div>
                                 <div ng-message="min">
                                     Minimum value is 1
+                                </div>
+                                <div ng-message="max">
+                                    Maximum value is 1000
                                 </div>
                             </div>
                         </md-input-container>

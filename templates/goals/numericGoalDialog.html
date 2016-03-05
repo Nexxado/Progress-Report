@@ -1,0 +1,49 @@
+<md-dialog aria-label="Sub-Goal Dialog" flex="30">
+    <form name="NumericGoalForm" ng-submit="submit()" novalidate>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Decide Numeric</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon class="material-icons">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div layout="column">
+                    <md-input-container class="md-block">
+                        <label>Current #</label>
+                        <md-icon class="material-icons">label</md-icon>
+                        <input class="noArrows" type="number" name="currentNum" ng-model="currentNum" min="0" required>
+                        <div ng-messages="NumericGoalForm.currentNum.$error">
+                            <div ng-message="required">
+                                This is required
+                            </div>
+                            <div ng-message="min">
+                                Minimum value is 0
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Goal #</label>
+                        <md-icon class="material-icons">stars</md-icon>
+                        <input class="noArrows" type="number" name="goalNum" ng-model="goalNum" min="1" required>
+                        <div ng-messages="NumericGoalForm.goalNum.$error">
+                            <div ng-message="required">
+                                This is required
+                            </div>
+                            <div ng-message="min">
+                                Minimum value is 1
+                            </div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions>
+            <md-button ng-click="cancel()" class="md-warn">Cancel</md-button>
+            <md-button type="submit" class="md-primary">Submit</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
