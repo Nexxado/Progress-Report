@@ -1,0 +1,51 @@
+{
+  "name": "internet-course-project",
+  "version": "1.0.0",
+  "dependencies": {
+    "angular": {
+      "version": "1.5.0",
+      "from": "angular@>=1.5.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/angular/-/angular-1.5.0.tgz"
+    },
+    "angular-animate": {
+      "version": "1.5.0",
+      "from": "angular-animate@>=1.5.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/angular-animate/-/angular-animate-1.5.0.tgz"
+    },
+    "angular-aria": {
+      "version": "1.5.0",
+      "from": "angular-aria@>=1.5.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/angular-aria/-/angular-aria-1.5.0.tgz"
+    },
+    "angular-material": {
+      "version": "1.0.6",
+      "from": "angular-material@>=1.0.5 <2.0.0",
+      "resolved": "https://registry.npmjs.org/angular-material/-/angular-material-1.0.6.tgz"
+    },
+    "angular-messages": {
+      "version": "1.5.0",
+      "from": "angular-messages@>=1.5.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/angular-messages/-/angular-messages-1.5.0.tgz"
+    },
+    "angular-route": {
+      "version": "1.5.0",
+      "from": "angular-route@>=1.5.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/angular-route/-/angular-route-1.5.0.tgz"
+    },
+    "angular-sanitize": {
+      "version": "1.5.0",
+      "from": "angular-sanitize@>=1.5.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/angular-sanitize/-/angular-sanitize-1.5.0.tgz"
+    },
+    "chart.js": {
+      "version": "1.0.2",
+      "from": "chart.js@>=1.0.2 <2.0.0",
+      "resolved": "https://registry.npmjs.org/chart.js/-/chart.js-1.0.2.tgz"
+    },
+    "jquery": {
+      "version": "2.2.1",
+      "from": "jquery@>=2.2.0 <3.0.0",
+      "resolved": "https://registry.npmjs.org/jquery/-/jquery-2.2.1.tgz"
+    }
+  }
+}

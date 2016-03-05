@@ -4,13 +4,16 @@
     -ms-user-select: none;
     user-select: none;
 }
-
 .chrome-image-fix {
     min-height: 0;
 }
 
+/* Fix FAB icon not vertically aligned */
+md-icon.material-icons {
+    display: block !important;
+}
 
-/* Tasks Index FAB */
+/* Goals Index FAB */
 .md-button.md-fab.md-fab-bottom-right {
     top: auto;
     right: 20px;
@@ -20,21 +23,21 @@
 }
 
 /* Animation: Fade*/
+
 .fade {
     transition: all ease 250ms;
 }
-
 .fade.ng-hide {
     opacity: 0;
 }
 
 /* graphLegend directive */
+
 .legend-color {
     height: 10px;
     width: 10px;
     display: inline-block;
 }
-
 .legend-text {
     padding: 5px;
 }
