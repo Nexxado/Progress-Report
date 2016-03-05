@@ -47,7 +47,7 @@ describe('Database - Goals', function () {
             date: new Date(2019, 08, 08),
             category: 'updatedCategory'
         };
-        $dbService.updateGoal(testGoal, updatedGoal);
+        $dbService.updateGoal(updatedGoal);
         var goal = $dbService.getGoal(testGoal);
         expect(goal).toEqual(updatedGoal);
 
