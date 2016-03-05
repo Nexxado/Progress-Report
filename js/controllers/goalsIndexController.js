@@ -116,8 +116,10 @@ angular.module('ProgressReport')
             return;
         }
 
+
+        $scope.compareDialog($event);
         //Implement Comparing goals
-        $scope.toggleEditMode();
+//        $scope.toggleEditMode();
     };
 
 
@@ -200,6 +202,28 @@ angular.module('ProgressReport')
 
                 $scope.goals.push(goal);
                 DatabaseService.addGoal(goal);
+
+            }, function () {
+                console.log('Dialog Canceled.');
+            });
+    };
+
+
+    $scope.compareDialog = function ($event) {
+
+        $mdDialog.show({
+                controller: 'CompareDialogController',
+                templateUrl: 'templates/goals/compareDialog.html',
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                clickOutsideToClose: false,
+                fullscreen: true,
+                locals: {
+                    goals: $scope.checkedGoals
+                }
+            })
+            .then(function () {
+                $scope.toggleEditMode();
 
             }, function () {
                 console.log('Dialog Canceled.');
