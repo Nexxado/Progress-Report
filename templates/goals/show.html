@@ -1,13 +1,71 @@
-<div layout-padding>
-    <div layout="row" layout-align="left center">
+<div layout-padding flex>
+    <div layout="row" layout-align="start center">
+        <!--Back to menu button-->
         <md-button ng-href="{{backLink}}" class="md-icon-button">
             <md-icon class="material-icons"> arrow_back </md-icon>
         </md-button>
-        <h1>{{goal.title}}</h1>
+        <h3>Back to Goal List</h3>
     </div>
-    <p>Type: {{goal.type}}</p>
-    <p>Description: {{goal.description}}</p>
-    <p>Date: {{date}}</p>
-    <p>Category: {{goal.category}}</p>
-    <p>Progress: {{goal.progress}}</p>
+
+    <!--Goal Card-->
+    <md-card>
+        <md-card-header>
+            <md-card-avatar>
+                <md-icon class="material-icons">{{goal.icon}}</md-icon>
+            </md-card-avatar>
+            <md-card-header-text layout="row">
+                <div class="md-title">Category:
+                    <p>{{goal.category}}</p>
+                </div>
+                <span flex></span>
+                <md-button class="md-icon-button md-primary" ng-click="editDialog($event)">
+                    <md-icon class="material-icons">mode_edit</md-icon>
+                </md-button>
+            </md-card-header-text>
+        </md-card-header>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">{{goal.title}}</span>
+                <span class="md-subhead">Grade: GRADE_HERE</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+
+            <md-tabs md-dynamic-height="true">
+                <md-tab label="Description">
+                    <p>
+                        <h4>Goal Date: {{goal.date | date: 'fullDate'}}</h4>
+                    </p>
+                    <p>
+                        <h4>Progress: {{goal.progress}}%</h4>
+                    </p>
+                    <p>
+                        <h4>Description: {{goal.description}}</h4>
+                    </p>
+
+                </md-tab>
+                <md-tab label="Graph"></md-tab>
+                <md-tab label="Routines" layout="row">
+                    <md-button class="md-icon-button md-primary" ng-click="addRoutine($event)">
+                        <md-icon class="material-icons">add_circle</md-icon>
+                    </md-button>
+                    <md-switch ng-model="data.cb1" aria-label="editSwitch">
+                        Edit
+                    </md-switch>
+
+                    <md-list>
+                        <md-list-item class="md-2-line" ng-repeat="routine in goal.routines">
+                            <md-checkbox ng-model="item.done"></md-checkbox>
+                            <div class="md-list-item-text">
+                                <h3>{{routine.title}}</h3>
+                                <p>{{routine.description}}</p>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+
+                </md-tab>
+            </md-tabs>
+        </md-card-content>
+    </md-card>
+
 </div>

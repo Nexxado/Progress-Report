@@ -17,10 +17,13 @@ angular.module('ProgressReport')
             category: "",
             progress: 0,
             icon: "assignment",
-            done: false
+            done: false,
+            //Added by dan:
+            routines: [],
+            achievements: [],
+            grade: 0
         };
         $scope.timeAmount = '';
-
         //Autocomplete variables
         $scope.categorySearch = undefined;
         $scope.selectedCategory = undefined;
