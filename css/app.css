@@ -27,3 +27,14 @@
 .fade.ng-hide {
     opacity: 0;
 }
+
+/* graphLegend directive */
+.legend-color {
+    height: 10px;
+    width: 10px;
+    display: inline-block;
+}
+
+.legend-text {
+    padding: 5px;
+}
