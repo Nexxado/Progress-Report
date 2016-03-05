@@ -15,7 +15,7 @@
                 <md-input-container class="md-block">
                     <label>Title</label>
                     <md-icon class="material-icons">title</md-icon>
-                    <input type="text" name="title" ng-model="goal.title" required>
+                    <input ng-disabled="isEditing" type="text" name="title" ng-model="goal.title" required>
                     <md-tooltip md-delay="1000">Sum up your goal in a word or two</md-tooltip>
                     <div ng-messages="AddGoalForm.title.$error">
                         <div ng-message="required">

@@ -22,13 +22,13 @@ angular.module('ProgressReport')
         exercises: [],
         active: false
     };
-    
+
     $scope.exercise = {
         description: "",
         repetitions: 0,
-        
+
     };
-    
+
     $scope.achievement = {
 
     };
@@ -77,6 +77,31 @@ angular.module('ProgressReport')
     };
 
     $scope.calcGoalGrade = function () {
-        
+
+    };
+
+    $scope.addRoutine = function ($event) {
+        console.log("asdassadasdasddsada");
+        var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
+        $mdDialog.show({
+                controller: 'RoutineDialogController',
+                templateUrl: 'templates/goals/routineDialog.html',
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                clickOutsideToClose: false,
+                fullscreen: useFullScreen
+//                locals: {
+//                    goal: $scope.goal,
+//                    type: ""
+//                }
+            })
+            .then(function (routine) {
+                $scope.goal.routines.push(routine);
+                var result = DatabaseService.updateGoal($scope.goal);
+                console.log(result);
+
+            }, function () {
+                console.log('Dialog Canceled.');
+            });
     };
 });

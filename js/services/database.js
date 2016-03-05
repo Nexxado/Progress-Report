@@ -22,9 +22,9 @@ angular.module('ProgressReport')
         return true;
     };
 
-    this.updateGoal = function (oldGoal, newGoal) {
+    this.updateGoal = function (newGoal) {
 
-        if (!oldGoal || !newGoal) {
+        if (!newGoal) {
             return false;
         }
         
@@ -34,10 +34,10 @@ angular.module('ProgressReport')
         }
         goals = JSON.parse(goals);
         
-        var oldTitle = oldGoal.title.toLowerCase();
+        var title = newGoal.title.toLowerCase();
 
         for (var i in goals) {
-            if (goals[i].title.toLowerCase() === oldTitle) {
+            if (goals[i].title.toLowerCase() === title) {
                 goals[i] = newGoal;
                 localStorage.setItem(constants.goalsKey, JSON.stringify(goals));
                 return true;
