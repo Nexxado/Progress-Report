@@ -10,6 +10,7 @@ angular.module('ProgressReport')
         $mdDialog.cancel();
     };
 
+    //timeout function needed for jquery to run after DOM is loaded.
     $timeout(function () {
 
         var ctx = $("#graph").get(0).getContext("2d");
@@ -34,7 +35,8 @@ angular.module('ProgressReport')
                     highlightFill: "rgba(0,150,136,0.75)",
                     highlightStroke: "rgba(76,175,80,1)",
                     data: progress
-        }]
+                }
+            ]
         };
 
         var options = {
@@ -43,7 +45,7 @@ angular.module('ProgressReport')
 
         Chart.defaults.global.tooltipTemplate = "<%if (datasetLabel){%><%=datasetLabel%>: <%}%><%= value %>%";
 
-        var barChart = chart.Bar(data, options);
+        chart.Bar(data, options); //create Bar graph
 
     });
 

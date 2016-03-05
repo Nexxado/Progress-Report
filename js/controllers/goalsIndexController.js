@@ -39,7 +39,7 @@ angular.module('ProgressReport')
                 category: category,
                 progress: (Math.random() * 100).toFixed(0),
                 icon: 'assignment',
-                done: Math.random() < 0.5
+                done: Math.random() < 0.25
             };
             DatabaseService.addGoal(mockObject);
         }
@@ -68,6 +68,7 @@ angular.module('ProgressReport')
     /****************************/
     /******* Click Methods ******/
     /****************************/
+    //List item click function
     $scope.goalClicked = function (goal) {
         if (!$scope.editMode) {
             $scope.navigateTo('/goals/' + goal.title);
@@ -90,6 +91,7 @@ angular.module('ProgressReport')
         }
     };
 
+    //Smooth scroll - on 'search' focus
     $scope.scrollTo = function (eID) {
         anchorSmoothScroll.scrollTo(eID);
     };
@@ -103,6 +105,8 @@ angular.module('ProgressReport')
     $scope.isChecked = function (goal) {
         return $scope.checkedGoals.indexOf(goal) > -1;
     };
+    
+    
     $scope.compareGoals = function ($event) {
         if ($scope.checkedGoals.length < 2) {
             $mdDialog.show(
@@ -118,8 +122,6 @@ angular.module('ProgressReport')
 
 
         $scope.compareDialog($event);
-        //Implement Comparing goals
-//        $scope.toggleEditMode();
     };
 
 
@@ -127,6 +129,7 @@ angular.module('ProgressReport')
     /****************************/
     /****** Dialog Methods ******/
     /****************************/
+    //Dialog to select goal type
     $scope.typeDialog = function ($event) {
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
 
@@ -147,8 +150,7 @@ angular.module('ProgressReport')
             });
     };
 
-
-
+    //Dialog to input goal details
     $scope.addDialog = function ($event, type) {
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
 
@@ -182,7 +184,7 @@ angular.module('ProgressReport')
             });
     };
 
-
+    //Dialog to create subgoals for 'achievement' dialog
     $scope.subgoalDialog = function ($event, goal) {
 
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
@@ -208,7 +210,7 @@ angular.module('ProgressReport')
             });
     };
 
-
+    //Dialog with graph comparing several goals
     $scope.compareDialog = function ($event) {
 
         $mdDialog.show({
@@ -230,10 +232,9 @@ angular.module('ProgressReport')
             });
     };
 
-    /* pressing Backspace closes currently open dialogs */
+    //pressing Backspace closes currently open dialogs
     $scope.$on('$locationChangeStart', function (event) {
-        // Check if there is a dialog active
-        if (angular.element(document).find('md-dialog').length > 0) {
+        if (angular.element(document).find('md-dialog').length > 0) { // Check if there is a dialog active
             event.preventDefault(); // Prevent route from changing
             $mdDialog.cancel(); // Cancel the active dialog
         }

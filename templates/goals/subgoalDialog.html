@@ -12,8 +12,9 @@
         <md-dialog-content>
             <div class="md-dialog-content">
                 <div layout="column">
+                    <!-- Subgoal Input -->
                     <div layout="row">
-                        <md-input-container flex>
+                        <md-input-container>
                             <label>Describe a sub-goal</label>
                             <md-icon class="material-icons">label</md-icon>
                             <input type="text" id="subgoal" name="subgoal" ng-model="subgoal" minlength="5" md-maxlength="50" required>
@@ -32,6 +33,7 @@
                             </md-button>
                         </div>
                     </div>
+                    <!-- Subgoal List -->
                     <md-list>
                         <md-list-item class="subgoal clip-text" ng-repeat="subgoal in subgoals" layout-wrap>
                             <div class="md-list-item-text">
