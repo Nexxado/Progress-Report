@@ -20,3 +20,4 @@
 * AngularJS
 * Angular Material
 * Karma
+* Chart.js
