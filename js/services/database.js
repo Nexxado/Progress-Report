@@ -22,9 +22,9 @@ angular.module('ProgressReport')
         return true;
     };
 
-    this.updateGoal = function (oldGoal, newGoal) {
+    this.updateGoal = function (updatedGoal) {
 
-        if (!oldGoal || !newGoal) {
+        if (!updatedGoal) {
             return false;
         }
         
@@ -34,11 +34,11 @@ angular.module('ProgressReport')
         }
         goals = JSON.parse(goals);
         
-        var oldTitle = oldGoal.title.toLowerCase();
+        var title = updatedGoal.title.toLowerCase();
 
         for (var i in goals) {
-            if (goals[i].title.toLowerCase() === oldTitle) {
-                goals[i] = newGoal;
+            if (goals[i].title.toLowerCase() === title) {
+                goals[i] = updatedGoal;
                 localStorage.setItem(constants.goalsKey, JSON.stringify(goals));
                 return true;
             }
