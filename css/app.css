@@ -30,6 +30,7 @@ md-icon.material-icons {
 }
 .legend-text {
     padding: 5px;
+    padding-right: 20px;
 }
 
 /* color links with material theme */
