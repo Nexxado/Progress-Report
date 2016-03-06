@@ -1,1 +1,19 @@
-<h1>About</h1>
+<div layout="column">
+    <div>
+        <h1>About</h1>
+    </div>
+    <md-divider></md-divider>
+    <h3>"Programming in Internet Environment" Course Project</h3>
+    
+    <b><u>Students:</u></b>
+    <ul>
+        <li>Dan Draiman</li>
+        <li>Netanel Draiman</li>
+    </ul>
+    
+    <b><u>Libraries Used:</u></b>
+    <ul>
+        <li class="material" ng-repeat="lib in libraries"><a ng-href="{{lib.link}}" target="_blank">{{lib.name}} <i class="material-icons">open_in_new</i></a></li>
+    </ul>
+    
+</div>

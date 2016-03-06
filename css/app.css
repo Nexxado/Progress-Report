@@ -31,3 +31,13 @@ md-icon.material-icons {
 .legend-text {
     padding: 5px;
 }
+
+/* color links with material theme */
+.material a {
+    color: #009688;
+    text-decoration: none;
+}
+
+.material a:hover {
+    color: #4CAF50;
+}

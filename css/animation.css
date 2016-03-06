@@ -67,3 +67,64 @@
 .slide-top.ng-leave-active {
     transform: translateY(-100%);
 }
+
+/**********************************/
+/***** Bounce in\out from Top *****/
+/**********************************/
+.bounce-top.ng-enter {
+    position: absolute;
+    animation: 1s bounceInDown;
+    -webkit-animation: 1s bounceInDown;
+    -moz-animation: 1s bounceInDown;
+}
+
+.bounce-top.ng-leave {
+    position: absolute;
+    animation: 1s bounceOutUp;
+    -webkit-animation: 1s bounceOutUp;
+    -moz-animation: 1s bounceOutUp;
+}
+
+@keyframes bounceInDown {
+  from, 60%, 75%, 90%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -3000px, 0);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translate3d(0, 25px, 0);
+  }
+
+  75% {
+    transform: translate3d(0, -10px, 0);
+  }
+
+  90% {
+    transform: translate3d(0, 5px, 0);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+@keyframes bounceOutUp {
+  20% {
+    transform: translate3d(0, -10px, 0);
+  }
+
+  40%, 45% {
+    opacity: 1;
+    transform: translate3d(0, 20px, 0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(0, -2000px, 0);
+  }
+}
