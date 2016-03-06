@@ -46,12 +46,13 @@ angular.module('ProgressReport')
                 clickOutsideToClose: false,
                 fullscreen: useFullScreen,
                 locals: {
-                    goal: $scope.goal,
+                    goal: oldGoal,
                     type: ""
                 }
             })
             .then(function (updatedGoal) {
                 var result = DatabaseService.updateGoal(oldGoal, updatedGoal);
+                $scope.goal = updatedGoal;
                 console.log(result);
 
             }, function () {
