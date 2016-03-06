@@ -2,6 +2,8 @@ angular.module('ProgressReport')
 
 .controller('GoalsShowController', function ($scope, $routeParams, DatabaseService, $mdDialog, $mdMedia) {
 
+    $scope.pageClass= 'slide-right';
+    
     $scope.backLink = '/#/goals';
 
     $scope.goal = DatabaseService.getGoal({

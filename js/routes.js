@@ -11,6 +11,11 @@ angular.module('ProgressReport')
         controller: 'HomePageController'
     })
     
+    .when('/about', {
+        templateUrl: 'templates/about.html',
+        controller: 'AboutPageController'
+    })
+    
     .when('/goals', {
         templateUrl: 'templates/goals/index.html',
         controller: 'GoalsIndexController'

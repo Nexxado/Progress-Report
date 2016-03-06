@@ -15,6 +15,7 @@
 
     <!-- App -->
     <link href="css/app.css" rel="stylesheet">
+    <link href="css/animation.css" rel="stylesheet">
     <link href="css/goalsIndex.css" rel="stylesheet">
     <link href="css/goalDialog.css" rel="stylesheet">
     <link href="css/subgoalDialog.css" rel="stylesheet">
@@ -26,7 +27,7 @@
 
     <toolbar></toolbar>
 
-    <md-content layout-padding ng-view></md-content>
+    <md-content ng-class="pageClass" layout-padding ng-view></md-content>
 
 </body>
 
@@ -47,6 +48,7 @@
 
 <!--  Controllers  -->
 <script src="js/controllers/homePageController.js"></script>
+<script src="js/controllers/aboutPageController.js"></script>
 <script src="js/controllers/goalsIndexController.js"></script>
 <script src="js/controllers/goalsShowController.js"></script>
 <script src="js/controllers/goalDialogController.js"></script>

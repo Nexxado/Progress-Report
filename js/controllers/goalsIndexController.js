@@ -1,6 +1,8 @@
 angular.module('ProgressReport')
 
 .controller('GoalsIndexController', function ($scope, $location, $mdDialog, $mdMedia, DatabaseService, anchorSmoothScroll, constants) {
+    
+    $scope.pageClass = 'slide-right';
 
     /**********************************/
     /********** MOCK METHODS **********/
