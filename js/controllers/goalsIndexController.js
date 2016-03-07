@@ -2,8 +2,6 @@ angular.module('ProgressReport')
 
 .controller('GoalsIndexController', function ($scope, $location, $mdDialog, $mdMedia, DatabaseService, anchorSmoothScroll, constants) {
     
-    $scope.pageClass = 'slide-right'; //used for animation of ng-view
-
     /**********************************/
     /********** MOCK METHODS **********/
     /**********************************/
