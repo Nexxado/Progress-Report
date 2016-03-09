@@ -42,3 +42,8 @@ md-icon.material-icons {
 .material a:hover {
     color: #4CAF50;
 }
+
+/* overwrite ng-view layout-padding */
+.no-padding {
+    padding: 0;
+}

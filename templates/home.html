@@ -1,2 +1,14 @@
-<h1>Home Page</h1>
-<md-button class="md-primary" ng-href="{{goalsLink}}">Goals</md-button>
+<div class="banner unselectable" layout="column">
+    <h1>Progress Report</h1>
+    <span flex></span>
+    <div>
+        <md-button class="md-primary md-raised" ng-href="{{goalsLink}}">Get Started</md-button>
+    </div>
+</div>
+<div layout="row" layout-align="center center">
+    <h3>Dream it. Do it. Track it.</h3>
+</div>
+<div layout="column" layout-gt-sm="row" layout-align="center center" layout-padding>
+    <canvas class="graph"></canvas>
+    <canvas class="graph"></canvas>
+</div>

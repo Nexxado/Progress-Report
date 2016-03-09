@@ -1,0 +1,29 @@
+.banner {
+    min-width: 100%;
+    text-align: center;
+    position: absolute;
+    font-size: 150%;
+    color: white;
+    background-image: url('/img/bg.jpg');
+    min-height: 450px;
+    min-width: 100%;
+    left: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+}
+
+.banner h1 {
+    padding: 8px;
+}
+
+.banner a {
+    margin-bottom: 25px;
+}
+
+.graph {
+    height: 400px;
+    width: 600px;
+}
