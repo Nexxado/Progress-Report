@@ -1,7 +1,7 @@
 angular.module('ProgressReport')
 
 .controller('HomePageController', function ($scope, $timeout) {
-    $scope.pageClass = 'no-padding slide-right';
+    $scope.pageClass = 'no-padding fade';
     $scope.goalsLink = '/#/goals';
 
 

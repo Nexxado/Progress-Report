@@ -32,13 +32,13 @@
     <span flex></span>
     <!--  Edit Mode Button  -->
     <div layout="row" layout-align="end center">
-        <md-button ng-show="!editMode" ng-click="toggleEditMode()" class="md-primary md-icon-button fade">
+        <md-button ng-show="!editMode" ng-click="toggleEditMode()" class="md-primary md-icon-button button-fade">
             <md-icon class="material-icons">mode_edit</md-icon>
         </md-button>
-        <md-button id="btnCompare" ng-show="editMode" ng-click="compareGoals($event)" class="md-primary md-raised fade">
+        <md-button id="btnCompare" ng-show="editMode" ng-click="compareGoals($event)" class="md-primary md-raised button-fade">
             Compare
         </md-button>
-        <md-button ng-show="editMode" ng-click="toggleEditMode()" class="md-primary md-icon-button md-raised fade">
+        <md-button ng-show="editMode" ng-click="toggleEditMode()" class="md-primary md-icon-button md-raised button-fade">
             <md-icon class="material-icons">done</md-icon>
         </md-button>
     </div>

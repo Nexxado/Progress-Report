@@ -1,12 +1,45 @@
 /***********************/
 /***** Button Fade *****/
 /***********************/
-.fade {
+.button-fade {
     transition: all ease 250ms;
 }
-.fade.ng-hide {
+.button-fade.ng-hide {
     opacity: 0;
 }
+
+
+/***********************/
+/***** Fade in\out *****/
+/***********************/
+.fade.ng-enter,
+.fade.ng-leave {
+    transition: all 1s ease;
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+}
+
+.fade.ng-enter {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+}
+
+.fade.ng-enter-active {
+    opacity: 1;
+}
+
+.fade.ng-leave {
+    position: absolute;
+    width: 100%;
+    opacity: 1;
+}
+
+.fade.ng-leave-active {
+    opacity: 0;
+}
+
+
 
 /***********************************/
 /***** Slide in\out from Right *****/
@@ -73,6 +106,7 @@
 /**********************************/
 .bounce-top.ng-enter {
     position: absolute;
+    width: 100%;
     animation: 1s bounceInDown;
     -webkit-animation: 1s bounceInDown;
     -moz-animation: 1s bounceInDown;
@@ -80,6 +114,7 @@
 
 .bounce-top.ng-leave {
     position: absolute;
+    width: 100%;
     animation: 1s bounceOutUp;
     -webkit-animation: 1s bounceOutUp;
     -moz-animation: 1s bounceOutUp;
