@@ -1,21 +1,21 @@
-#Progress Report
+# Progress Report
 
-###"Programming in Internet Environment" Course Project
+### "Programming in Internet Environment" Course Project
 
-####Currently in Development.
+#### Currently in Development - [Demo](http://prog-report.herokuapp.com/)
 
-#####<u>Students:</u>
+##### <u>Students:</u>
 * Netanel Draiman
 * Dan Draiman
 
-####<u>Usage</u>
+#### <u>Usage</u>
 **NodeJS:** Clone the repository and run `npm install`
 
-#####<u>Running Tests:</u>
+##### <u>Running Tests:</u>
 * `npm install karma-cli -g` - install karma-cli globally.
 * `karma start` - start tests + watch.
 
-#####<u>Libraries</u>
+##### <u>Libraries</u>
 * jQuery
 * AngularJS
 * Angular Material
