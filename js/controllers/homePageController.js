@@ -1,8 +1,10 @@
 angular.module('ProgressReport')
 
-.controller('HomePageController', function ($scope, $timeout) {
+.controller('HomePageController', function ($scope, $timeout, DatabaseService) {
     $scope.pageClass = 'no-padding fade';
     $scope.goalsLink = '/#/goals';
+
+    $scope.buttonText = !DatabaseService.getAllGoals().length ? 'Get Started' : 'View Goals';
 
 
     $timeout(function () {

@@ -44,6 +44,10 @@
     </div>
 
 </div>
+<div class="empty-text" layout="column" layout-align="center center" ng-show="!goals.length">
+    <h1>Get Started by adding a new goal:</h1>
+    <h1>Click the "+" on the bottom right</h1>
+</div>
 <!-- Goal List -->
 <md-list>
     <md-list-item class="md-2-line goal" flex aria-label="goal list item" ng-repeat="goal in goals | categoryFilter:search.category | filter:search.input" ng-click="goalClicked(goal)">

@@ -20,4 +20,6 @@ md-list-item.goal.ng-leave-active {
     transform: translateX(50px);
 }
 
-
+.empty-text {
+    opacity: 0.3;
+}
