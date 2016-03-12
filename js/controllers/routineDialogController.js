@@ -11,4 +11,11 @@ angular.module('ProgressReport')
     };
 
     $scope.timeRangeLabels = ['Days', 'Weeks', 'Months', 'Years'];
+
+    $scope.routine = {
+        title: "",
+        description: "",
+        date: "",
+        icon: "assignment",
+    };
 });
