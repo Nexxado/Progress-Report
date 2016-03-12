@@ -39,7 +39,8 @@ angular.module('ProgressReport')
                 category: category,
                 progress: (Math.random() * 100).toFixed(0),
                 icon: 'assignment',
-                done: Math.random() < 0.25
+                done: Math.random() < 0.25,
+                routines: []
             };
             DatabaseService.addGoal(mockObject);
         }

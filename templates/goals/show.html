@@ -44,18 +44,26 @@
                     </p>
 
                 </md-tab>
-                <md-tab label="Graph"></md-tab>
-                <md-tab label="Routines" layout="row">
-                    <md-button class="md-icon-button md-primary" ng-click="addRoutine($event)">
-                        <md-icon class="material-icons">add_circle</md-icon>
-                    </md-button>
-                    <md-switch ng-model="data.cb1" aria-label="editSwitch">
-                        Edit
-                    </md-switch>
-
+                <md-tab label="Graph" ng-click="drawGraph()">
+                    <!-- Graph -->
+                    <div layout="column" layout-gt-sm="row" layout-align="center center">
+                        <graph-legend color="#009688" label="Progress"></graph-legend>
+                        <canvas id="graph"></canvas>
+                    </div>
+                </md-tab>
+                <md-tab label="Routines">
+                    <div layout="row" layout-align="start center">
+                        <md-button class="md-icon-button md-primary" ng-click="addRoutine($event)">
+                            <md-icon class="material-icons">add_circle</md-icon>
+                        </md-button>
+                        <span flex></span>
+                        <md-switch class="md-primary" ng-model="editRoutineMode" aria-label="editSwitch">
+                            Edit
+                        </md-switch>
+                    </div>
                     <md-list>
                         <md-list-item class="md-2-line" ng-repeat="routine in goal.routines">
-                            <md-checkbox ng-model="item.done"></md-checkbox>
+                            <md-checkbox ng-show="editRoutineMode" ng-model="item.done" class="md-primary"></md-checkbox>
                             <div class="md-list-item-text">
                                 <h3>{{routine.title}}</h3>
                                 <p>{{routine.description}}</p>

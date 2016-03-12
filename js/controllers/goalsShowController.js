@@ -1,6 +1,6 @@
 angular.module('ProgressReport')
 
-.controller('GoalsShowController', function ($scope, $routeParams, DatabaseService, $mdDialog, $mdMedia) {
+.controller('GoalsShowController', function ($scope, $routeParams, DatabaseService, $mdDialog, $mdMedia, $timeout) {
 
     $scope.backLink = '/#/goals';
 
@@ -9,7 +9,7 @@ angular.module('ProgressReport')
     });
 
     $scope.date = $scope.goal.date.toUTCString();
-
+    $scope.editRoutineMode = false;
     $scope.routine = {
         /*need to find a way to have a list of routines. a routine is made out of exercises and 
         a time for repeatition (every week/day/month). so i need to find a way to have a routine
@@ -91,10 +91,10 @@ angular.module('ProgressReport')
                 targetEvent: $event,
                 clickOutsideToClose: false,
                 fullscreen: useFullScreen
-//                locals: {
-//                    goal: $scope.goal,
-//                    type: ""
-//                }
+                    //                locals: {
+                    //                    goal: $scope.goal,
+                    //                    type: ""
+                    //                }
             })
             .then(function (routine) {
                 $scope.goal.routines.push(routine);
@@ -104,5 +104,42 @@ angular.module('ProgressReport')
             }, function () {
                 console.log('Dialog Canceled.');
             });
+    };
+    $scope.drawGraph = function () {
+        var ctx = $("#graph").get(0).getContext("2d");
+        var chart = new Chart(ctx);
+
+        var titles = [];
+        var progress = [];
+        titles.push($scope.goal.title);
+        progress.push($scope.goal.progress);
+//        for (var i in goals) {
+//            titles.push(goals[i].title);
+//            progress.push(goals[i].progress);
+//        }
+
+
+        var data = {
+            labels: titles,
+            datasets: [
+                {
+                    label: "Progress",
+                    fillColor: "rgba(0,150,136,0.5)",
+                    strokeColor: "rgba(76,175,80,0.8)",
+                    highlightFill: "rgba(0,150,136,0.75)",
+                    highlightStroke: "rgba(76,175,80,1)",
+                    data: progress
+                }
+            ]
+        };
+
+        var options = {
+            barShowStroke: false
+        };
+
+        Chart.defaults.global.tooltipTemplate = "<%if (datasetLabel){%><%=datasetLabel%>: <%}%><%= value %>%";
+
+        chart.Bar(data, options); //create Bar graph
+
     };
 });

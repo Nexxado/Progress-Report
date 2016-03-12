@@ -7,7 +7,7 @@ angular.module('ProgressReport')
     };
 
     $scope.submit = function () {
-        $mdDialog.hide($scope.type);
+        $mdDialog.hide($scope.routine);
     };
 
     $scope.timeRangeLabels = ['Days', 'Weeks', 'Months', 'Years'];
