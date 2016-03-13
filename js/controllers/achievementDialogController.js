@@ -7,7 +7,7 @@ angular.module('ProgressReport')
     };
 
     $scope.submit = function () {
-        $mdDialog.hide($scope.routine);
+        $mdDialog.hide($scope.achievement);
     };
 
     $scope.achievement = {

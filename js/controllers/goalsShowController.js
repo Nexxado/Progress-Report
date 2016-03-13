@@ -119,8 +119,8 @@ angular.module('ProgressReport')
                 clickOutsideToClose: false,
                 fullscreen: useFullScreen
             })
-            .then(function (routine) {
-                $scope.goal.achievements.push(routine);
+            .then(function (achievement) {
+                $scope.goal.achievements.push(achievement);
                 var result = DatabaseService.updateGoal($scope.goal);
                 console.log(result);
 
