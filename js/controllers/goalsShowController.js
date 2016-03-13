@@ -101,14 +101,15 @@ angular.module('ProgressReport')
                 console.log('Dialog Canceled.');
             });
     };
-    
-    $scope.deleteRoutine = function(routine){
+
+    $scope.deleteRoutine = function (routine) {
         var routineIndex = $scope.goal.routines.indexOf(routine);
-        if(routineIndex -1){
+        if (routineIndex > -1) {
             $scope.goal.routines.splice(routineIndex, 1);
+            DatabaseService.updateGoal($scope.goal);
         }
     };
-    
+
     $scope.addAchievement = function ($event) {
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
         $mdDialog.show({
@@ -117,7 +118,12 @@ angular.module('ProgressReport')
                 parent: angular.element(document.body),
                 targetEvent: $event,
                 clickOutsideToClose: false,
-                fullscreen: useFullScreen
+                fullscreen: useFullScreen,
+                locals: {
+                    title: "",
+                    description: "",
+                    date: ""
+                }
             })
             .then(function (achievement) {
                 $scope.goal.achievements.push(achievement);
@@ -128,7 +134,7 @@ angular.module('ProgressReport')
                 console.log('Dialog Canceled.');
             });
     };
-    
+
     $scope.drawGraph = function () {
         var ctx = $("#graph").get(0).getContext("2d");
         var chart = new Chart(ctx);
@@ -162,8 +168,8 @@ angular.module('ProgressReport')
         chart.Bar(data, options); //create Bar graph
 
     };
-    
-    $scope.turnOffEdit = function(){
+
+    $scope.turnOffEdit = function () {
         $scope.editRoutineMode = false;
     }
 });

@@ -15,9 +15,9 @@
                 <md-input-container class="md-block">
                     <label>Title</label>
                     <md-icon class="material-icons">title</md-icon>
-                    <input ng-disabled="isEditing" type="text" name="title" ng-model="routine.title" required>
+                    <input ng-disabled="isEditing" type="text" name="title" ng-model="achievement.title" required>
                     <md-tooltip md-delay="1000">Sum up your achievement in a word or two</md-tooltip>
-                    <div ng-messages="AddNewRoutine.title.$error">
+                    <div ng-messages="AddNewAchievement.title.$error">
                         <div ng-message="required">
                             This is required
                         </div>
@@ -27,9 +27,9 @@
                 <md-input-container class="md-block">
                     <label>Description</label>
                     <md-icon class="material-icons">description</md-icon>
-                    <input type="text" name="description" ng-model="routine.description" minlength="5" md-maxlength="150" required>
-                    <md-tooltip md-delay="1000">Describe your routine</md-tooltip>
-                    <div ng-messages="AddNewRoutine.description.$error">
+                    <input type="text" name="description" ng-model="achievement.description" minlength="5" md-maxlength="150" required>
+                    <md-tooltip md-delay="1000">Describe your achievement</md-tooltip>
+                    <div ng-messages="AddNewAchievement.description.$error">
                         <div ng-message="required">
                             This is required
                         </div>
