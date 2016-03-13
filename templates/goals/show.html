@@ -25,24 +25,27 @@
         </md-card-header>
         <md-card-title>
             <md-card-title-text>
-                <span class="md-headline">{{goal.title}}</span>
-                <span class="md-subhead">Grade: GRADE_HERE</span>
+                <div layout-align="center center" layout="column">
+                    <span class="md-headline">{{goal.title}}</span>
+                    <span class="md-subhead">Grade: GRADE_HERE</span>
+                </div>
             </md-card-title-text>
         </md-card-title>
         <md-card-content>
 
             <md-tabs md-dynamic-height="true">
                 <md-tab label="Description">
-                    <p>
-                        <h4>Goal Date: {{goal.date | date: 'fullDate'}}</h4>
-                    </p>
-                    <p>
-                        <h4>Progress: {{goal.progress}}%</h4>
-                    </p>
-                    <p>
-                        <h4>Description: {{goal.description}}</h4>
-                    </p>
-
+                    <div layout-align="center center" layout="column">
+                        <p>
+                            <h4>Goal Date: {{goal.date | date: 'fullDate'}}</h4>
+                        </p>
+                        <p>
+                            <h4>Progress: {{goal.progress}}%</h4>
+                        </p>
+                        <p>
+                            <h4>Description: {{goal.description}}</h4>
+                        </p>
+                    </div>
                 </md-tab>
                 <md-tab label="Graph" ng-click="drawGraph()">
                     <!-- Graph -->
@@ -61,12 +64,22 @@
                             Edit
                         </md-switch>
                     </div>
+                    <div class="empty-text" layout="column" layout-align="center center" ng-show="!goal.routines.length">
+                        <h1>Get Started by adding a new routine:</h1>
+                        <h1>Click the "+" on the top left</h1>
+                    </div>
                     <md-list>
                         <md-list-item class="md-2-line" ng-repeat="routine in goal.routines">
                             <md-checkbox ng-show="editRoutineMode" ng-model="item.done" class="md-primary"></md-checkbox>
-                            <div class="md-list-item-text">
-                                <h3>{{routine.title}}</h3>
-                                <p>{{routine.description}}</p>
+                            <div class="md-list-item-text" layout-align="start center" layout="row">
+                                <span>
+                                    <h3>{{routine.title}}</h3>
+                                    <p>{{routine.description}}</p>
+                                </span>
+                                <span flex></span>
+                                <md-button class="md-icon-button md-primary" ng-click="deleteRoutine(routine)">
+                                    <md-icon ng-show="editRoutineMode" class="material-icons">delete</md-icon>
+                                </md-button>
                             </div>
                         </md-list-item>
                     </md-list>

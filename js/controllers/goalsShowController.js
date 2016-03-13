@@ -105,6 +105,14 @@ angular.module('ProgressReport')
                 console.log('Dialog Canceled.');
             });
     };
+    
+    $scope.deleteRoutine = function(routine){
+        var routineIndex = $scope.goal.routines.indexOf(routine);
+        if(routineIndex -1){
+            $scope.goal.routines.splice(routineIndex, 1);
+        }
+    };
+    
     $scope.drawGraph = function () {
         var ctx = $("#graph").get(0).getContext("2d");
         var chart = new Chart(ctx);
@@ -113,10 +121,6 @@ angular.module('ProgressReport')
         var progress = [];
         titles.push($scope.goal.title);
         progress.push($scope.goal.progress);
-//        for (var i in goals) {
-//            titles.push(goals[i].title);
-//            progress.push(goals[i].progress);
-//        }
 
 
         var data = {
