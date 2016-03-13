@@ -146,4 +146,8 @@ angular.module('ProgressReport')
         chart.Bar(data, options); //create Bar graph
 
     };
+    
+    $scope.turnOffEdit = function(){
+        $scope.editRoutineMode = false;
+    }
 });

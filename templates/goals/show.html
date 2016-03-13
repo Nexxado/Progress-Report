@@ -54,15 +54,18 @@
                         <canvas id="graph"></canvas>
                     </div>
                 </md-tab>
-                <md-tab label="Routines">
+                <md-tab label="Routines" md-on-deselect="turnOffEdit()">
                     <div layout="row" layout-align="start center">
                         <md-button class="md-icon-button md-primary" ng-click="addRoutine($event)">
                             <md-icon class="material-icons">add_circle</md-icon>
                         </md-button>
                         <span flex></span>
-                        <md-switch class="md-primary" ng-model="editRoutineMode" aria-label="editSwitch">
-                            Edit
-                        </md-switch>
+                        <span>
+                            <md-switch class="md-primary" ng-model="editRoutineMode" aria-label="editSwitch">
+                                Edit
+                            </md-switch>
+                            <md-tooltip md-direction="left">Click here to enable "Edit" on the top right to delete Routine or set it to Active</md-tooltip>
+                        </span>
                     </div>
                     <div class="empty-text" layout="column" layout-align="center center" ng-show="!goal.routines.length">
                         <h1>Get Started by adding a new routine:</h1>
@@ -70,20 +73,54 @@
                     </div>
                     <md-list>
                         <md-list-item class="md-2-line" ng-repeat="routine in goal.routines">
-                            <md-checkbox ng-show="editRoutineMode" ng-model="item.done" class="md-primary"></md-checkbox>
+                            <md-checkbox ng-show="editRoutineMode" ng-disabled="!editRoutineMode" ng-model="routine.isActive" class="md-primary">
+                            </md-checkbox>
+                            <md-tooltip md-delay="1000">
+                                <div ng-show="!editRoutineMode">
+                                    Enable "Edit" on the top right to delete Routine or set it to Active
+                                </div>
+                                <div ng-show="editRoutineMode">
+                                    Click on the Routine to set it to Active/Inactive
+                                </div>
+                            </md-tooltip>
                             <div class="md-list-item-text" layout-align="start center" layout="row">
                                 <span>
-                                    <h3>{{routine.title}}</h3>
-                                    <p>{{routine.description}}</p>
+                                    <h2>{{routine.title}}</h2>
+                                    <h3>{{routine.description}}, {{routine.repetitions}} repetitions every {{routine.everyNumOfTime}} {{routine.timeRange}}</h3>
                                 </span>
                                 <span flex></span>
-                                <md-button class="md-icon-button md-primary" ng-click="deleteRoutine(routine)">
-                                    <md-icon ng-show="editRoutineMode" class="material-icons">delete</md-icon>
-                                </md-button>
+                                <span>
+                                <span ng-show="!routine.isActive"><h2>Inactive</h2></span>
+                                <span ng-show="routine.isActive"><h2>Active</h2></span>
+                                </span>
+                                <span ng-show="editRoutineMode">
+                                    <md-button class="md-icon-button md-primary" ng-click="deleteRoutine(routine)">
+                                        <md-icon class="material-icons">delete</md-icon>
+                                    </md-button>
+                                    <md-tooltip md-direction="bottom">Click here to delete Routine</md-tooltip>
+                                </span>
                             </div>
                         </md-list-item>
                     </md-list>
 
+                </md-tab>
+                <md-tab label="To do">
+                    <md-list>
+                        <md-list-item class="md-2-line" ng-repeat="routine in goal.routines | filter: !isActive">
+                            <div class="md-list-item-text" layout-align="start center" layout="row">
+                                <span>
+                                    <h2>{{routine.title}}</h2>
+                                    <h3>{{routine.description}}, {{routine.repetitions}} repetitions every {{routine.everyNumOfTime}} {{routine.timeRange}}</h3>
+                                </span>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                    <div class="empty-text" layout="column" layout-align="center center" ng-show="!(goal.routines | filter: !isActive).length">
+                        <h1>No Active Routines. Activate one:</h1>
+                        <h1>Click on the Routines Tab</h1>
+                        <h1>Then, click on the Edit button</h1>
+                        <h1>Then, simply click a routine to set it to Active/Inactive</h1>
+                    </div>
                 </md-tab>
             </md-tabs>
         </md-card-content>

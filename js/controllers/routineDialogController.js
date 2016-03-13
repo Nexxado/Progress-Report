@@ -15,7 +15,11 @@ angular.module('ProgressReport')
     $scope.routine = {
         title: "",
         description: "",
+        repetitions: 0,
+        everyNumOfTime: 0,
+        timeRange: "",
         date: "",
-        icon: "assignment",
+        isActive: false,
+        icon: "assignment"
     };
 });
