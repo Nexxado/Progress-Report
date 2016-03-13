@@ -15,9 +15,9 @@
                 <md-input-container class="md-block">
                     <label>Title</label>
                     <md-icon class="material-icons">title</md-icon>
-                    <input ng-disabled="isEditing" type="text" name="title" ng-model="routine.title" required>
+                    <input ng-disabled="isEditing" type="text" name="title" ng-model="achievement.title" required>
                     <md-tooltip md-delay="1000">Sum up your achievement in a word or two</md-tooltip>
-                    <div ng-messages="AddNewRoutine.title.$error">
+                    <div ng-messages="AddNewAchievement.title.$error">
                         <div ng-message="required">
                             This is required
                         </div>
@@ -27,9 +27,9 @@
                 <md-input-container class="md-block">
                     <label>Description</label>
                     <md-icon class="material-icons">description</md-icon>
-                    <input type="text" name="description" ng-model="routine.description" minlength="5" md-maxlength="150" required>
-                    <md-tooltip md-delay="1000">Describe your routine</md-tooltip>
-                    <div ng-messages="AddNewRoutine.description.$error">
+                    <input type="text" name="description" ng-model="achievement.description" minlength="5" md-maxlength="150" required>
+                    <md-tooltip md-delay="1000">Describe your achievement</md-tooltip>
+                    <div ng-messages="AddNewAchievement.description.$error">
                         <div ng-message="required">
                             This is required
                         </div>
@@ -43,15 +43,12 @@
                 </md-input-container>
             </div>
             <!-- Specific Date -->
-            <md-datepicker ng-show="specificDate" name="date" ng-model="goal.date" md-placeholder="Pick Date" md-min-date="minDate" md-max-date="maxDate" required></md-datepicker>
+            <md-datepicker ng-show="chooseSpecificDate" name="date" ng-model="achievement.date" md-placeholder="Pick Date" md-min-date="minDate" md-max-date="maxDate" required></md-datepicker>
             <!-- Switch -->
             <span ng-show="!lockDate">
-                        <md-switch ng-disabled="lockDate" class="md-primary" ng-model="specificDate" ng-change="resetDate()" aria-label="specific date switch"></md-switch>
+                        <md-switch class="md-primary" ng-model="chooseSpecificDate" ng-change="dateToday()" aria-label="specific date switch"></md-switch>
                         <md-tooltip md-direction="left">Choose Specific Date</md-tooltip>
                     </span>
-            <md-button ng-show="lockDate" ng-click="unlockDate()" class="md-primary md-raised">
-                Reschedule
-            </md-button>
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="cancel()" class="md-warn">Cancel</md-button>

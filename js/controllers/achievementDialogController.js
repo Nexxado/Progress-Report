@@ -9,11 +9,18 @@ angular.module('ProgressReport')
     $scope.submit = function () {
         $mdDialog.hide($scope.achievement);
     };
-
+    
+    $scope.chooseSpecificDate = false;
+    
     $scope.achievement = {
         title: "",
         description: "",
-        date: "",
+        date: new Date(),
         icon: "check_circle"
+    };
+    
+    $scope.dateToday = function(){
+        $scope.achievement.date = new Date();
+        console.log($scope.achievement.date);
     };
 });
