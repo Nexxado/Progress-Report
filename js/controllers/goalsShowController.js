@@ -91,10 +91,6 @@ angular.module('ProgressReport')
                 targetEvent: $event,
                 clickOutsideToClose: false,
                 fullscreen: useFullScreen
-                    //                locals: {
-                    //                    goal: $scope.goal,
-                    //                    type: ""
-                    //                }
             })
             .then(function (routine) {
                 $scope.goal.routines.push(routine);
@@ -111,6 +107,26 @@ angular.module('ProgressReport')
         if(routineIndex -1){
             $scope.goal.routines.splice(routineIndex, 1);
         }
+    };
+    
+    $scope.addAchievement = function ($event) {
+        var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
+        $mdDialog.show({
+                controller: 'AchievementDialogController',
+                templateUrl: 'templates/goals/achievementDialog.html',
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                clickOutsideToClose: false,
+                fullscreen: useFullScreen
+            })
+            .then(function (routine) {
+                $scope.goal.achievements.push(routine);
+                var result = DatabaseService.updateGoal($scope.goal);
+                console.log(result);
+
+            }, function () {
+                console.log('Dialog Canceled.');
+            });
     };
     
     $scope.drawGraph = function () {
