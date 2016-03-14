@@ -10,31 +10,8 @@ angular.module('ProgressReport')
 
     $scope.date = $scope.goal.date.toUTCString();
     $scope.editRoutineMode = false;
-    $scope.routine = {
-        /*need to find a way to have a list of routines. a routine is made out of exercises and 
-        a time for repeatition (every week/day/month). so i need to find a way to have a routine
-        add itself to an array of "todo this week/day/month" that with a checkbox to check that 
-        you actually did it like you planned. so i need to see if i should make an extra array that
-        will be filled with routines as TODO and have a parameter of "done" or something on that line.
-        */
-        title: "",
-        description: "",
-        exercises: [],
-        active: false
-    };
-
-    $scope.exercise = {
-        description: "",
-        repetitions: 0,
-
-    };
-
-    $scope.achievement = {
-
-    };
 
     $scope.editDialog = function ($event) {
-        console.log("asdassadasdasddsada");
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
         var oldGoal = angular.copy($scope.goal);
         console.log(oldGoal);
@@ -82,7 +59,6 @@ angular.module('ProgressReport')
     };
 
     $scope.addRoutine = function ($event) {
-        console.log("asdassadasdasddsada");
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
         $mdDialog.show({
                 controller: 'RoutineDialogController',
@@ -136,40 +112,60 @@ angular.module('ProgressReport')
     };
 
     $scope.drawGraph = function () {
-        var ctx = $("#graph").get(0).getContext("2d");
-        var chart = new Chart(ctx);
+        if($scope.goal.achievements.length > 0){
+            var ctx = $("#graph").get(0).getContext("2d");
+            var chart = new Chart(ctx);
 
-        var titles = [];
-        var progress = [];
-        titles.push($scope.goal.title);
-        progress.push($scope.goal.progress);
+    //        var titles = [];
+            var progress = [];
+
+            var titles = ["January", "February", "March", "April", "May", "June",
+                              "July", "August", "September", "October", "November", "December"];
+
+    //        for (var i = 0; i < 12; i++) {
+    //            titles.push(monthNames);
+    //        }
+    //        //        progress.push($scope.goal.achievements[i].date);
+            var monthsAchievements = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+            for (var j in monthsAchievements) {
+                monthsAchievements[j] = 0;
+            }
+            console.log(new Date($scope.goal.achievements[0].date).getMonth());
+            for (var x in $scope.goal.achievements) {
+                var t2 = new Date($scope.goal.achievements[x].date);
+                monthsAchievements[t2.getMonth()]++;
+            }
+            for (var w in monthsAchievements) {
+                progress.push(monthsAchievements[w]);
+            }
 
 
-        var data = {
-            labels: titles,
-            datasets: [
-                {
-                    label: "Progress",
-                    fillColor: "rgba(0,150,136,0.5)",
-                    strokeColor: "rgba(76,175,80,0.8)",
-                    highlightFill: "rgba(0,150,136,0.75)",
-                    highlightStroke: "rgba(76,175,80,1)",
-                    data: progress
-                }
-            ]
-        };
 
-        var options = {
-            barShowStroke: false
-        };
+            var data = {
+                labels: titles,
+                datasets: [
+                    {
+                        label: "Achievements",
+                        fillColor: "rgba(0,150,136,0.5)",
+                        strokeColor: "rgba(76,175,80,0.8)",
+                        highlightFill: "rgba(0,150,136,0.75)",
+                        highlightStroke: "rgba(76,175,80,1)",
+                        data: progress
+                    }
+                ]
+            };
 
-        Chart.defaults.global.tooltipTemplate = "<%if (datasetLabel){%><%=datasetLabel%>: <%}%><%= value %>%";
+            var options = {
+                barShowStroke: false
+            };
 
-        chart.Bar(data, options); //create Bar graph
+            Chart.defaults.global.tooltipTemplate = "<%if (datasetLabel){%><%=datasetLabel%>: <%}%><%= value %>%";
 
+            chart.Line(data, options); //create Bar graph
+        }
     };
 
     $scope.turnOffEdit = function () {
         $scope.editRoutineMode = false;
-    }
+    };
 });

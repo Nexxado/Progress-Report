@@ -33,7 +33,7 @@
                 </div>
             </md-card-title-text>
         </md-card-title>
-        
+
         <md-card-content>
             <!--Card Tabs:-->
             <md-tabs md-dynamic-height="true">
@@ -51,16 +51,20 @@
                         </p>
                     </div>
                 </md-tab>
-    
+
                 <!--Graph tab-->
                 <md-tab label="Graph" ng-click="drawGraph()">
                     <!-- Graph -->
-                    <div layout="column" layout-gt-sm="row" layout-align="center center">
+                    <div ng-show="goal.achievements.length" layout="column" layout-gt-sm="row" layout-align="center center">
                         <graph-legend color="#009688" label="Progress"></graph-legend>
                         <canvas id="graph"></canvas>
                     </div>
+                    <div class="empty-text" layout="column" layout-align="center center" ng-show="!goal.achievements.length">
+                        <h1>No Achievements yet:</h1>
+                        <h1>Click on the Achievements Tab for further instructions</h1>
+                    </div>
                 </md-tab>
-    
+
                 <!--Routines tab-->
                 <md-tab label="Routines" md-on-deselect="turnOffEdit()">
                     <div layout="row" layout-align="start center">
@@ -80,39 +84,52 @@
                         <h1>Click the "+" on the top left</h1>
                     </div>
                     <md-list>
+
                         <md-list-item class="md-2-line" ng-repeat="routine in goal.routines">
-                            <md-checkbox ng-show="editRoutineMode" ng-disabled="!editRoutineMode" ng-model="routine.isActive" class="md-primary">
-                            </md-checkbox>
-                            <md-tooltip md-delay="1000">
-                                <div ng-show="!editRoutineMode">
-                                    Enable "Edit" on the top right to delete Routine or set it to Active
-                                </div>
-                                <div ng-show="editRoutineMode">
-                                    Click on the Routine to set it to Active/Inactive
-                                </div>
-                            </md-tooltip>
                             <div class="md-list-item-text" layout-align="start center" layout="row">
+                                <!--Routine information-->
                                 <span>
                                     <h2>{{routine.title}}</h2>
                                     <h3>{{routine.description}}, {{routine.repetitions}} repetitions every {{routine.everyNumOfTime}} {{routine.timeRange}}</h3>
                                 </span>
+                                <!--stretch the rest to the right-->
                                 <span flex></span>
-                                <span>
-                                <span ng-show="!routine.isActive"><h2>Inactive</h2></span>
-                                <span ng-show="routine.isActive"><h2>Active</h2></span>
+                                <!--Checkbox button-->
+                                <div layout-align="start center" layout-wrap layout="row">
+                                    <span>
+                                    <md-checkbox ng-show="editRoutineMode" ng-disabled="!editRoutineMode" ng-model="routine.isActive" class="md-primary">
+                                    </md-checkbox>
                                 </span>
-                                <span ng-show="editRoutineMode">
+                                    <!--Checkbox Tooltip-->
+                                    <span>
+                                    <md-tooltip md-delay="1000">
+                                        <div ng-show="!editRoutineMode">
+                                            Enable "Edit" on the top right to delete Routine or set it to Active
+                                        </div>
+                                        <div ng-show="editRoutineMode">
+                                            Click on the Routine to set it to Active/Inactive
+                                        </div>
+                                    </md-tooltip>
+                                </span>
+                                    <!--Active and Inactive markers-->
+                                    <span>
+                                <span ng-show="!routine.isActive"><h2>Inactive</h2></span>
+                                    <span ng-show="routine.isActive"><h2>Active</h2></span>
+                                    </span>
+                                    <!--Delete button-->
+                                    <span ng-show="editRoutineMode">
                                     <md-button class="md-icon-button md-primary" ng-click="deleteRoutine(routine)">
                                         <md-icon class="material-icons">delete</md-icon>
                                     </md-button>
                                     <md-tooltip md-direction="bottom">Click here to delete Routine</md-tooltip>
                                 </span>
+                                </div>
                             </div>
                         </md-list-item>
                     </md-list>
 
                 </md-tab>
-    
+
                 <!--To do tab-->
                 <md-tab label="To do">
                     <md-list>
@@ -132,7 +149,7 @@
                         <h1>Then, simply click a routine to set it to Active/Inactive</h1>
                     </div>
                 </md-tab>
-    
+
                 <!--Achievements tab-->
                 <md-tab label="Achievements">
                     <div layout="row" layout-align="start center">
