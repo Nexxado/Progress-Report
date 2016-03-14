@@ -4,6 +4,19 @@ angular.module('ProgressReport')
 
     $scope.backLink = '/#/goals';
 
+    $scope.checkMissedRoutines = function () {
+        var now = new Date();
+        for (var i in $scope.goal.routines) {
+            if (!$scope.goal.routines[i].isActive) {
+                //if the time now is already after the due date - you missed a routine
+                while (now > $scope.goal.routines[i].date) {
+                    $scope.goal.routines[i].timesMissed++;
+                    $scope.calcNextRoutineDate($scope.goal.routines[i], true);
+                }
+            }
+        }
+    };
+
     $scope.goal = DatabaseService.getGoal({
         title: $routeParams.id
     });
@@ -45,14 +58,6 @@ angular.module('ProgressReport')
             $mdDialog.cancel(); // Cancel the active dialog
         }
     });
-
-    $scope.showGoalGraph = function () {
-        console.log("called Show Graph");
-    };
-
-    $scope.editRoutines = function () {
-        console.log("called Edit Routines");
-    };
 
     $scope.calcGoalGrade = function () {
 
@@ -112,20 +117,20 @@ angular.module('ProgressReport')
     };
 
     $scope.drawGraph = function () {
-        if($scope.goal.achievements.length > 0){
+        if ($scope.goal.achievements.length > 0) {
             var ctx = $("#graph").get(0).getContext("2d");
             var chart = new Chart(ctx);
 
-    //        var titles = [];
+            //        var titles = [];
             var progress = [];
 
             var titles = ["January", "February", "March", "April", "May", "June",
                               "July", "August", "September", "October", "November", "December"];
 
-    //        for (var i = 0; i < 12; i++) {
-    //            titles.push(monthNames);
-    //        }
-    //        //        progress.push($scope.goal.achievements[i].date);
+            //        for (var i = 0; i < 12; i++) {
+            //            titles.push(monthNames);
+            //        }
+            //        //        progress.push($scope.goal.achievements[i].date);
             var monthsAchievements = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
             for (var j in monthsAchievements) {
                 monthsAchievements[j] = 0;
@@ -159,7 +164,7 @@ angular.module('ProgressReport')
                 barShowStroke: false
             };
 
-            Chart.defaults.global.tooltipTemplate = "<%if (datasetLabel){%><%=datasetLabel%>: <%}%><%= value %>%";
+            Chart.defaults.global.tooltipTemplate = "<%if (datasetLabel){%><%=datasetLabel%>: <%}%><%= value %>";
 
             chart.Line(data, options); //create Bar graph
         }
@@ -168,4 +173,41 @@ angular.module('ProgressReport')
     $scope.turnOffEdit = function () {
         $scope.editRoutineMode = false;
     };
+
+    $scope.timeRangeLabels = ['Days', 'Weeks', 'Months', 'Years'];
+
+    $scope.calcNextRoutineDate = function (routine, active) {
+        var dateMilli;
+        if(!active)
+            dateMilli = new Date().getTime();
+        else
+            dateMilli = routine.date.getTime();
+        var factor = 0;
+        switch (routine.timeRange) {
+            case 'Days':
+                factor = 8.64e+7;
+                break;
+            case 'Weeks':
+                factor = 6.048e+8;
+                break;
+            case 'Months':
+                factor = 2.628e+9;
+                break;
+            case 'Years':
+                factor = 3.154e+10;
+                break;
+        }
+        dateMilli += routine.everyNumOfTime * factor;
+        routine.date = new Date(dateMilli);
+    };
+    
+    $scope.updateDatabase = function () {
+        DatabaseService.updateGoal($scope.goal);
+    };
+
+    /*Call all the functions inside this once the view is loaded*/
+    $scope.$on('$viewContentLoaded', function () {
+        console.log("view loaded");
+        $scope.checkMissedRoutines();
+    });
 });

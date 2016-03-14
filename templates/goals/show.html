@@ -56,7 +56,7 @@
                 <md-tab label="Graph" ng-click="drawGraph()">
                     <!-- Graph -->
                     <div ng-show="goal.achievements.length" layout="column" layout-gt-sm="row" layout-align="center center">
-                        <graph-legend color="#009688" label="Progress"></graph-legend>
+                        <graph-legend color="#009688" label="Achievements"></graph-legend>
                         <canvas id="graph"></canvas>
                     </div>
                     <div class="empty-text" layout="column" layout-align="center center" ng-show="!goal.achievements.length">
@@ -97,7 +97,7 @@
                                 <!--Checkbox button-->
                                 <div layout-align="start center" layout-wrap layout="row">
                                     <span>
-                                    <md-checkbox ng-show="editRoutineMode" ng-disabled="!editRoutineMode" ng-model="routine.isActive" class="md-primary">
+                                    <md-checkbox ng-show="editRoutineMode" aria-label="routineCheckBox" ng-disabled="!editRoutineMode" ng-model="routine.isActive" class="md-primary" ng-change="calcNextRoutineDate(routine, false) ; updateDatabase()">
                                     </md-checkbox>
                                 </span>
                                     <!--Checkbox Tooltip-->
@@ -138,6 +138,10 @@
                                 <span>
                                     <h2>{{routine.title}}</h2>
                                     <h3>{{routine.description}}, {{routine.repetitions}} repetitions every {{routine.everyNumOfTime}} {{routine.timeRange}}</h3>
+                                </span>
+                                <span flex></span>
+                                <span>
+                                    <h2>Next Due Date: {{routine.date | date: 'fullDate'}}</h2>
                                 </span>
                             </div>
                         </md-list-item>

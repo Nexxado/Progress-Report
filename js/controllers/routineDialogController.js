@@ -18,8 +18,11 @@ angular.module('ProgressReport')
         repetitions: 0,
         everyNumOfTime: 0,
         timeRange: "",
-        date: "",
+        date: new Date(),
+        addDate: new Date(),
         isActive: false,
+        timesMissed: 0,
         icon: "assignment"
     };
+
 });

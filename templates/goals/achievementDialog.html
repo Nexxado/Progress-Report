@@ -44,10 +44,14 @@
                 <!-- Specific Date -->
                 <md-datepicker ng-show="chooseSpecificDate" name="date" ng-model="achievement.date" md-placeholder="Pick Date" md-min-date="minDate" md-max-date="maxDate" required></md-datepicker>
                 <!-- Switch -->
-                <span ng-show="!lockDate">
+                <span flex>
                         <md-switch class="md-primary" ng-model="chooseSpecificDate" ng-change="dateToday()" aria-label="specific date switch"></md-switch>
                         <md-tooltip md-direction="left">Choose Specific Date</md-tooltip>
-            </span>
+                        
+                </span>
+                <span>
+                    Choose Specific Date
+                </span>
             </div>
 
         </md-dialog-content>
