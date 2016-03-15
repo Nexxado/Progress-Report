@@ -1,6 +1,6 @@
 angular.module('ProgressReport')
 
-.controller('TypeDialogController', function ($scope, $mdDialog, $timeout, constants) {
+.controller('TypeDialogController', function ($scope, $mdDialog, $mdToast, $timeout, constants) {
 
 
     $scope.cancel = function () {
@@ -8,6 +8,16 @@ angular.module('ProgressReport')
     };
 
     $scope.submit = function () {
+
+        if ($scope.type === '') {
+            $mdToast.show($mdToast.simple()
+                .textContent('You must choose an option')
+                .action('Ok')
+                .highlightAction(true)
+                .position('bottom right'));
+            return;
+        }
+
         $mdDialog.hide($scope.type);
     };
 
