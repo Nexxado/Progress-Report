@@ -21,7 +21,7 @@ angular.module('ProgressReport')
             //Added by dan:
             routines: [],
             achievements: [],
-            grade: 0
+            grade: 100
         };
         $scope.timeAmount = '';
         //Autocomplete variables
