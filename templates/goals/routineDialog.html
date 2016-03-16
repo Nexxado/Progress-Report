@@ -1,4 +1,4 @@
-<md-dialog aria-label="Goal Dialog" flex="50">
+<md-dialog aria-label="Routine Dialog" flex="50">
     <form name="AddNewRoutine" ng-submit="submit()">
         <md-toolbar>
             <div class="md-toolbar-tools">
@@ -15,9 +15,9 @@
                 <md-input-container class="md-block">
                     <label>Title</label>
                     <md-icon class="material-icons">title</md-icon>
-                    <input ng-disabled="isEditing" type="text" name="title" ng-model="goal.title" required>
-                    <md-tooltip md-delay="1000">Sum up your goal in a word or two</md-tooltip>
-                    <div ng-messages="AddGoalForm.title.$error">
+                    <input ng-disabled="isEditing" type="text" name="title" ng-model="routine.title" required>
+                    <md-tooltip md-delay="1000">Sum up your routine in a word or two</md-tooltip>
+                    <div ng-messages="AddNewRoutine.title.$error">
                         <div ng-message="required">
                             This is required
                         </div>
@@ -27,9 +27,9 @@
                 <md-input-container class="md-block">
                     <label>Description</label>
                     <md-icon class="material-icons">description</md-icon>
-                    <input type="text" name="description" ng-model="goal.description" minlength="5" md-maxlength="150" required>
-                    <md-tooltip md-delay="1000">Describe your goal</md-tooltip>
-                    <div ng-messages="AddGoalForm.description.$error">
+                    <input type="text" name="description" ng-model="routine.description" minlength="5" md-maxlength="150" required>
+                    <md-tooltip md-delay="1000">Describe your routine</md-tooltip>
+                    <div ng-messages="AddNewRoutine.description.$error">
                         <div ng-message="required">
                             This is required
                         </div>
@@ -44,15 +44,17 @@
                 <!--Routine times-->
                 <md-input-container>
                     <label>Repetitions</label>
-                    <input ng-disabled="lockDate" class="noArrows" type="number" name="repAmount" ng-model="repAmount" min="1" step="1" required>
+                    <input ng-disabled="lockDate" class="noArrows" type="number" name="repAmount" ng-model="routine.repetitions" min="1" step="1" required>
+                    <md-tooltip md-delay="1000">How many repetitions will you do each time?</md-tooltip>
                 </md-input-container>
                 <md-input-container>
                     <label>Every</label>
-                    <input ng-disabled="lockDate" class="noArrows" type="number" name="timeAmount" ng-model="timeAmount" min="1" step="1" required>
+                    <input ng-disabled="lockDate" class="noArrows" type="number" name="timeAmount" ng-model="routine.everyNumOfTime" min="1" step="1" required>
+                    <md-tooltip md-delay="1000">Every how many hours/days/months/years?</md-tooltip>
                 </md-input-container>
                 <md-input-container>
                     <label>Time</label>
-                    <md-select ng-model="timeRange" ng-disabled="lockDate">
+                    <md-select ng-model="routine.timeRange">
                         <md-option value="{{ range }}" ng-repeat="range in timeRangeLabels">
                             {{range}}
                         </md-option>
@@ -62,7 +64,7 @@
         </md-dialog-content>
         <md-dialog-actions>
             <md-button ng-click="cancel()" class="md-warn">Cancel</md-button>
-            <md-button ng-click="submit()" class="md-primary">Ok</md-button>
+            <md-button type="submit" class="md-primary">Done</md-button>
         </md-dialog-actions>
     </form>
 </md-dialog>

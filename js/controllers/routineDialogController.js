@@ -7,8 +7,22 @@ angular.module('ProgressReport')
     };
 
     $scope.submit = function () {
-        $mdDialog.hide($scope.type);
+        $mdDialog.hide($scope.routine);
     };
 
     $scope.timeRangeLabels = ['Days', 'Weeks', 'Months', 'Years'];
+
+    $scope.routine = {
+        title: "",
+        description: "",
+        repetitions: 0,
+        everyNumOfTime: 0,
+        timeRange: "",
+        date: new Date(),
+        addDate: new Date(),
+        isActive: false,
+        timesMissed: 0,
+        icon: "assignment"
+    };
+
 });

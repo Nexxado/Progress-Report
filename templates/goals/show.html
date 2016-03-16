@@ -18,51 +18,170 @@
                     <p>{{goal.category}}</p>
                 </div>
                 <span flex></span>
-                <md-button class="md-icon-button md-primary" ng-click="editDialog($event)">
-                    <md-icon class="material-icons">mode_edit</md-icon>
-                </md-button>
+                <span>
+                    <md-button class="md-icon-button md-primary" ng-click="editDialog($event)">
+                        <md-icon class="material-icons">mode_edit</md-icon>
+                    </md-button>
+                </span>
             </md-card-header-text>
         </md-card-header>
         <md-card-title>
             <md-card-title-text>
-                <span class="md-headline">{{goal.title}}</span>
-                <span class="md-subhead">Grade: GRADE_HERE</span>
+                <div layout-align="center center" layout="column">
+                    <span class="md-headline">{{goal.title}}</span>
+                    <span class="md-subhead">Grade: GRADE_HERE</span>
+                </div>
             </md-card-title-text>
         </md-card-title>
+
         <md-card-content>
-
+            <!--Card Tabs:-->
             <md-tabs md-dynamic-height="true">
+                <!--Description tab-->
                 <md-tab label="Description">
-                    <p>
-                        <h4>Goal Date: {{goal.date | date: 'fullDate'}}</h4>
-                    </p>
-                    <p>
-                        <h4>Progress: {{goal.progress}}%</h4>
-                    </p>
-                    <p>
-                        <h4>Description: {{goal.description}}</h4>
-                    </p>
-
+                    <div layout-align="center center" layout="column">
+                        <p>
+                            <h4>Goal Date: {{goal.date | date: 'fullDate'}}</h4>
+                        </p>
+                        <p>
+                            <h4>Progress: {{goal.progress}}%</h4>
+                        </p>
+                        <p>
+                            <h4>Description: {{goal.description}}</h4>
+                        </p>
+                    </div>
                 </md-tab>
-                <md-tab label="Graph"></md-tab>
-                <md-tab label="Routines" layout="row">
-                    <md-button class="md-icon-button md-primary" ng-click="addRoutine($event)">
-                        <md-icon class="material-icons">add_circle</md-icon>
-                    </md-button>
-                    <md-switch ng-model="data.cb1" aria-label="editSwitch">
-                        Edit
-                    </md-switch>
 
+                <!--Graph tab-->
+                <md-tab label="Graph" ng-click="drawGraph()">
+                    <!-- Graph -->
+                    <div ng-show="goal.achievements.length" layout="column" layout-gt-sm="row" layout-align="center center">
+                        <graph-legend color="#009688" label="Achievements"></graph-legend>
+                        <canvas id="graph"></canvas>
+                    </div>
+                    <div class="empty-text" layout="column" layout-align="center center" ng-show="!goal.achievements.length">
+                        <h1>No Achievements yet:</h1>
+                        <h1>Click on the Achievements Tab for further instructions</h1>
+                    </div>
+                </md-tab>
+
+                <!--Routines tab-->
+                <md-tab label="Routines" md-on-deselect="turnOffEdit()">
+                    <div layout="row" layout-align="start center">
+                        <md-button class="md-icon-button md-primary" ng-click="addRoutine($event)">
+                            <md-icon class="material-icons">add_circle</md-icon>
+                        </md-button>
+                        <span flex></span>
+                        <span>
+                            <md-switch class="md-primary" ng-model="editRoutineMode" aria-label="editSwitch">
+                                Edit
+                            </md-switch>
+                            <md-tooltip md-direction="left">Click here to enable "Edit" on the top right to delete Routine or set it to Active</md-tooltip>
+                        </span>
+                    </div>
+                    <div class="empty-text" layout="column" layout-align="center center" ng-show="!goal.routines.length">
+                        <h1>Get Started by adding a new routine:</h1>
+                        <h1>Click the "+" on the top left</h1>
+                    </div>
                     <md-list>
+
                         <md-list-item class="md-2-line" ng-repeat="routine in goal.routines">
-                            <md-checkbox ng-model="item.done"></md-checkbox>
-                            <div class="md-list-item-text">
-                                <h3>{{routine.title}}</h3>
-                                <p>{{routine.description}}</p>
+                            <div class="md-list-item-text" layout-align="start center" layout="row">
+                                <!--Routine information-->
+                                <span>
+                                    <h2>{{routine.title}}</h2>
+                                    <h3>{{routine.description}}, {{routine.repetitions}} repetitions every {{routine.everyNumOfTime}} {{routine.timeRange}}</h3>
+                                </span>
+                                <!--stretch the rest to the right-->
+                                <span flex></span>
+                                <!--Checkbox button-->
+                                <div layout-align="start center" layout-wrap layout="row">
+                                    <span>
+                                    <md-checkbox ng-show="editRoutineMode" aria-label="routineCheckBox" ng-disabled="!editRoutineMode" ng-model="routine.isActive" class="md-primary" ng-change="calcNextRoutineDate(routine, false) ; updateDatabase()">
+                                    </md-checkbox>
+                                </span>
+                                    <!--Checkbox Tooltip-->
+                                    <span>
+                                    <md-tooltip md-delay="1000">
+                                        <div ng-show="!editRoutineMode">
+                                            Enable "Edit" on the top right to delete Routine or set it to Active
+                                        </div>
+                                        <div ng-show="editRoutineMode">
+                                            Click on the Routine to set it to Active/Inactive
+                                        </div>
+                                    </md-tooltip>
+                                </span>
+                                    <!--Active and Inactive markers-->
+                                    <span>
+                                <span ng-show="!routine.isActive"><h2>Inactive</h2></span>
+                                    <span ng-show="routine.isActive"><h2>Active</h2></span>
+                                    </span>
+                                    <!--Delete button-->
+                                    <span ng-show="editRoutineMode">
+                                    <md-button class="md-icon-button md-primary" ng-click="deleteRoutine(routine)">
+                                        <md-icon class="material-icons">delete</md-icon>
+                                    </md-button>
+                                    <md-tooltip md-direction="bottom">Click here to delete Routine</md-tooltip>
+                                </span>
+                                </div>
                             </div>
                         </md-list-item>
                     </md-list>
 
+                </md-tab>
+
+                <!--To do tab-->
+                <md-tab label="To do">
+                    <md-list>
+                        <md-list-item class="md-2-line" ng-repeat="routine in goal.routines | filter: !isActive">
+                            <div class="md-list-item-text" layout-align="start center" layout="row">
+                                <span>
+                                    <h2>{{routine.title}}</h2>
+                                    <h3>{{routine.description}}, {{routine.repetitions}} repetitions every {{routine.everyNumOfTime}} {{routine.timeRange}}</h3>
+                                </span>
+                                <span flex></span>
+                                <span>
+                                    <h2>Next Due Date: {{routine.date | date: 'fullDate'}}</h2>
+                                </span>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                    <div class="empty-text" layout="column" layout-align="center center" ng-show="!(goal.routines | filter: !isActive).length">
+                        <h1>No Active Routines. Activate one:</h1>
+                        <h1>Click on the Routines Tab</h1>
+                        <h1>Then, click on the Edit button</h1>
+                        <h1>Then, simply click a routine to set it to Active/Inactive</h1>
+                    </div>
+                </md-tab>
+
+                <!--Achievements tab-->
+                <md-tab label="Achievements">
+                    <div layout="row" layout-align="start center">
+                        <md-button class="md-icon-button md-primary" ng-click="addAchievement($event)">
+                            <md-icon class="material-icons">add_circle</md-icon>
+                        </md-button>
+                        <span flex></span>
+                    </div>
+                    <div class="empty-text" layout="column" layout-align="center center" ng-show="!goal.achievements.length">
+                        <h1>No achievements on record:</h1>
+                        <h1>Click the "+" on the top left to manually add one</h1>
+                        <h1>Finish routines by their time frame to add their completion as achievements</h1>
+                    </div>
+                    <md-list>
+                        <md-list-item class="md-2-line" ng-repeat="achievement in goal.achievements">
+                            <div>
+                                <md-icon class="material-icons">achievement.icon</md-icon>
+                            </div>
+                            <div class="md-list-item-text" layout-align="start center" layout="row">
+                                <span>
+                                    <h2>{{achievement.title}}</h2>
+                                    <h3>{{achievement.description}}</h3>
+                                    <h3>Happened on: {{achievement.date | date: 'fullDate'}}</h3>
+                                </span>
+                                <span flex></span>
+                            </div>
+                        </md-list-item>
+                    </md-list>
                 </md-tab>
             </md-tabs>
         </md-card-content>
