@@ -1,6 +1,6 @@
 angular.module('ProgressReport')
 
-.controller('GoalsShowController', function ($scope, $routeParams, DatabaseService, $mdDialog, $mdMedia, $timeout) {
+.controller('GoalsShowController', function ($scope, $routeParams, DatabaseService, anchorSmoothScroll, $mdDialog, $mdMedia, $timeout) {
 
     $scope.backLink = '/#/goals';
 
@@ -210,4 +210,9 @@ angular.module('ProgressReport')
         console.log("view loaded");
         $scope.checkMissedRoutines();
     });
+    
+    //Smooth scroll - on 'md-tab' click
+    $scope.scrollTo = function (eID) {
+        anchorSmoothScroll.scrollTo(eID);
+    };
 });

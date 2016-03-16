@@ -36,9 +36,9 @@
 
         <md-card-content>
             <!--Card Tabs:-->
-            <md-tabs md-dynamic-height="true">
+            <md-tabs md-dynamic-height="true" id="tabsAnchor">
                 <!--Description tab-->
-                <md-tab label="Description">
+                <md-tab label="Description" ng-click="scrollTo('tabsAnchor')">
                     <div layout-align="center center" layout="column">
                         <p>
                             <h4>Goal Date: {{goal.date | date: 'fullDate'}}</h4>
@@ -53,7 +53,7 @@
                 </md-tab>
 
                 <!--Graph tab-->
-                <md-tab label="Graph" ng-click="drawGraph()">
+                <md-tab label="Graph" ng-click="drawGraph(); scrollTo('tabsAnchor')">
                     <!-- Graph -->
                     <div ng-show="goal.achievements.length" layout="column" layout-gt-sm="row" layout-align="center center">
                         <graph-legend color="#009688" label="Achievements"></graph-legend>
@@ -66,7 +66,7 @@
                 </md-tab>
 
                 <!--Routines tab-->
-                <md-tab label="Routines" md-on-deselect="turnOffEdit()">
+                <md-tab label="Routines" md-on-deselect="turnOffEdit()" ng-click="scrollTo('tabsAnchor')">
                     <div layout="row" layout-align="start center">
                         <md-button class="md-icon-button md-primary" ng-click="addRoutine($event)">
                             <md-icon class="material-icons">add_circle</md-icon>
@@ -131,7 +131,7 @@
                 </md-tab>
 
                 <!--To do tab-->
-                <md-tab label="To do">
+                <md-tab label="To do" ng-click="scrollTo('tabsAnchor')">
                     <md-list>
                         <md-list-item class="md-2-line" ng-repeat="routine in goal.routines | filter: !isActive">
                             <div class="md-list-item-text" layout-align="start center" layout="row">
@@ -155,7 +155,7 @@
                 </md-tab>
 
                 <!--Achievements tab-->
-                <md-tab label="Achievements">
+                <md-tab label="Achievements" ng-click="scrollTo('tabsAnchor')">
                     <div layout="row" layout-align="start center">
                         <md-button class="md-icon-button md-primary" ng-click="addAchievement($event)">
                             <md-icon class="material-icons">add_circle</md-icon>
