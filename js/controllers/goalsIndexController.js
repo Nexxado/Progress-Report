@@ -42,7 +42,7 @@ angular.module('ProgressReport')
                 done: Math.random() < 0.25,
                 routines: [],
                 achievements: [],
-                grade: 0
+                grade: 100
             };
             DatabaseService.addGoal(mockObject);
         }
@@ -55,7 +55,107 @@ angular.module('ProgressReport')
         $scope.goals = DatabaseService.getAllGoals();
     };
 
+    $scope.mockRealData = function(){
+        console.log("Generating Mock Data");
 
+        DatabaseService.clearGoals();
+        localStorage.setItem('categories', JSON.stringify(['Extreme Sport', 'Losing Weight']));
+
+        var numOfMocks = 15;
+
+        for (var i = 0; i < numOfMocks; i++) {
+            var startDate = new Date(2016, 0, 3);
+            var endDate = new Date(2017, 5, 31);
+            var date = new Date(+startDate + Math.random() * (endDate - startDate));
+            var category = Math.random() < 0.5 ? 'Extreme Sport' : 'Losing Weight';
+
+
+            var type = 'no type';
+            var temp = Math.random() * 3;
+            if (temp < 1) {
+                type = 'achievement';
+            } else if (temp < 2) {
+                type = 'numerical';
+            } else if (temp < 3) {
+                type = 'custom';
+            }
+
+            var mockObject = {
+                    type: type,
+                    title: '',
+                    description: '',
+                    date: date,
+                    category: category,
+                    progress: (Math.random() * 100).toFixed(0),
+                    icon: 'assignment',
+                    done: Math.random() < 0.25,
+                    routines: [],
+                    achievements: [],
+                    grade: 100
+                };
+            
+            if(category == 'Extreme Sport'){
+                mockObject.title = 'Climbing Mount ' + String.fromCharCode(65+i);
+                mockObject.description = 'I want to manage to climb Mount ' + String.fromCharCode(65+i);
+            }
+            else{
+                mockObject.title ='Running track  ' + String.fromCharCode(65+i); 
+                mockObject.description = 'I want to manage to run the track ' + String.fromCharCode(65+i);
+            }
+            
+            var numOfRoutines = ((Math.random() * 10) + 1);
+            for (var j = 0; j < numOfRoutines; j++){
+            console.log("creating mock routine");
+                var mockRoutine = {
+                    title: "",
+                    description: "",
+                    repetitions: Math.floor((Math.random() * 250) + 1),
+                    everyNumOfTime: Math.floor((Math.random() * 10) + 1),
+                    timeRange: "",
+                    date: new Date(),
+                    addDate: new Date(),
+                    isActive: "false",
+                    timesMissed: Math.floor((Math.random() * 100) + 1),
+                    icon: "assignment"
+                };
+                
+                var totalMilli = mockRoutine.date.getTime() + (Math.floor((Math.random() * 100000) + 1) * (Math.floor((Math.random() * 100000) + 1)));
+                mockRoutine.date = new Date(totalMilli);
+                console.log(mockRoutine.date);
+                mockRoutine.isActive = Math.random() < 0.5 ? "false" : "true";
+                
+                if(category == 'Extreme Sport'){
+                    mockRoutine.title = "Make sure to climb the small hill on " + String.fromCharCode(65+j);
+                    mockRoutine.description = "i need to start slow, ill just climb the hill located at " + String.fromCharCode(65+j);
+                }
+                else{
+                    mockRoutine.title = "make sure the run around neighborhood " + String.fromCharCode(65+j);
+                    mockRoutine.description = "i need to start slow so ill just go to neighborhood " + String.fromCharCode(65+j) + " and run a bit";
+                }
+
+                switch(Math.floor((Math.random() * 4) + 1)){
+                    case 1:
+                        mockRoutine.timeRange = 'Days';
+                        break;
+                    case 2:
+                        mockRoutine.timeRange = 'Weeks';
+                        break;
+                    case 3:
+                        mockRoutine.timeRange = 'Months';
+                        break;
+                    case 4:
+                        mockRoutine.timeRange = 'Years';
+                        break;
+                }
+                
+                mockObject.routines.push(mockRoutine);
+            }
+            DatabaseService.addGoal(mockObject);
+        }
+
+        $scope.goals = DatabaseService.getAllGoals();
+    };
+    
     /**************************************/
     /********** MOCK METHODS END **********/
     /**************************************/
