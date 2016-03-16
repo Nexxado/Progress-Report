@@ -119,6 +119,9 @@ angular.module('ProgressReport')
                     icon: "assignment"
                 };
                 
+                var totalMilli = mockRoutine.date.getTime() + (Math.floor((Math.random() * 100000) + 1) * (Math.floor((Math.random() * 100000) + 1)));
+                mockRoutine.date = new Date(totalMilli);
+                console.log(mockRoutine.date);
                 mockRoutine.isActive = Math.random() < 0.5 ? "false" : "true";
                 
                 if(category == 'Extreme Sport'){
