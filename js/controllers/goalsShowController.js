@@ -67,6 +67,10 @@ angular.module('ProgressReport')
     });
 
     $scope.calcGoalGrade = function () {
+        if($scope.goal.totalPassedRoutineDates === 0){
+            $scope.goal.grade = 100;
+            return;
+        }
         console.log("calculating grade");
         $scope.goal.totalMissedRoutines = 0;
         for (var i in $scope.goal.routines) {
