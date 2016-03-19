@@ -19,9 +19,11 @@ angular.module('ProgressReport')
         everyNumOfTime: 0,
         timeRange: "",
         date: new Date(),
+        endDate: new Date(),
         addDate: new Date(),
         isActive: false,
         timesMissed: 0,
+        finishedByTimeFrame: false,
         icon: "assignment"
     };
 

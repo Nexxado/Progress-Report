@@ -91,7 +91,9 @@ angular.module('ProgressReport')
                     done: Math.random() < 0.25,
                     routines: [],
                     achievements: [],
-                    grade: 100
+                    grade: 100,
+                    totalPassedRoutineDates: 0,
+                    totalMissedRoutines: 0
                 };
             
             if(category == 'Extreme Sport'){
@@ -149,6 +151,12 @@ angular.module('ProgressReport')
                 }
                 
                 mockObject.routines.push(mockRoutine);
+            }
+            mockObject.totalPassedRoutineDates = Math.floor((Math.random() * 250) + 1);
+            var totalMissedCounter = mockObject.totalPassedRoutineDates;
+            for(var k in mockObject.routines){
+                mockObject.routines[k].timesMissed = Math.floor((Math.random() * totalMissedCounter) + 1);
+                totalMissedCounter -= mockObject.routines[k].timesMissed;
             }
             DatabaseService.addGoal(mockObject);
         }

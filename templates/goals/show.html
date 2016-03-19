@@ -29,7 +29,7 @@
             <md-card-title-text>
                 <div layout-align="center center" layout="column">
                     <span class="md-headline">{{goal.title}}</span>
-                    <span class="md-subhead">Grade: {{goal.grade}}</span>
+                    <span class="md-subhead">Grade: {{goal.grade | number : 1}}</span>
                 </div>
             </md-card-title-text>
         </md-card-title>
@@ -49,6 +49,19 @@
                         <p>
                             <h4>Description: {{goal.description}}</h4>
                         </p>
+                        <p>
+                            <h4>Total Routines: {{goal.routines.length}}</h4>
+                        </p>
+                        <p>
+                            <h4>Total Passed Routines: {{goal.totalPassedRoutineDates}}</h4>
+                        </p>
+                         <p>
+                            <h4>Total Routines Done: {{goal.totalPassedRoutineDates - goal.totalMissedRoutines}}</h4>
+                        </p>
+                        <p>
+                            <h4>Total Missed Active Routines: {{goal.totalMissedRoutines}}</h4>
+                        </p>
+
                     </div>
                 </md-tab>
 
@@ -142,6 +155,10 @@
                                 <span flex></span>
                                 <span>
                                     <h2>Next Due Date: {{routine.date | date: 'fullDate'}}</h2>
+                                </span>
+                                <span>
+                                    <md-checkbox aria-label="todoCheckbox" ng-model="routine.finishedByTimeFrame" class="md-primary" ng-disabled="routine.finishedByTimeFrame">
+                                    </md-checkbox>
                                 </span>
                             </div>
                         </md-list-item>
