@@ -21,7 +21,9 @@ angular.module('ProgressReport')
             //Added by dan:
             routines: [],
             achievements: [],
-            grade: 100
+            grade: 100,
+            totalPassedRoutineDates: 0,
+            totalMissedRoutines: 0
         };
         $scope.timeAmount = '';
         //Autocomplete variables
@@ -110,7 +112,7 @@ angular.module('ProgressReport')
     /**********************************/
     $scope.validateDialog = function () {
 
-        if($scope.AddGoalForm.$invalid) {
+        if ($scope.AddGoalForm.$invalid) {
             return false;
         }
 

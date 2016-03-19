@@ -3,14 +3,21 @@ angular.module('ProgressReport')
 .controller('GoalsShowController', function ($scope, $routeParams, DatabaseService, anchorSmoothScroll, $mdDialog, $mdMedia, $timeout) {
 
     $scope.backLink = '/#/goals';
-
+    
     $scope.checkMissedRoutines = function () {
         var now = new Date();
+        var firstCount = 0;
         for (var i in $scope.goal.routines) {
             if (!$scope.goal.routines[i].isActive) {
                 //if the time now is already after the due date - you missed a routine
-                while (now > $scope.goal.routines[i].date) {
+                while (now > $scope.goal.routines[i].endDate) {
+                    if(!firstCount && $scope.goal.routines[i].finishedByTimeFrame){
+                        firstCount++;
+                        $scope.goal.routines[i].finishedByTimeFrame = false;
+                        continue;
+                    }
                     $scope.goal.routines[i].timesMissed++;
+                    $scope.goal.totalPassedRoutineDates++;
                     $scope.calcNextRoutineDate($scope.goal.routines[i], true);
                 }
             }
@@ -60,7 +67,17 @@ angular.module('ProgressReport')
     });
 
     $scope.calcGoalGrade = function () {
-
+        if($scope.goal.totalPassedRoutineDates === 0){
+            $scope.goal.grade = 100;
+            return;
+        }
+        console.log("calculating grade");
+        $scope.goal.totalMissedRoutines = 0;
+        for (var i in $scope.goal.routines) {
+            $scope.goal.totalMissedRoutines += $scope.goal.routines[i].timesMissed;
+        }
+        console.log("Total passed routines:" + $scope.goal.totalPassedRoutineDates);
+        $scope.goal.grade = (($scope.goal.totalPassedRoutineDates - $scope.goal.totalMissedRoutines)/$scope.goal.totalPassedRoutineDates)*100;
     };
 
     $scope.addRoutine = function ($event) {
@@ -121,16 +138,11 @@ angular.module('ProgressReport')
             var ctx = $("#graph").get(0).getContext("2d");
             var chart = new Chart(ctx);
 
-            //        var titles = [];
             var progress = [];
 
             var titles = ["January", "February", "March", "April", "May", "June",
                               "July", "August", "September", "October", "November", "December"];
 
-            //        for (var i = 0; i < 12; i++) {
-            //            titles.push(monthNames);
-            //        }
-            //        //        progress.push($scope.goal.achievements[i].date);
             var monthsAchievements = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
             for (var j in monthsAchievements) {
                 monthsAchievements[j] = 0;
@@ -181,7 +193,7 @@ angular.module('ProgressReport')
         if(!active)
             dateMilli = new Date().getTime();
         else
-            dateMilli = routine.date.getTime();
+            dateMilli = routine.endDate.getTime();
         var factor = 0;
         switch (routine.timeRange) {
             case 'Days':
@@ -197,8 +209,9 @@ angular.module('ProgressReport')
                 factor = 3.154e+10;
                 break;
         }
-        dateMilli += routine.everyNumOfTime * factor;
         routine.date = new Date(dateMilli);
+        dateMilli += routine.everyNumOfTime * factor;
+        routine.endDate = new Date(dateMilli);
     };
     
     $scope.updateDatabase = function () {
@@ -209,6 +222,7 @@ angular.module('ProgressReport')
     $scope.$on('$viewContentLoaded', function () {
         console.log("view loaded");
         $scope.checkMissedRoutines();
+        $scope.calcGoalGrade();
     });
     
     //Smooth scroll - on 'md-tab' click
