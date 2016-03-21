@@ -1,7 +1,7 @@
 angular.module('ProgressReport')
 
 .controller('GoalsIndexController', function ($scope, $location, $mdDialog, $mdMedia, DatabaseService, anchorSmoothScroll, constants) {
-    
+
     /**********************************/
     /********** MOCK METHODS **********/
     /**********************************/
@@ -55,7 +55,7 @@ angular.module('ProgressReport')
         $scope.goals = DatabaseService.getAllGoals();
     };
 
-    $scope.mockRealData = function(){
+    $scope.mockRealData = function () {
         console.log("Generating Mock Data");
 
         DatabaseService.clearGoals();
@@ -81,33 +81,31 @@ angular.module('ProgressReport')
             }
 
             var mockObject = {
-                    type: type,
-                    title: '',
-                    description: '',
-                    date: date,
-                    category: category,
-                    progress: (Math.random() * 100).toFixed(0),
-                    icon: 'assignment',
-                    done: Math.random() < 0.25,
-                    routines: [],
-                    achievements: [],
-                    grade: 100,
-                    totalPassedRoutineDates: 0,
-                    totalMissedRoutines: 0
-                };
-            
-            if(category == 'Extreme Sport'){
-                mockObject.title = 'Climbing Mount ' + String.fromCharCode(65+i);
-                mockObject.description = 'I want to manage to climb Mount ' + String.fromCharCode(65+i);
+                type: type,
+                title: '',
+                description: '',
+                date: date,
+                category: category,
+                progress: (Math.random() * 100).toFixed(0),
+                icon: 'assignment',
+                done: Math.random() < 0.25,
+                routines: [],
+                achievements: [],
+                grade: 100,
+                totalPassedRoutineDates: 0,
+                totalMissedRoutines: 0
+            };
+
+            if (category == 'Extreme Sport') {
+                mockObject.title = 'Climbing Mount ' + String.fromCharCode(65 + i);
+                mockObject.description = 'I want to manage to climb Mount ' + String.fromCharCode(65 + i);
+            } else {
+                mockObject.title = 'Running track  ' + String.fromCharCode(65 + i);
+                mockObject.description = 'I want to manage to run the track ' + String.fromCharCode(65 + i);
             }
-            else{
-                mockObject.title ='Running track  ' + String.fromCharCode(65+i); 
-                mockObject.description = 'I want to manage to run the track ' + String.fromCharCode(65+i);
-            }
-            
+
             var numOfRoutines = ((Math.random() * 10) + 1);
-            for (var j = 0; j < numOfRoutines; j++){
-            console.log("creating mock routine");
+            for (var j = 0; j < numOfRoutines; j++) {
                 var mockRoutine = {
                     title: "",
                     description: "",
@@ -120,22 +118,20 @@ angular.module('ProgressReport')
                     timesMissed: Math.floor((Math.random() * 100) + 1),
                     icon: "assignment"
                 };
-                
+
                 var totalMilli = mockRoutine.date.getTime() + (Math.floor((Math.random() * 100000) + 1) * (Math.floor((Math.random() * 100000) + 1)));
                 mockRoutine.date = new Date(totalMilli);
-                console.log(mockRoutine.date);
                 mockRoutine.isActive = Math.random() < 0.5 ? "false" : "true";
-                
-                if(category == 'Extreme Sport'){
-                    mockRoutine.title = "Make sure to climb the small hill on " + String.fromCharCode(65+j);
-                    mockRoutine.description = "i need to start slow, ill just climb the hill located at " + String.fromCharCode(65+j);
-                }
-                else{
-                    mockRoutine.title = "make sure the run around neighborhood " + String.fromCharCode(65+j);
-                    mockRoutine.description = "i need to start slow so ill just go to neighborhood " + String.fromCharCode(65+j) + " and run a bit";
+
+                if (category == 'Extreme Sport') {
+                    mockRoutine.title = "Make sure to climb the small hill on " + String.fromCharCode(65 + j);
+                    mockRoutine.description = "i need to start slow, ill just climb the hill located at " + String.fromCharCode(65 + j);
+                } else {
+                    mockRoutine.title = "make sure the run around neighborhood " + String.fromCharCode(65 + j);
+                    mockRoutine.description = "i need to start slow so ill just go to neighborhood " + String.fromCharCode(65 + j) + " and run a bit";
                 }
 
-                switch(Math.floor((Math.random() * 4) + 1)){
+                switch (Math.floor((Math.random() * 4) + 1)) {
                     case 1:
                         mockRoutine.timeRange = 'Days';
                         break;
@@ -149,21 +145,35 @@ angular.module('ProgressReport')
                         mockRoutine.timeRange = 'Years';
                         break;
                 }
-                
+
                 mockObject.routines.push(mockRoutine);
             }
             mockObject.totalPassedRoutineDates = Math.floor((Math.random() * 250) + 1);
-            var totalMissedCounter = mockObject.totalPassedRoutineDates;
-            for(var k in mockObject.routines){
-                mockObject.routines[k].timesMissed = Math.floor((Math.random() * totalMissedCounter) + 1);
+            console.log("totalPassed: " + mockObject.totalPassedRoutineDates);
+            var totalMissedCounter = mockObject.totalPassedRoutineDates - 1;
+            for (var k in mockObject.routines) {
+                mockObject.routines[k].timesMissed = Math.floor((Math.random() * totalMissedCounter / 4) + 1);
                 totalMissedCounter -= mockObject.routines[k].timesMissed;
+            }
+            
+            var months = ["January", "February", "March", "April", "May", "June",
+                              "July", "August", "September", "October", "November", "December"];
+            var numOfAchievements = Math.floor((Math.random() * 50) + 1);
+            for (var m = 0; m < numOfAchievements; m++) {
+                var mockAchievement = {
+                    title: "OMG i managed to do " + Math.floor((Math.random() * 234) + 1) + "sit ups",
+                    description: "i am the man!",
+                    date: new Date(Date.parse((months[Math.floor((Math.random() * 12) + 1)]) + " " +(Math.floor((Math.random() * 12) + 28)) +", 2016")),
+                    icon: "check_circle"
+                };
+                mockObject.achievements.push(mockAchievement);
             }
             DatabaseService.addGoal(mockObject);
         }
 
         $scope.goals = DatabaseService.getAllGoals();
     };
-    
+
     /**************************************/
     /********** MOCK METHODS END **********/
     /**************************************/
