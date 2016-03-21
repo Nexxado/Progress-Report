@@ -39,29 +39,28 @@
             <md-tabs md-dynamic-height="true" id="tabsAnchor">
                 <!--Description tab-->
                 <md-tab label="Description" ng-click="scrollTo('tabsAnchor')">
-                    <div layout-align="center center" layout="column">
-                        <p>
-                            <h4>Goal Date: {{goal.date | date: 'fullDate'}}</h4>
-                        </p>
-                        <p>
-                            <h4>Progress: {{goal.progress}}%</h4>
-                        </p>
-                        <p>
-                            <h4>Description: {{goal.description}}</h4>
-                        </p>
-                        <p>
-                            <h4>Total Routines: {{goal.routines.length}}</h4>
-                        </p>
-                        <p>
-                            <h4>Total Passed Routines: {{goal.totalPassedRoutineDates}}</h4>
-                        </p>
-                         <p>
-                            <h4>Total Routines Done: {{goal.totalPassedRoutineDates - goal.totalMissedRoutines}}</h4>
-                        </p>
-                        <p>
-                            <h4>Total Missed Active Routines: {{goal.totalMissedRoutines}}</h4>
-                        </p>
-
+                    <div layout-align="" layout="column">
+                        <div layout="row" layout-padding>
+                            <b>Goal Date:</b> <span>{{goal.date | date: 'fullDate'}}</span>
+                        </div>
+                        <div layout="row" layout-padding>
+                            <b>Progress:</b> <span>{{goal.progress}}%</span>
+                        </div>
+                        <div layout="row" layout-padding>
+                            <b>Description:</b> <span>{{goal.description}}</span>
+                        </div>
+                        <div layout="row" layout-padding>
+                            <b>Total Routines:</b> <span>{{goal.routines.length}}</span>
+                        </div>
+                        <div layout="row" layout-padding>
+                            <b>Total Passed Routines:</b> <span>{{goal.totalPassedRoutineDates}}</span>    
+                        </div>
+                        <div layout="row" layout-padding>
+                            <b>Total Routines Done:</b> <span>{{goal.totalPassedRoutineDates - goal.totalMissedRoutines}}</span>
+                        </div>
+                        <div layout="row" layout-padding>
+                            <b>Total Missed Active Routines:</b> <span>{{goal.totalMissedRoutines}}</span>
+                        </div>
                     </div>
                 </md-tab>
 
@@ -98,12 +97,12 @@
                     </div>
                     <md-list>
 
-                        <md-list-item class="md-2-line" ng-repeat="routine in goal.routines">
+                        <md-list-item class="md-2-line routine" ng-repeat="routine in goal.routines">
                             <div class="md-list-item-text" layout-align="start center" layout="row">
                                 <!--Routine information-->
                                 <span>
-                                    <h2>{{routine.title}}</h2>
-                                    <h3>{{routine.description}}, {{routine.repetitions}} repetitions every {{routine.everyNumOfTime}} {{routine.timeRange}}</h3>
+                                    <h3>{{routine.title}}</h3>
+                                    <h4>{{routine.description}}, {{routine.repetitions}} repetitions every {{routine.everyNumOfTime}} {{routine.timeRange}}</h4>
                                 </span>
                                 <!--stretch the rest to the right-->
                                 <span flex></span>
@@ -138,6 +137,7 @@
                                 </span>
                                 </div>
                             </div>
+                            <md-divider></md-divider>
                         </md-list-item>
                     </md-list>
 
@@ -149,18 +149,20 @@
                         <md-list-item class="md-2-line" ng-repeat="routine in goal.routines | filter: !isActive">
                             <div class="md-list-item-text" layout-align="start center" layout="row">
                                 <span>
-                                    <h2>{{routine.title}}</h2>
-                                    <h3>{{routine.description}}, {{routine.repetitions}} repetitions every {{routine.everyNumOfTime}} {{routine.timeRange}}</h3>
+                                    <h3>{{routine.title}}</h3>
+                                    <h4>{{routine.description}}, {{routine.repetitions}} repetitions every {{routine.everyNumOfTime}} {{routine.timeRange}}</h4>
                                 </span>
                                 <span flex></span>
-                                <span>
-                                    <h2>Next Due Date: {{routine.date | date: 'fullDate'}}</h2>
-                                </span>
-                                <span>
+                                <div>
+                                    <h3>Next Due Date:</h3>
+                                    <h3>{{routine.date | date: 'fullDate'}}</h3>
+                                </div>
+                                <div>
                                     <md-checkbox aria-label="todoCheckbox" ng-model="routine.finishedByTimeFrame" class="md-primary" ng-disabled="routine.finishedByTimeFrame">
                                     </md-checkbox>
-                                </span>
+                                </div>
                             </div>
+                            <md-divider></md-divider>
                         </md-list-item>
                     </md-list>
                     <div class="empty-text" layout="column" layout-align="center center" ng-show="!(goal.routines | filter: !isActive).length">
@@ -185,18 +187,14 @@
                         <h1>Finish routines by their time frame to add their completion as achievements</h1>
                     </div>
                     <md-list>
-                        <md-list-item class="md-2-line" ng-repeat="achievement in goal.achievements">
-                            <div>
-                                <md-icon class="material-icons">achievement.icon</md-icon>
+                        <md-list-item flex class="md-3-line" ng-repeat="achievement in goal.achievements">
+                            <md-icon class="material-icons">{{ achievement.icon }}</md-icon>
+                            <div class="md-list-item-text" layout="column">
+                                <u><h3>{{achievement.title}}</h3></u>
+                                <h4>{{achievement.description}}</h4>
+                                <h4>Happened on: {{achievement.date | date: 'fullDate'}}</h4>
                             </div>
-                            <div class="md-list-item-text" layout-align="start center" layout="row">
-                                <span>
-                                    <h2>{{achievement.title}}</h2>
-                                    <h3>{{achievement.description}}</h3>
-                                    <h3>Happened on: {{achievement.date | date: 'fullDate'}}</h3>
-                                </span>
-                                <span flex></span>
-                            </div>
+                            <md-divider></md-divider>
                         </md-list-item>
                     </md-list>
                 </md-tab>

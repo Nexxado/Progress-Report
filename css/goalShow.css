@@ -1,4 +1,7 @@
-.cardContent {
-    height: 100%;
-    background-color: red;
+.routine .md-list-item-text {
+    overflow: hidden;
+}
+
+.routine div md-checkbox .md-container {
+    transform: none;
 }

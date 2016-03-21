@@ -42,24 +42,26 @@
                     </div>
                 </md-input-container>
                 <!--Routine times-->
-                <md-input-container>
-                    <label>Repetitions</label>
-                    <input ng-disabled="lockDate" class="noArrows" type="number" name="repAmount" ng-model="routine.repetitions" min="1" step="1" required>
-                    <md-tooltip md-delay="1000">How many repetitions will you do each time?</md-tooltip>
-                </md-input-container>
-                <md-input-container>
-                    <label>Every</label>
-                    <input ng-disabled="lockDate" class="noArrows" type="number" name="timeAmount" ng-model="routine.everyNumOfTime" min="1" step="1" required>
-                    <md-tooltip md-delay="1000">Every how many hours/days/months/years?</md-tooltip>
-                </md-input-container>
-                <md-input-container>
-                    <label>Time</label>
-                    <md-select ng-model="routine.timeRange">
-                        <md-option value="{{ range }}" ng-repeat="range in timeRangeLabels">
-                            {{range}}
-                        </md-option>
-                    </md-select>
-                </md-input-container>
+                <div layout="row">
+                    <md-input-container>
+                        <label>Repetitions</label>
+                        <input ng-disabled="lockDate" class="noArrows" type="number" name="repAmount" ng-model="routine.repetitions" min="1" step="1" required>
+                        <md-tooltip md-delay="1000">How many repetitions will you do each time?</md-tooltip>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Every</label>
+                        <input ng-disabled="lockDate" class="noArrows" type="number" name="timeAmount" ng-model="routine.everyNumOfTime" min="1" step="1" required>
+                        <md-tooltip md-delay="1000">Every how many hours/days/months/years?</md-tooltip>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Time</label>
+                        <md-select ng-model="routine.timeRange">
+                            <md-option value="{{ range }}" ng-repeat="range in timeRangeLabels">
+                                {{range}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
             </div>
         </md-dialog-content>
         <md-dialog-actions>

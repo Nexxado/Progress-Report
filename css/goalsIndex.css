@@ -23,3 +23,7 @@ md-list-item.goal.ng-leave-active {
 .empty-text {
     opacity: 0.3;
 }
+
+.goal .md-list-item-text {
+    overflow: hidden;
+}

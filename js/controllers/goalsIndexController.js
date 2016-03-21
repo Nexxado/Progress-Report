@@ -5,56 +5,6 @@ angular.module('ProgressReport')
     /**********************************/
     /********** MOCK METHODS **********/
     /**********************************/
-    $scope.mockData = function () {
-        console.log("Generating Mock Data");
-
-        DatabaseService.clearGoals();
-        localStorage.setItem('categories', JSON.stringify(['cat1', 'cat2']));
-
-        var numOfMocks = 50;
-
-        for (var i = 0; i < numOfMocks; i++) {
-            var r = Math.pow(Math.random() * numOfMocks, 2).toFixed(0);
-            var startDate = new Date(2016, 0, 3);
-            var endDate = new Date(2017, 5, 31);
-            var date = new Date(+startDate + Math.random() * (endDate - startDate));
-            var category = Math.random() < 0.5 ? 'cat1' : 'cat2';
-
-
-            var type = 'no type';
-            var temp = Math.random() * 3;
-            if (temp < 1) {
-                type = 'achievement';
-            } else if (temp < 2) {
-                type = 'numerical';
-            } else if (temp < 3) {
-                type = 'custom';
-            }
-
-            var mockObject = {
-                type: type,
-                title: 'Title ' + r,
-                description: 'Description ' + i,
-                date: date,
-                category: category,
-                progress: (Math.random() * 100).toFixed(0),
-                icon: 'assignment',
-                done: Math.random() < 0.25,
-                routines: [],
-                achievements: [],
-                grade: 100
-            };
-            DatabaseService.addGoal(mockObject);
-        }
-
-        $scope.goals = DatabaseService.getAllGoals();
-    };
-
-    $scope.mockDelete = function () {
-        DatabaseService.clearGoals();
-        $scope.goals = DatabaseService.getAllGoals();
-    };
-
     $scope.mockRealData = function () {
         console.log("Generating Mock Data");
 
@@ -121,7 +71,7 @@ angular.module('ProgressReport')
 
                 var totalMilli = mockRoutine.date.getTime() + (Math.floor((Math.random() * 100000) + 1) * (Math.floor((Math.random() * 100000) + 1)));
                 mockRoutine.date = new Date(totalMilli);
-                mockRoutine.isActive = Math.random() < 0.5 ? "false" : "true";
+                mockRoutine.isActive = Math.random() < 0.5 ? false : true;
 
                 if (category == 'Extreme Sport') {
                     mockRoutine.title = "Make sure to climb the small hill on " + String.fromCharCode(65 + j);
@@ -155,7 +105,7 @@ angular.module('ProgressReport')
                 mockObject.routines[k].timesMissed = Math.floor((Math.random() * totalMissedCounter / 4) + 1);
                 totalMissedCounter -= mockObject.routines[k].timesMissed;
             }
-            
+
             var months = ["January", "February", "March", "April", "May", "June",
                               "July", "August", "September", "October", "November", "December"];
             var numOfAchievements = Math.floor((Math.random() * 50) + 1);
@@ -163,7 +113,7 @@ angular.module('ProgressReport')
                 var mockAchievement = {
                     title: "OMG i managed to do " + Math.floor((Math.random() * 234) + 1) + "sit ups",
                     description: "i am the man!",
-                    date: new Date(Date.parse((months[Math.floor((Math.random() * 12) + 1)]) + " " +(Math.floor((Math.random() * 12) + 28)) +", 2016")),
+                    date: new Date(Date.parse((months[Math.floor((Math.random() * 12) + 1)]) + " " + (Math.floor((Math.random() * 12) + 28)) + ", 2016")),
                     icon: "check_circle"
                 };
                 mockObject.achievements.push(mockAchievement);
@@ -171,6 +121,11 @@ angular.module('ProgressReport')
             DatabaseService.addGoal(mockObject);
         }
 
+        $scope.goals = DatabaseService.getAllGoals();
+    };
+
+    $scope.mockDelete = function () {
+        DatabaseService.clearGoals();
         $scope.goals = DatabaseService.getAllGoals();
     };
 

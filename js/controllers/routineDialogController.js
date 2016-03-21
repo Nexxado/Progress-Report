@@ -17,7 +17,7 @@ angular.module('ProgressReport')
         description: "",
         repetitions: 0,
         everyNumOfTime: 0,
-        timeRange: "",
+        timeRange: "Days",
         date: new Date(),
         endDate: new Date(),
         addDate: new Date(),
