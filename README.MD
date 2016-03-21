@@ -2,7 +2,7 @@
 
 ### "Programming in Internet Environment" Course Project
 
-#### Currently in Development - [Demo](http://prog-report.herokuapp.com/)
+#### Visit our [Demo Application](http://prog-report.herokuapp.com/)
 
 ##### <u>Students:</u>
 * Netanel Draiman

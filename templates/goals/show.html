@@ -154,12 +154,12 @@
                                 </span>
                                 <span flex></span>
                                 <div>
-                                    <h3>Next Due Date:</h3>
-                                    <h3>{{routine.date | date: 'fullDate'}}</h3>
-                                </div>
-                                <div>
                                     <md-checkbox aria-label="todoCheckbox" ng-model="routine.finishedByTimeFrame" class="md-primary" ng-disabled="routine.finishedByTimeFrame">
                                     </md-checkbox>
+                                </div>
+                                <div>
+                                    <h3>Next Due Date:</h3>
+                                    <h3>{{routine.date | date: 'fullDate'}}</h3>
                                 </div>
                             </div>
                             <md-divider></md-divider>
