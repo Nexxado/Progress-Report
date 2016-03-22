@@ -71,12 +71,12 @@ angular.module('ProgressReport')
             $scope.goal.grade = 100;
             return;
         }
-        console.log("calculating grade");
+
         $scope.goal.totalMissedRoutines = 0;
         for (var i in $scope.goal.routines) {
             $scope.goal.totalMissedRoutines += $scope.goal.routines[i].timesMissed;
         }
-        console.log("Total passed routines:" + $scope.goal.totalPassedRoutineDates);
+        
         $scope.goal.grade = (($scope.goal.totalPassedRoutineDates - $scope.goal.totalMissedRoutines)/$scope.goal.totalPassedRoutineDates)*100;
     };
 
@@ -220,7 +220,7 @@ angular.module('ProgressReport')
 
     /*Call all the functions inside this once the view is loaded*/
     $scope.$on('$viewContentLoaded', function () {
-        console.log("view loaded");
+        
         $scope.checkMissedRoutines();
         $scope.calcGoalGrade();
     });
