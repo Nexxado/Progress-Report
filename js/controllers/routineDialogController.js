@@ -1,17 +1,20 @@
 angular.module('ProgressReport')
 
 .controller('RoutineDialogController', function ($scope, $mdDialog) {
-
+    /*Cancel button logic*/
     $scope.cancel = function () {
         $mdDialog.cancel();
     };
 
+    /*Submit button logic*/
     $scope.submit = function () {
         $mdDialog.hide($scope.routine);
     };
 
+    /*Time ranges for dialog time picks*/
     $scope.timeRangeLabels = ['Days', 'Weeks', 'Months', 'Years'];
 
+    /*The actual Routine object with its parameters*/
     $scope.routine = {
         title: "",
         description: "",

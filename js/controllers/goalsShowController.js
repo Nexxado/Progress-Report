@@ -2,8 +2,10 @@ angular.module('ProgressReport')
 
 .controller('GoalsShowController', function ($scope, $routeParams, DatabaseService, anchorSmoothScroll, $mdDialog, $mdMedia, $timeout) {
 
+    /*the route of the view*/
     $scope.backLink = '/#/goals';
     
+    /*Function to check what routines we missed while we werent at the site*/
     $scope.checkMissedRoutines = function () {
         var now = new Date();
         var firstCount = 0;
@@ -23,14 +25,17 @@ angular.module('ProgressReport')
             }
         }
     };
-
+    /*The goal we are currently looking at - pulled from the Database*/
     $scope.goal = DatabaseService.getGoal({
         title: $routeParams.id
     });
 
+    /*the goal date*/
     $scope.date = $scope.goal.date.toUTCString();
+    /*Boolean for editing a routine*/
     $scope.editRoutineMode = false;
 
+    /*Function to edit Dialog's information*/
     $scope.editDialog = function ($event) {
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
         var oldGoal = angular.copy($scope.goal);
@@ -66,6 +71,7 @@ angular.module('ProgressReport')
         }
     });
 
+    /*Goal Grade Calculation - (Total Routines Passed - total Missed Routines) / (total Routines Passed)*/
     $scope.calcGoalGrade = function () {
         if($scope.goal.totalPassedRoutineDates === 0){
             $scope.goal.grade = 100;
@@ -80,6 +86,7 @@ angular.module('ProgressReport')
         $scope.goal.grade = (($scope.goal.totalPassedRoutineDates - $scope.goal.totalMissedRoutines)/$scope.goal.totalPassedRoutineDates)*100;
     };
 
+    /*logic to add a routine*/
     $scope.addRoutine = function ($event) {
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
         $mdDialog.show({
@@ -100,6 +107,7 @@ angular.module('ProgressReport')
             });
     };
 
+    /*logic to delete a routine*/
     $scope.deleteRoutine = function (routine) {
         var routineIndex = $scope.goal.routines.indexOf(routine);
         if (routineIndex > -1) {
@@ -108,6 +116,7 @@ angular.module('ProgressReport')
         }
     };
 
+    /*logic to add achievement*/
     $scope.addAchievement = function ($event) {
         var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
         $mdDialog.show({
@@ -133,6 +142,7 @@ angular.module('ProgressReport')
             });
     };
 
+    /*logic to draw graph of achievements in the past 12 months*/
     $scope.drawGraph = function () {
         if ($scope.goal.achievements.length > 0) {
             var ctx = $("#graph").get(0).getContext("2d");
@@ -182,12 +192,17 @@ angular.module('ProgressReport')
         }
     };
 
+    /*boolean to turn off edit mode*/
     $scope.turnOffEdit = function () {
         $scope.editRoutineMode = false;
     };
 
+    /*Time range labels for picking in dates*/
     $scope.timeRangeLabels = ['Days', 'Weeks', 'Months', 'Years'];
 
+    /*logic to calculate the next date of the current routine*/
+    /*if active -> means the goal was active before this ran
+    else -> the goal has been activated when this was called*/
     $scope.calcNextRoutineDate = function (routine, active) {
         var dateMilli;
         if(!active)
@@ -214,6 +229,7 @@ angular.module('ProgressReport')
         routine.endDate = new Date(dateMilli);
     };
     
+    /*update the edited goal to the database*/
     $scope.updateDatabase = function () {
         DatabaseService.updateGoal($scope.goal);
     };
