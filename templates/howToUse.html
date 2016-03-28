@@ -1,12 +1,18 @@
-
-<!--
 <div layout="column">
+    <!--Page Title-->
     <div>
         <h1>How To Use</h1>
     </div>
     <md-divider></md-divider>
-    <div slideshow>
-        <div slide ng-repeat="slide in slides"></div>
+    <div layout-align="center center" layout="row">
+        <h2 id="imageTitle">{{title[currentImage]}}</h2></div>
+    <div class="slideshow" layout="column" layout-align="center center">
+        <img id="imageSlide" src="img/howToUse/01.png" alt="image">
+        <div class="imageNumBar" layout-padding>
+            <span><md-button class="md-accent md-raised md-hue-1" ng-click="prevImage()">Previous</md-button></span>
+            <span>Image: {{currentImage + 1}} / {{slides.length}}</span>
+            <span><md-button class="md-accent md-raised md-hue-1" ng-click="nextImage()">Next</md-button></span>
+        </div>
     </div>
+
 </div>
--->
