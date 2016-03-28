@@ -21,12 +21,12 @@ module.exports = function(config) {
       'spec/*.spec.js'
     ],
       
-      reporters: ['spec'],
+      reporters: ['mocha'],
       
     plugins: [
       'karma-jasmine',
       'karma-chrome-launcher',              
-      'karma-spec-reporter'
+      'karma-mocha-reporter'
     ],
 
 
