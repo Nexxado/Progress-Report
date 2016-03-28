@@ -9,7 +9,9 @@ angular.module('ProgressReport')
         console.log("Generating Mock Data");
 
         DatabaseService.clearGoals();
-        localStorage.setItem('categories', JSON.stringify(['Extreme Sport', 'Losing Weight']));
+        DatabaseService.addCategory('Extreme Sport');
+        DatabaseService.addCategory('Losing Weight');
+        $scope.categories = DatabaseService.getCategories();
 
         var numOfMocks = 15;
 
