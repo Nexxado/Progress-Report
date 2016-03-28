@@ -1,5 +1,7 @@
 # Progress Report
 
+[![Build Status](https://travis-ci.com/Nexxado/Progress-Report.svg?token=XRX5WyUnZ5cb1geqQvqM&branch=master)](https://travis-ci.com/Nexxado/Progress-Report)
+
 ### "Programming in Internet Environment" Course Project
 
 #### Visit our [Demo Application](http://prog-report.herokuapp.com/)
