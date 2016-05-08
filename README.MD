@@ -1,6 +1,6 @@
 # Progress Report
 
-[![Build Status](https://travis-ci.com/Nexxado/Progress-Report.svg?token=XRX5WyUnZ5cb1geqQvqM&branch=master)](https://travis-ci.com/Nexxado/Progress-Report)
+[![Build Status](https://travis-ci.org/Nexxado/Progress-Report.svg?branch=master)](https://travis-ci.org/Nexxado/Progress-Report)
 
 ### "Programming in Internet Environment" Course Project
 
